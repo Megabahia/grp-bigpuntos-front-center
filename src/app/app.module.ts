@@ -24,7 +24,7 @@ import { ErrorInterceptor } from './auth/helpers/error.interceptor';
 
 const appRoutes: Routes = [
   {
-    path: '', redirectTo: 'supermonedas', pathMatch: 'full',
+    path: '', redirectTo: 'central', pathMatch: 'full',
   },
   {
     path: 'pages',
@@ -35,8 +35,8 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/center/center.module').then(m => m.CenterModule)
   },
   {
-    path: 'supermonedas',
-    loadChildren: () => import('./main/superMonedas/superMonedas.module').then(m => m.SuperMonedasModule),
+    path: 'central',
+    loadChildren: () => import('./main/central/central.module').then(m => m.CentralModule),
 
   },
   {

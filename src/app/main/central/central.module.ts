@@ -56,4 +56,4 @@ const routes = [
     PrincipalComponent,
 ]
 })
-export class SuperMonedasModule { }
+export class CentralModule { }

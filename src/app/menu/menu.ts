@@ -9,7 +9,7 @@ export const menu: CoreMenu[] = [
     // role: [Role.SuperMonedas],
     type: 'item',
     icon: 'home',
-    url: 'personas/inicio',
+    url: 'central/inicio',
 
   },
   {

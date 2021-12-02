@@ -17,6 +17,7 @@ import { CardSnippetModule } from '../../../@core/components/card-snippet/card-s
 import { PerfilUsuarioComponent } from '../center/perfil-usuario/perfil-usuario.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { ListarComponent } from './vistas/corp/empresas/listar/listar.component';
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
@@ -35,7 +36,10 @@ const routes = [
   declarations: [
     PrincipalComponent,
 
-    PerfilUsuarioComponent],
+    PerfilUsuarioComponent,
+
+
+    ListarComponent],
   imports: [
     CoreCommonModule,
     RouterModule.forChild(routes),

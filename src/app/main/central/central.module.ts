@@ -17,7 +17,9 @@ import { CardSnippetModule } from '../../../@core/components/card-snippet/card-s
 import { PerfilUsuarioComponent } from '../center/perfil-usuario/perfil-usuario.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
-import { ListarComponent } from './vistas/corp/empresas/listar/listar.component';
+import { ListarComponent as EmpresasComponent } from './vistas/corp/empresas/listar/listar.component';
+import { ListarComponent as UsuariosCorpComponent } from './vistas/corp/usuarios/listar/listar.component';
+
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
@@ -27,7 +29,22 @@ const routes = [
     canActivate: [AuthGuard]
     // data: { animation: 'auth' }
   },
-
+  {
+    path: 'corp', children: [
+      {
+        path: '', redirectTo: 'empresas', pathMatch: 'full'
+      },
+      {
+        path: 'empresas', component: EmpresasComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'usuarios', component: UsuariosCorpComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'roles', component: EmpresasComponent, canActivate: [AuthGuard]
+      },
+    ]
+  }
 
 
 ];
@@ -35,11 +52,10 @@ const routes = [
 @NgModule({
   declarations: [
     PrincipalComponent,
-
     PerfilUsuarioComponent,
-
-
-    ListarComponent],
+    EmpresasComponent,
+    UsuariosCorpComponent
+  ],
   imports: [
     CoreCommonModule,
     RouterModule.forChild(routes),
@@ -58,6 +74,6 @@ const routes = [
   exports: [
 
     PrincipalComponent,
-]
+  ]
 })
 export class CentralModule { }

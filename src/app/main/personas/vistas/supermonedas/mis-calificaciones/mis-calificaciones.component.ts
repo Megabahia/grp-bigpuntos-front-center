@@ -38,8 +38,7 @@ export class MisCalificacionesComponent implements OnInit {
     this.obtenerListaFacturas();
   }
 
-  toggleSidebar(name, id): void {
-    console.log(id);
+  toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 

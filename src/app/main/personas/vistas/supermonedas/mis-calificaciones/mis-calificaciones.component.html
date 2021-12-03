@@ -22,8 +22,7 @@
         <section class="app-user-list">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben
-                        10 super monedas.</h4>
+                    <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
                 </div>
             </div>
             <div class="card">
@@ -38,9 +37,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='calendar'></i></span>
                                     </div>
-                                    <input type="text"
-                                        class="form-control form-control-sm flatpickr-range flatpickr-input"
-                                        placeholder="- Rango de fechas">
+                                    <input type="text" class="form-control form-control-sm flatpickr-range flatpickr-input" placeholder="- Rango de fechas">
                                 </div>
                             </div>
                         </div>
@@ -93,20 +90,15 @@
                                 <td>{{factura.numeroFactura}}</td>
 
                                 <td>
-                                    <a class="text-primary"
-                                        href="{{factura.urlArchivo}}">{{factura.numeroFactura}}.xml</a>
+                                    <a class="text-primary" href="{{factura.urlArchivo}}">{{factura.numeroFactura}}.xml</a>
                                 </td>
                                 <td>
-                                    <div
-                                        class="badge {{factura.estado == 'Calificado' ? 'badge-secondary':'badge-warning'}}">
+                                    <div class="badge {{factura.estado == 'Calificado' ? 'badge-secondary':'badge-warning'}}">
                                         {{factura.estado}}</div>
                                 </td>
                                 <td>
-                                    <a class="avatar bg-primary mr-1" data-target="#calificar" data-toggle="modal"
-                                        *ngIf="factura.estado != 'Calificado'"
-                                        (click)="toggleSidebar('calificar',factura._id)">
-                                        <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"
-                                            title="Calificar">
+                                    <a class="avatar bg-primary mr-1" data-target="#calificar" data-toggle="modal" *ngIf="factura.estado != 'Calificado'" (click)="toggleSidebar('calificar',factura._id)">
+                                        <div class="avatar-content" data-toggle="tooltip" data-placement="bottom" title="Calificar">
                                             <i data-feather='star'></i>
                                         </div>
                                     </a>
@@ -116,8 +108,7 @@
                     </table>
                 </div>
                 <!-- Modal to add new user starts-->
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="page_size"
-                    [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="page_size" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
                 <div class="modal modal-slide-in new-user-modal fade" id="calificar">
                     <div class="modal-dialog">
                         <div class="modal-content pt-0">
@@ -151,8 +142,7 @@
                                             <input class="form-control" type="text">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-sm btn-success" type="button"
-                                                data-target="#previsualizar" data-toggle="modal">Previsualizar
+                                            <button class="btn btn-sm btn-success" type="button" data-target="#previsualizar" data-toggle="modal">Previsualizar
                                                 factura</button>
                                         </div>
                                     </div>
@@ -188,10 +178,8 @@
                                     <label>Observaciones:</label>
                                     <textarea class="form-control" rows="3" placeholder="Escribir..."></textarea>
                                 </div>
-                                <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#mensaje"
-                                    data-dismiss="modal" aria-label="Close">Guardar</button>
-                                <button type="reset" class="btn btn-outline-secondary"
-                                    data-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#mensaje" data-dismiss="modal" aria-label="Close">Guardar</button>
+                                <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -217,10 +205,8 @@
 
 
 
-                                <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#exito"
-                                    data-dismiss="modal" aria-label="Close">Guardar</button>
-                                <button type="reset" class="btn btn-outline-secondary"
-                                    data-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#exito" data-dismiss="modal" aria-label="Close">Guardar</button>
+                                <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -238,10 +224,8 @@
         <!-- Modal to add new user starts-->
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">
-                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)"
-                    #newUserForm="ngForm">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="toggleSidebar('calificar',0)">
+                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('calificar',0)">
                         ×
                     </button>
                     <div class="modal-header mb-1">
@@ -273,8 +257,7 @@
                                     <input class="form-control" type="text">
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-sm btn-success" type="button" data-target="#previsualizar"
-                                        data-toggle="modal">Previsualizar
+                                    <button class="btn btn-sm btn-success" type="button" data-target="#previsualizar" data-toggle="modal">Previsualizar
                                         factura</button>
                                 </div>
                             </div>
@@ -310,8 +293,7 @@
                             <label>Observaciones:</label>
                             <textarea class="form-control" rows="3" placeholder="Escribir..."></textarea>
                         </div>
-                        <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#mensaje"
-                            data-dismiss="modal" aria-label="Close">Guardar</button>
+                        <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#mensaje" data-dismiss="modal" aria-label="Close">Guardar</button>
                         <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

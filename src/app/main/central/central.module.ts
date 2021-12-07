@@ -74,7 +74,11 @@ const routes = [
     PrincipalComponent,
     PerfilUsuarioComponent,
     EmpresasComponent,
-    UsuariosCorpComponent
+    UsuariosCorpComponent,
+    RolesCorpComponent,
+    UsuariosCenterComponent,
+    RolesCenterComponent,
+    ParametrizacionesCenterComponent
   ],
   imports: [
     CoreCommonModule,
@@ -94,6 +98,13 @@ const routes = [
   exports: [
 
     PrincipalComponent,
+    PerfilUsuarioComponent,
+    EmpresasComponent,
+    UsuariosCorpComponent,
+    RolesCorpComponent,
+    UsuariosCenterComponent,
+    RolesCenterComponent,
+    ParametrizacionesCenterComponent
   ]
 })
 export class CentralModule { }

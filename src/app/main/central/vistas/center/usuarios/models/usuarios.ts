@@ -4,7 +4,7 @@ export class Usuario {
     id: string;
     email: string;
     password: string;
-    empresa: string;
+    rol: string;
 }
 export const compararPassword:ValidatorFn= (control: AbstractControl):ValidationErrors | null => {
     const password = control.get('password');

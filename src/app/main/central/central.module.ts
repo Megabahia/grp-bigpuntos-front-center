@@ -19,6 +19,10 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { ListarComponent as EmpresasComponent } from './vistas/corp/empresas/listar/listar.component';
 import { ListarComponent as UsuariosCorpComponent } from './vistas/corp/usuarios/listar/listar.component';
+import { ListarComponent as RolesCorpComponent } from './vistas/corp/roles/listar/listar.component';
+import { ListarComponent as UsuariosCenterComponent } from './vistas/center/usuarios/listar/listar.component';
+import { ListarComponent as RolesCenterComponent } from './vistas/center/roles/listar/listar.component';
+import { ListarComponent as ParametrizacionesCenterComponent } from './vistas/center/parametrizaciones/listar/listar.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -41,7 +45,23 @@ const routes = [
         path: 'usuarios', component: UsuariosCorpComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'roles', component: EmpresasComponent, canActivate: [AuthGuard]
+        path: 'roles', component: RolesCorpComponent, canActivate: [AuthGuard]
+      },
+    ],
+  },
+  {
+    path: 'center', children: [
+      {
+        path: '', redirectTo: 'usuarios', pathMatch: 'full'
+      },
+      {
+        path: 'usuarios', component: UsuariosCenterComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'roles', component: RolesCenterComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'parametrizaciones', component: ParametrizacionesCenterComponent, canActivate: [AuthGuard]
       },
     ]
   }

@@ -1,0 +1,26 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuariosService {
+
+  constructor(private _httpClient: HttpClient) { }
+  // obtenerListaEmpresas(datos) {
+  //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/`, datos);
+  // }
+  // crearEmpresa(datos){
+  //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/create/`, datos);
+  // }
+  // actualizarEmpresa(datos){
+  //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/update/${datos._id}`, datos);
+  // }
+  // obtenerEmpresa(id){
+  //   return this._httpClient.get<any>(`${environment.apiUrl}/corp/empresas/listOne/${id}`);
+  // }
+  // eliminarEmpresa(id){
+  //   return this._httpClient.delete<any>(`${environment.apiUrl}/corp/empresas/delete/${id}`);
+  // }
+}

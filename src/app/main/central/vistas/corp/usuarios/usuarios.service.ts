@@ -8,9 +8,12 @@ import { environment } from 'environments/environment';
 export class UsuariosService {
 
   constructor(private _httpClient: HttpClient) { }
-  // obtenerListaEmpresas(datos) {
-  //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/`, datos);
-  // }
+  obtenerListaEmpresas(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/filtro`, datos);
+  }
+  obtenerListaUsuarios(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/list/corp/`, datos);
+  }
   // crearEmpresa(datos){
   //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/create/`, datos);
   // }

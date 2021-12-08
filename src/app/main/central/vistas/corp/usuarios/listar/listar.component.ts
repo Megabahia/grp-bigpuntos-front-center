@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { UsuariosService } from '../usuarios.service';
 
 import { compararPassword, Usuario } from '../models/usuarios';
+import { RolesService } from '../../roles/roles.service';
 
 @Component({
   selector: 'app-listar',
@@ -23,9 +24,11 @@ export class ListarComponent implements OnInit {
   public maxSize;
   public collectionSize;
   public listaUsuarios;
+  public listaRoles;
+  public listaEmpresas;
   public usuario: Usuario;
   private _unsubscribeAll: Subject<any>;
-  private idUsuario;
+  public idUsuario;
   public ruc;
   public usuarioForm: FormGroup;
   public usuarioSubmitted: boolean;
@@ -36,6 +39,8 @@ export class ListarComponent implements OnInit {
     private _usuariosService: UsuariosService,
     private _formBuilder: FormBuilder,
     private _modalService: NgbModal,
+    private _rolService: RolesService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.idUsuario = "";
@@ -44,12 +49,14 @@ export class ListarComponent implements OnInit {
       email: "",
       password: "",
       empresa: "",
+      rol: "",
     }
   }
 
   ngOnInit(): void {
     this.usuarioForm = this._formBuilder.group({
       email: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
       password: ['', [Validators.required]],
       passwordConfirm: ['', [Validators.required]],
       empresa: ['', [Validators.required]],
@@ -59,9 +66,34 @@ export class ListarComponent implements OnInit {
     this.iniciarPaginador();
 
     this.obtenerListaUsuarios();
+    this.obtenerListaRoles(); 
   }
   obtenerListaUsuarios(){
+    this._usuariosService.obtenerListaUsuarios({
+      page: this.page - 1, page_size: this.page_size, tipoUsuario: "corp"
+    }).subscribe(info => {
+      this.listaUsuarios = info.info;
+      this.collectionSize = info.cont;
+    });
+  }
+  obtenerListaRoles() { 
+    this._rolService.obtenerListaRoles({
+      page: this.page - 1, page_size: this.page_size, tipoUsuario: "corp"
+    }).subscribe(info => {
+      this.listaRoles = info.info;
+      this.collectionSize = info.cont;
+    });
+  }
+  obtenerListaEmpresas(){
+    this._usuariosService.obtenerListaEmpresas({
+      ruc:this.ruc
+    }).subscribe((info)=>{
+      this.listaEmpresas = info.info;
+    },
+    (error)=>
+    {
 
+    });
   }
   toggleSidebar(name, id): void {
     this.idUsuario = id;
@@ -79,12 +111,14 @@ export class ListarComponent implements OnInit {
         id: "",
         password:"",
         email:"",
+        rol:"",
         empresa:"",
       }
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   guardarUsuario() {
+    console.log(this.usuarioForm);
     this.usuarioSubmitted = true;
     if (this.usuarioForm.invalid) {
       return;

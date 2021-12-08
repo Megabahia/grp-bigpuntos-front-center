@@ -71,11 +71,10 @@
                     <table class="user-list-table table table-striped">
                         <thead class="thead-light">
                             <tr>
-                                <th>Nombre</th>
-                                <th>Provincia</th>
-                                <th>Ciudad</th>
-                                <th>Dirección</th>
-                                <th>RUC</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Empresa</th>
+                                <th>Dirección de empresa</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -83,20 +82,19 @@
                         <tbody>
                             <tr *ngFor="let usuario of listaUsuarios">
                                 <td>
-                                    {{usuario.nombre}}
+                                    {{usuario.email}}
                                 </td>
                                 <td>
-                                    {{usuario.provincia}}
+                                    <p *ngFor="let rol of usuario.rol">
+                                        {{rol.nombre}}
+                                    </p>
                                 </td>
 
                                 <td>
-                                    {{usuario.ciudad}}
+                                    {{usuario.empresa? usuario.empresa.nombre :''}}
                                 </td>
                                 <td>
-                                    {{usuario.local}}
-                                </td>
-                                <td>
-                                    {{usuario.ruc}}
+                                    {{ usuario.empresa? usuario.empresa.local : ''}}
                                 </td>
                                 <td>
                                     <div class="badge {{usuario.estado == 'Activo' ? 'badge-success':'badge-warning'}}">
@@ -143,11 +141,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="idUsuario==''">
                             <label>Contraseña</label>
-                            <input class="form-control" name="password" formControlName="password" type="text" [(ngModel)]="usuario.password">
+                            <input class="form-control" name="password" formControlName="password" type="password" [(ngModel)]="usuario.password">
                             <div *ngIf="usuarioSubmitted && usuForm.password.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.password.errors.required">Contraseña es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="idUsuario==''">
+                            <label>Repetir contraseña</label>
+                            <input class="form-control" name="passwordConfirm" formControlName="passwordConfirm" type="password">
+                            <div *ngIf="usuarioSubmitted && usuForm.passwordConfirm.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.passwordConfirm.errors.required">Contraseña es requerida
+                                </div>
+                            </div>
+                            <div *ngIf="usuarioSubmitted && usuForm.passwordConfirm.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.passwordConfirm.errors.required">Contraseña es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Rol</label>
+                            <select class="form-control" name="rol" formControlName="rol" [(ngModel)]="usuario.rol">
+                                <option value="">- Seleccione -</option>
+                                <option value="{{rol._id}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
+                            </select>
+                            <div *ngIf="usuarioSubmitted && usuForm.rol.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.rol.errors.required">Rol es requerida
                                 </div>
                             </div>
                         </div>
@@ -158,8 +179,8 @@
                                 <div class="col-md-10"><input class="form-control" type="text" name="ruc" [ngModelOptions]="{standalone: true}" [(ngModel)]="ruc"></div>
 
                                 <div class="col-md-1">
-                                    <button class="btn btn-primary">
-                                        <i data-feather='search'></i>
+                                    <button class="btn btn-primary" (click)="obtenerListaEmpresas()">
+                                        <i data-feather='search' ></i>
                                     </button>
                                 </div>
                             </div>
@@ -169,8 +190,8 @@
                             <label>Empresa</label>
                             <select class="form-control" name="empresa" formControlName="empresa" [(ngModel)]="usuario.empresa">
                                 <option value="">- Seleccione -</option>
-                                <option value="Activo">Activo</option>
-                                <option value="Inactivo">Inactivo</option>
+                                <option value="{{empresa._id}}" *ngFor="let empresa of listaEmpresas">{{empresa.nombre}}</option>
+
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.empresa.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.empresa.errors.required">Empresa es requerida

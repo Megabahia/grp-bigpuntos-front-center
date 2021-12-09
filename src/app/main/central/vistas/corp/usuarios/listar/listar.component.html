@@ -85,7 +85,7 @@
                                     {{usuario.email}}
                                 </td>
                                 <td>
-                                    <p *ngFor="let rol of usuario.rol">
+                                    <p *ngFor="let rol of usuario.roles">
                                         {{rol.nombre}}
                                     </p>
                                 </td>
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="idUsuario==''">
+                        <!-- <div class="form-group" *ngIf="idUsuario==''">
                             <label>Contraseña</label>
                             <input class="form-control" name="password" formControlName="password" type="password" [(ngModel)]="usuario.password">
                             <div *ngIf="usuarioSubmitted && usuForm.password.errors" class="invalid-feedback" style="display: block;">
@@ -160,15 +160,15 @@
                                 <div *ngIf="usuarioForm.errors.diffPassword">Las contraseñas no coinciden
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label>Rol</label>
                             <select class="form-control" name="rol" formControlName="rol" [(ngModel)]="usuario.roles">
                                 <option value="">- Seleccione -</option>
-                                <option value="{{rol.nombre}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
+                                <option value="{{rol._id}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.rol.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="usuForm.rol.errors.required">Rol es requerida
+                                <div *ngIf="usuForm.rol.errors.required">Rol es requerido
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,6 @@
                             <select class="form-control" name="empresa" formControlName="empresa" [(ngModel)]="usuario.empresa">
                                 <option value="">- Seleccione -</option>
                                 <option value="{{empresa._id}}" *ngFor="let empresa of listaEmpresas">{{empresa.nombre}}</option>
-
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.empresa.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.empresa.errors.required">Empresa es requerida

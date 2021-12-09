@@ -3,7 +3,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 export class Usuario {
     id: string;
     email: string;
-    password: string;
+    // password: string;
     roles: string;
     empresa: string;
 }

@@ -8,6 +8,7 @@ import { UsuariosService } from '../usuarios.service';
 
 import { compararPassword, Usuario } from '../models/usuarios';
 import { RolesService } from '../../roles/roles.service';
+import { Empresa } from '../../empresas/models/empresas';
 
 @Component({
   selector: 'app-listar',
@@ -47,7 +48,7 @@ export class ListarComponent implements OnInit {
     this.usuario = {
       id: "",
       email: "",
-      password: "",
+      // password: "",
       empresa: "",
       roles: "",
     }
@@ -57,18 +58,20 @@ export class ListarComponent implements OnInit {
     this.usuarioForm = this._formBuilder.group({
       email: ['', [Validators.required]],
       rol: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      passwordConfirm: ['', [Validators.required]],
+      // password: ['', [Validators.required]],
+      // passwordConfirm: ['', [Validators.required]],
       empresa: ['', [Validators.required]],
-    }, { validators: compararPassword });
+    },
+    //  { validators: compararPassword }
+     );
   }
   ngAfterViewInit() {
     this.iniciarPaginador();
 
     this.obtenerListaUsuarios();
-    this.obtenerListaRoles(); 
+    this.obtenerListaRoles();
   }
-  obtenerListaUsuarios(){
+  obtenerListaUsuarios() {
     this._usuariosService.obtenerListaUsuarios({
       page: this.page - 1, page_size: this.page_size, tipoUsuario: "corp"
     }).subscribe(info => {
@@ -76,7 +79,7 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
-  obtenerListaRoles() { 
+  obtenerListaRoles() {
     this._rolService.obtenerListaRoles({
       page: this.page - 1, page_size: this.page_size, tipoUsuario: "corp"
     }).subscribe(info => {
@@ -84,63 +87,69 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
-  obtenerListaEmpresas(){
+  obtenerListaEmpresas() {
     this._usuariosService.obtenerListaEmpresas({
-      ruc:this.ruc
-    }).subscribe((info)=>{
+      ruc: this.ruc
+    }).subscribe((info) => {
       this.listaEmpresas = info.info;
     },
-    (error)=>
-    {
+      (error) => {
 
-    });
+      });
   }
   toggleSidebar(name, id): void {
     this.idUsuario = id;
     if (this.idUsuario) {
-      // this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
-      //   this.usuario = info;
-      // },
-      //   (error) => {
-      //     this.mensaje = "No se ha podido obtener la empresa";
-
-      //     this.abrirModal(this.mensajeModal);
-      //   });
+      this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
+        this.usuario.empresa = "";
+        this.usuario = info;
+        if (info.empresa) {
+          this.listaEmpresas= [info.empresa];
+          this.usuario.empresa = info.empresa._id;
+        }
+        if (info.roles.length) {
+          this.usuario.roles = info.roles[0]._id;
+        }
+      },
+        (error) => {
+          this.mensaje = "No se ha podido obtener el usuario";
+          this.abrirModal(this.mensajeModal);
+        });
     } else {
       this.usuario = {
         id: "",
-        password:"",
-        email:"",
-        roles:"",
-        empresa:"",
+        // password: "",
+        email: "",
+        roles: "",
+        empresa: "",
       }
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   guardarUsuario() {
-    console.log(this.usuarioForm);
     this.usuarioSubmitted = true;
+    console.log(this.usuarioForm);
     if (this.usuarioForm.invalid) {
       return;
     }
-    if(this.idUsuario ==""){
-      this._usuariosService.crearUsuario({...this.usuario,tipoUsuario:"corp"}).subscribe((info)=>{
+    if (this.idUsuario == "") {
+      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "corp" }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
-      },(error)=>{
+      }, (error) => {
         this.mensaje = "Error al crear el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
       });
-    }else{
-      this._usuariosService.actualizarUsuario(this.usuario).subscribe((info)=>{
+    } else {
+      this._usuariosService.actualizarUsuario(this.usuario).subscribe((info) => {
         this.mensaje = "Usuario actualizado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
-      },(error)=>{
+      }, (error) => {
         this.mensaje = "Error al actualizar el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
@@ -182,16 +191,16 @@ export class ListarComponent implements OnInit {
     // }
 
   }
-  eliminarUsuario(){
-    this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(()=>{
+  eliminarUsuario() {
+    this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(() => {
       this.obtenerListaUsuarios();
       this.mensaje = "Usuario eliminado correctamente";
       this.abrirModal(this.mensajeModal);
     },
-    (error) => {
-      this.mensaje = "Ha ocurrido un error al eliminar el usuario";
-      this.abrirModal(this.mensajeModal);
-    });
+      (error) => {
+        this.mensaje = "Ha ocurrido un error al eliminar el usuario";
+        this.abrirModal(this.mensajeModal);
+      });
   }
   get usuForm() {
     return this.usuarioForm.controls;
@@ -201,7 +210,7 @@ export class ListarComponent implements OnInit {
       this.obtenerListaUsuarios();
     });
   }
-  eliminarUsuarioModal(id){
+  eliminarUsuarioModal(id) {
     this.idUsuario = id;
     this.abrirModal(this.eliminarUsuarioMdl);
   }

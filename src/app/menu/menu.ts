@@ -25,7 +25,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'briefcase',
         url: 'central/corp/empresas',
       },
       {
@@ -34,7 +34,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'user',
         url: 'central/corp/usuarios',
       },
       {
@@ -43,7 +43,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'clipboard',
         url: 'central/corp/roles',
       },
     ]
@@ -62,7 +62,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'user',
         url: 'central/center/usuarios',
       },
       {
@@ -71,7 +71,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'clipboard',
         url: 'central/center/roles',
       },
       {
@@ -80,7 +80,7 @@ export const menu: CoreMenu[] = [
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
-        icon: 'home',
+        icon: 'package',
         url: 'central/center/parametrizaciones',
       },
     ]

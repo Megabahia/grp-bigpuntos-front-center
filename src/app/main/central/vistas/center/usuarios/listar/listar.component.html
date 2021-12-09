@@ -71,11 +71,8 @@
                     <table class="user-list-table table table-striped">
                         <thead class="thead-light">
                             <tr>
-                                <th>Nombre</th>
-                                <th>Provincia</th>
-                                <th>Ciudad</th>
-                                <th>Dirección</th>
-                                <th>RUC</th>
+                                <th>Email</th>
+                                <th>Rol</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -83,20 +80,12 @@
                         <tbody>
                             <tr *ngFor="let usuario of listaUsuarios">
                                 <td>
-                                    {{usuario.nombre}}
+                                    {{usuario.email}}
                                 </td>
                                 <td>
-                                    {{usuario.provincia}}
-                                </td>
-
-                                <td>
-                                    {{usuario.ciudad}}
-                                </td>
-                                <td>
-                                    {{usuario.local}}
-                                </td>
-                                <td>
-                                    {{usuario.ruc}}
+                                    <p *ngFor="let rol of usuario.roles">
+                                        {{rol.nombre}}
+                                    </p>
                                 </td>
                                 <td>
                                     <div class="badge {{usuario.estado == 'Activo' ? 'badge-success':'badge-warning'}}">
@@ -143,27 +132,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group" *ngIf="idUsuario==''">
                             <label>Contraseña</label>
-                            <input class="form-control" name="password" formControlName="password" type="text" [(ngModel)]="usuario.password">
+                            <input class="form-control" name="password" formControlName="password" type="password" [(ngModel)]="usuario.password">
                             <div *ngIf="usuarioSubmitted && usuForm.password.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.password.errors.required">Contraseña es requerida
                                 </div>
                             </div>
                         </div>
-
+                        <div class="form-group" *ngIf="idUsuario==''">
+                            <label>Repetir contraseña</label>
+                            <input class="form-control" name="passwordConfirm" formControlName="passwordConfirm" type="password">
+                            <div *ngIf="usuarioSubmitted && usuForm.passwordConfirm.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.passwordConfirm.errors.required">Contraseña es requerida
+                                </div>
+                            </div>
+                            <div *ngIf="usuarioSubmitted && usuarioForm.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuarioForm.errors.diffPassword">Las contraseñas no coinciden
+                                </div>
+                            </div>
+                        </div> -->
                         <div class="form-group">
                             <label>Rol</label>
-                            <select class="form-control" name="rol" formControlName="rol" [(ngModel)]="usuario.rol">
+                            <select class="form-control" name="rol" formControlName="rol" [(ngModel)]="usuario.roles">
                                 <option value="">- Seleccione -</option>
-                                <option value="Activo">Activo</option>
-                                <option value="Inactivo">Inactivo</option>
+                                <option value="{{rol._id}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
                             </select>
-                            <div *ngIf="usuarioSubmitted && usuForm.empresa.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="usuForm.empresa.errors.required">Empresa es requerida
+                            <div *ngIf="usuarioSubmitted && usuForm.rol.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.rol.errors.required">Rol es requerido
                                 </div>
                             </div>
                         </div>
+
                         <button class="btn btn-primary mr-1" (click)="guardarUsuario()">Guardar</button>
                         <button (click)="toggleSidebar('guardarUsuario','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>

@@ -16,10 +16,10 @@ import { CoreSidebarService } from '../../../../../../../@core/components/core-s
 })
 export class ListarComponent implements OnInit {
   @ViewChild(NgbPagination) paginator: NgbPagination;
-  @ViewChild('eliminarParametrizacionMdl') eliminarParametrizacionMdl;
+  @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
   @ViewChild('mensajeModal') mensajeModal;
   public parametrizacionForm: FormGroup;
-  public paramSubmitted: boolean;
+  public paramSubmitted: boolean = false;
   public page = 1;
   public pageSize: any = 10;
   public maxSize;
@@ -33,6 +33,7 @@ export class ListarComponent implements OnInit {
   public parametros;
   public tipoPadre;
   public padres;
+  public mensaje = "";
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -49,13 +50,13 @@ export class ListarComponent implements OnInit {
   get paramForm() {
     return this.parametrizacionForm.controls;
   }
-  inicializarParametrizacion(){
+  inicializarParametrizacion() {
     return {
       id: "",
       descripcion: "",
       idPadre: "",
-      maximo: "",
-      minimo: "",
+      // maximo: "",
+      // minimo: "",
       nombre: "",
       tipo: "",
       tipoVariable: "",
@@ -77,11 +78,38 @@ export class ListarComponent implements OnInit {
 
     this.obtenerListaParametros();
   }
-  insertarParametro(){
-    
-  }
-  gestionarParametro(){
+  guardarParametro() {
+    this.paramSubmitted = true;
+    if (this.parametrizacionForm.invalid) {
+      return;
+    }
+    if (this.idParametro == "") {
+      this.paramService.crearParametro(this.parametrizacion).subscribe((info) => {
+        this.mensaje = "Parámetro creado correctamente";
+        this.abrirModal(this.mensajeModal);
+        this.obtenerListaParametros();
+        this.toggleSidebar('guardarParametrizacion', '');
+      },
+        (error) => {
+          this.mensaje = "No se ha podido guardar el parámetro";
+          this.abrirModal(this.mensajeModal);
+          this.toggleSidebar('guardarParametrizacion', '');
 
+        });
+    } else {
+      this.paramService.actualizarParametro(this.parametrizacion).subscribe((info) => {
+        this.mensaje = "Parámetro actualizado con éxito";
+        this.abrirModal(this.mensajeModal);
+        this.obtenerListaParametros();
+        this.toggleSidebar('guardarParametrizacion', '');
+      },
+        (error) => {
+          this.mensaje = "No se ha podido actualizar el parámetro";
+          this.abrirModal(this.mensajeModal);
+          this.toggleSidebar('guardarParametrizacion', '');
+
+        });
+    }
   }
   obtenerListaParametros() {
     this.paramService.obtenerListaParametrizaciones(
@@ -99,14 +127,14 @@ export class ListarComponent implements OnInit {
   toggleSidebar(name, id): void {
     this.idParametro = id;
     if (this.idParametro) {
-      // this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
-      //   this.usuario = info;
-      // },
-      //   (error) => {
-      //     this.mensaje = "No se ha podido obtener la empresa";
+      this.paramService.obtenerParametro(this.idParametro).subscribe((info) => {
+        this.parametrizacion = info;
+      },
+        (error) => {
+          this.mensaje = "No se ha podido obtener el parámetro";
 
-      //     this.abrirModal(this.mensajeModal);
-      //   });
+          this.abrirModal(this.mensajeModal);
+        });
     } else {
       this.parametrizacion = this.inicializarParametrizacion();
     }
@@ -117,9 +145,20 @@ export class ListarComponent implements OnInit {
       this.obtenerListaParametros();
     });
   }
-  eliminarUsuarioModal(id) {
+  eliminarParametroModal(id) {
     this.idParametro = id;
-    this.abrirModal(this.eliminarParametrizacionMdl);
+    this.abrirModal(this.eliminarParametroMdl);
+  }
+  eliminarParametro() {
+    this.paramService.eliminarParametro(this.idParametro).subscribe(() => {
+      this.obtenerListaParametros();
+      this.mensaje = "Parámetro eliminado correctamente";
+      this.abrirModal(this.mensajeModal);
+    },
+      (error) => {
+        this.mensaje = "Ha ocurrido un error al eliminar el rol";
+        this.abrirModal(this.mensajeModal);
+      });
   }
   abrirModal(modal) {
     this._modalService.open(modal)

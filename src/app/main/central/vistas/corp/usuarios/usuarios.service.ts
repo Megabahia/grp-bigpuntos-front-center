@@ -14,6 +14,15 @@ export class UsuariosService {
   obtenerListaUsuarios(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/list/corp/`, datos);
   }
+  crearUsuario(datos){
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/create/`, datos);
+  }
+  actualizarUsuario(datos){
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/create/`, datos);
+  }
+  eliminarUsuario(id){
+    return this._httpClient.delete<any>(`${environment.apiUrl}/central/usuarios/delete/${id}`);
+  }
   // crearEmpresa(datos){
   //   return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/create/`, datos);
   // }

@@ -49,7 +49,7 @@ export class ListarComponent implements OnInit {
       email: "",
       password: "",
       empresa: "",
-      rol: "",
+      roles: "",
     }
   }
 
@@ -111,7 +111,7 @@ export class ListarComponent implements OnInit {
         id: "",
         password:"",
         email:"",
-        rol:"",
+        roles:"",
         empresa:"",
       }
     }
@@ -122,6 +122,29 @@ export class ListarComponent implements OnInit {
     this.usuarioSubmitted = true;
     if (this.usuarioForm.invalid) {
       return;
+    }
+    if(this.idUsuario ==""){
+      this._usuariosService.crearUsuario({...this.usuario,tipoUsuario:"corp"}).subscribe((info)=>{
+        this.mensaje = "Usuario creado correctamente";
+        this.abrirModal(this.mensajeModal);
+        this.obtenerListaUsuarios();
+        this.toggleSidebar('guardarUsuario', '');
+      },(error)=>{
+        this.mensaje = "Error al crear el usuario";
+        this.abrirModal(this.mensajeModal);
+        this.toggleSidebar('guardarUsuario', '');
+      });
+    }else{
+      this._usuariosService.actualizarUsuario(this.usuario).subscribe((info)=>{
+        this.mensaje = "Usuario actualizado correctamente";
+        this.abrirModal(this.mensajeModal);
+        this.obtenerListaUsuarios();
+        this.toggleSidebar('guardarUsuario', '');
+      },(error)=>{
+        this.mensaje = "Error al actualizar el usuario";
+        this.abrirModal(this.mensajeModal);
+        this.toggleSidebar('guardarUsuario', '');
+      });
     }
     // if (this.idEmpresa == "") {
     //   this._empresasService.crearEmpresa(this.empresa).subscribe((info) => {
@@ -160,15 +183,15 @@ export class ListarComponent implements OnInit {
 
   }
   eliminarUsuario(){
-    // this._empresasService.eliminarEmpresa(this.idEmpresa).subscribe(()=>{
-    //   this.obtenerListaEmpresas();
-    //   this.mensaje = "Empresa eliminada correctamente";
-    //   this.abrirModal(this.mensajeModal);
-    // },
-    // (error) => {
-    //   this.mensaje = "Ha ocurrido un error al eliminar la empresa";
-    //   this.abrirModal(this.mensajeModal);
-    // });
+    this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(()=>{
+      this.obtenerListaUsuarios();
+      this.mensaje = "Usuario eliminado correctamente";
+      this.abrirModal(this.mensajeModal);
+    },
+    (error) => {
+      this.mensaje = "Ha ocurrido un error al eliminar el usuario";
+      this.abrirModal(this.mensajeModal);
+    });
   }
   get usuForm() {
     return this.usuarioForm.controls;

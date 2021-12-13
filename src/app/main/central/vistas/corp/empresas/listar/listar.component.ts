@@ -28,6 +28,7 @@ export class ListarComponent implements OnInit {
   public empresaForm: FormGroup;
   public empresaSubmitted: boolean;
   public mensaje = "";
+  public cargandoEmpresa = false;
   constructor
     (
       private datePipe: DatePipe,
@@ -39,28 +40,41 @@ export class ListarComponent implements OnInit {
   ) {
     this._unsubscribeAll = new Subject();
     this.idEmpresa = "";
-    this.empresa = {
+    this.empresa = this.inicializarEmpresa();
+  }
+  inicializarEmpresa() {
+    return {
       id: "",
+      direccion: "",
       ciudad: "",
-      fechaNacimiento: "",
-      local: "",
-      nombre: "",
+      correo: "",
+      estado: "",
+      nombreComercial: "",
+      nombreEmpresa: "",
+      pais: "",
       provincia: "",
       ruc: "",
-      telefono: "",
-      estado: "",
+      telefono1: "",
+      telefono2: "",
+      tipoCategoria: "",
+      tipoEmpresa: ""
     }
   }
-
   ngOnInit(): void {
     this.empresaForm = this._formBuilder.group({
+      direccion: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
-      local: ['', [Validators.required]],
-      nombre: ['', [Validators.required]],
-      provincia: ['', [Validators.required]],
-      ruc: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      telefono: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      correo: ['', [Validators.required]],
       estado: ['', [Validators.required]],
+      nombreComercial: ['', [Validators.required]],
+      nombreEmpresa: ['', [Validators.required]],
+      pais: ['', [Validators.required]],
+      provincia: ['', [Validators.required]],
+      ruc: ['', [Validators.required]],
+      telefono1: ['', [Validators.required]],
+      telefono2: ['', [Validators.required]],
+      tipoCategoria: ['', [Validators.required]],
+      tipoEmpresa: ['', [Validators.required]],
     });
   }
   ngAfterViewInit() {
@@ -80,17 +94,7 @@ export class ListarComponent implements OnInit {
           this.abrirModal(this.mensajeModal);
         });
     } else {
-      this.empresa = {
-        id: "",
-        ciudad: "",
-        fechaNacimiento: "",
-        local: "",
-        nombre: "",
-        provincia: "",
-        ruc: "",
-        telefono: "",
-        estado: "",
-      }
+      this.empresa = this.inicializarEmpresa();
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
@@ -102,12 +106,16 @@ export class ListarComponent implements OnInit {
     if (this.empresaForm.invalid) {
       return;
     }
+    this.cargandoEmpresa = true;
+
     if (this.idEmpresa == "") {
       this._empresasService.crearEmpresa(this.empresa).subscribe((info) => {
         this.obtenerListaEmpresas();
         this.mensaje = "Empresa guardada con éxito";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarEmpresa', '');
+        this.cargandoEmpresa = false;
+
       },
         (error) => {
           let errores = Object.values(error);
@@ -117,6 +125,8 @@ export class ListarComponent implements OnInit {
             this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
           });
           this.abrirModal(this.mensajeModal);
+          this.cargandoEmpresa = false;
+
         });
     } else {
       this._empresasService.actualizarEmpresa(this.empresa).subscribe((info) => {
@@ -124,6 +134,7 @@ export class ListarComponent implements OnInit {
         this.mensaje = "Empresa actualizada con éxito";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarEmpresa', '');
+        this.cargandoEmpresa = false;
 
       },
         (error) => {
@@ -134,20 +145,22 @@ export class ListarComponent implements OnInit {
             this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
           });
           this.abrirModal(this.mensajeModal);
+          this.cargandoEmpresa = false;
+
         });
     }
 
   }
-  eliminarEmpresa(){
-    this._empresasService.eliminarEmpresa(this.idEmpresa).subscribe(()=>{
+  eliminarEmpresa() {
+    this._empresasService.eliminarEmpresa(this.idEmpresa).subscribe(() => {
       this.obtenerListaEmpresas();
       this.mensaje = "Empresa eliminada correctamente";
       this.abrirModal(this.mensajeModal);
     },
-    (error) => {
-      this.mensaje = "Ha ocurrido un error al eliminar la empresa";
-      this.abrirModal(this.mensajeModal);
-    });
+      (error) => {
+        this.mensaje = "Ha ocurrido un error al eliminar la empresa";
+        this.abrirModal(this.mensajeModal);
+      });
   }
   obtenerListaEmpresas() {
     this._empresasService.obtenerListaEmpresas({
@@ -162,7 +175,7 @@ export class ListarComponent implements OnInit {
       this.obtenerListaEmpresas();
     });
   }
-  eliminarEmpresaModal(id){
+  eliminarEmpresaModal(id) {
     this.idEmpresa = id;
     this.abrirModal(this.eliminarEmpresaMdl);
   }

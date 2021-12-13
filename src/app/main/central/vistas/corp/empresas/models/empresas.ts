@@ -1,11 +1,16 @@
 export class Empresa {
     id: string;
-    nombre: string;
+    nombreComercial: string;
+    nombreEmpresa: string;
+    tipoEmpresa:string;
+    tipoCategoria:string;
+    pais: string;
     provincia: string;
     ciudad: string;
-    local: string;
-    fechaNacimiento: string;
+    direccion: string;
+    correo: string;
     ruc: string;
     estado: string;
-    telefono: string;
+    telefono1: string;
+    telefono2: string;
 }

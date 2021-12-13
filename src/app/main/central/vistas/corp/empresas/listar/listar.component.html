@@ -25,7 +25,7 @@
                     <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
                 </div>
             </div> -->
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-header">
                     <h6 class="d-block">Filtros de búsqueda</h6>
                 </div>
@@ -44,7 +44,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- users filter end -->
             <!-- list section start -->
@@ -72,6 +72,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>Nombre</th>
+                                <th>País</th>
                                 <th>Provincia</th>
                                 <th>Ciudad</th>
                                 <th>Dirección</th>
@@ -83,7 +84,10 @@
                         <tbody>
                             <tr *ngFor="let empresa of empresas">
                                 <td>
-                                    {{empresa.nombre}}
+                                    {{empresa.nombreEmpresa}}
+                                </td>
+                                <td>
+                                    {{empresa.pais}}
                                 </td>
                                 <td>
                                     {{empresa.provincia}}
@@ -93,7 +97,7 @@
                                     {{empresa.ciudad}}
                                 </td>
                                 <td>
-                                    {{empresa.local}}
+                                    {{empresa.direccion}}
                                 </td>
                                 <td>
                                     {{empresa.ruc}}
@@ -132,41 +136,9 @@
                         ×
                     </button>
                     <div class="modal-header mb-1">
-                        <h5 class="modal-title" id="exampleModalLabel">Nueva factura</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Afiliación de empresa</h5>
                     </div>
                     <div class="modal-body flex-grow-1">
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input class="form-control" name="nombre" formControlName="nombre" type="text" [(ngModel)]="empresa.nombre">
-                            <div *ngIf="empresaSubmitted && empForm.nombre.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="empForm.nombre.errors.required">Cédula es requerida
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Provincia</label>
-                            <input class="form-control" name="provincia" formControlName="provincia" type="text" [(ngModel)]="empresa.provincia">
-                            <div *ngIf="empresaSubmitted && empForm.provincia.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="empForm.provincia.errors.required">Provincia es requerida
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Ciudad</label>
-                            <input class="form-control" name="ciudad" formControlName="ciudad" type="text" [(ngModel)]="empresa.ciudad">
-                            <div *ngIf="empresaSubmitted && empForm.ciudad.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="empForm.ciudad.errors.required">Ciudad es requerida
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Dirección</label>
-                            <input class="form-control" name="local" formControlName="local" type="text" [(ngModel)]="empresa.local">
-                            <div *ngIf="empresaSubmitted && empForm.local.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="empForm.local.errors.required">Dirección es requerida
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label>Ruc</label>
                             <input class="form-control" name="ruc" formControlName="ruc" type="text" [(ngModel)]="empresa.ruc">
@@ -178,12 +150,115 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Teléfono</label>
-                            <input class="form-control" name="telefono" formControlName="telefono" type="text" [(ngModel)]="empresa.telefono">
-                            <div *ngIf="empresaSubmitted && empForm.telefono.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="empForm.telefono.errors.required">Teléfono es requerido
+                            <label>Nombre de la Empresa</label>
+                            <input class="form-control" name="nombreEmpresa" formControlName="nombreEmpresa" type="text" [(ngModel)]="empresa.nombreEmpresa">
+                            <div *ngIf="empresaSubmitted && empForm.nombreEmpresa.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.nombreEmpresa.errors.required">Nombre de la empresa es requerido
                                 </div>
-                                <div *ngIf="empForm.telefono.errors.pattern">Solo se aceptan números
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre comercial de la Empresa</label>
+                            <input class="form-control" name="nombreComercial" formControlName="nombreComercial" type="text" [(ngModel)]="empresa.nombreComercial">
+                            <div *ngIf="empresaSubmitted && empForm.nombreComercial.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.nombreComercial.errors.required">Nombre de la empresa es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de empresa</label>
+                            <select class="form-control" name="tipoEmpresa" formControlName="tipoEmpresa" [(ngModel)]="empresa.tipoEmpresa">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="empresaSubmitted && empForm.tipoEmpresa.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.tipoEmpresa.errors.required">Tipo de empresa es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría de negocio de empresa</label>
+                            <select class="form-control" name="tipoCategoria" formControlName="tipoCategoria" [(ngModel)]="empresa.tipoCategoria">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="empresaSubmitted && empForm.tipoCategoria.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.tipoCategoria.errors.required">Categoría de negocio de empresa es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>País</label>
+                            <select class="form-control" name="pais" formControlName="pais" [(ngModel)]="empresa.pais">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="empresaSubmitted && empForm.pais.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.pais.errors.required">País es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Provincia</label>
+                            <select class="form-control" name="provincia" formControlName="provincia" [(ngModel)]="empresa.provincia">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="empresaSubmitted && empForm.provincia.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.provincia.errors.required">Provincia es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ciudad</label>
+                            <select class="form-control" name="ciudad" formControlName="ciudad" [(ngModel)]="empresa.ciudad">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="empresaSubmitted && empForm.ciudad.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.ciudad.errors.required">Ciudad es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input class="form-control" name="direccion" formControlName="direccion" type="text" [(ngModel)]="empresa.direccion">
+                            <div *ngIf="empresaSubmitted && empForm.direccion.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.direccion.errors.required">Dirección es requerida
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Teléfono 1</label>
+                            <input class="form-control" name="telefono1" formControlName="telefono1" type="text" [(ngModel)]="empresa.telefono1">
+                            <div *ngIf="empresaSubmitted && empForm.telefono1.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.telefono1.errors.required">Teléfono 1 es requerido
+                                </div>
+                                <div *ngIf="empForm.telefono1.errors.pattern">Solo se aceptan números
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono 2</label>
+                            <input class="form-control" name="telefono2" formControlName="telefono2" type="text" [(ngModel)]="empresa.telefono2">
+                            <div *ngIf="empresaSubmitted && empForm.telefono2.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.telefono2.errors.required">Teléfono 2 es requerido
+                                </div>
+                                <div *ngIf="empForm.telefono2.errors.pattern">Solo se aceptan números
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo</label>
+                            <input class="form-control" name="correo" formControlName="correo" type="text" [(ngModel)]="empresa.correo">
+                            <div *ngIf="empresaSubmitted && empForm.correo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.correo.errors.required">Correo es requerido
                                 </div>
                             </div>
                         </div>
@@ -199,7 +274,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary mr-1" (click)="guardarEmpresa()">Guardar</button>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoEmpresa" (click)="guardarEmpresa()"> <span *ngIf="cargandoEmpresa" class="spinner-border spinner-border-sm mr-1"></span> Guardar</button>
                         <button (click)="toggleSidebar('guardarEmpresa','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

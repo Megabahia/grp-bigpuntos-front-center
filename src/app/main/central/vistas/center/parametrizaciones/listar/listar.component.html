@@ -5,7 +5,7 @@
         <!-- users list start -->
         <section class="app-user-list">
             <!-- users filter start -->
-            <div class="card">
+            <!-- <div class="card">
                 <h5 class="card-header">Filtros de búsqueda</h5>
                 <div class="card-body">
                     <div class="row">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- users filter end -->
             <!-- list section start -->
             <div class="card">
@@ -39,8 +39,7 @@
 
                     </div>
                     <div class="col-lg-12 col-xl-6 text-right">
-                        <button class="btn btn-success" tabindex="0" aria-controls="DataTables_Table_0" type="button"
-                            data-toggle="modal" data-target="#modals-slide-in">
+                        <button class="btn btn-success" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in">
                             Exportar a Excel
                         </button>
                         <a (click)="toggleSidebar('guardarParametrizacion','')" class="btn btn-primary">
@@ -91,20 +90,15 @@
                                 <td> {{parametro.minimo}}</td> -->
                                 <td> {{parametro.tipoVariable}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
-                                        (click)="toggleSidebar('guardarParametrizacion',parametro._id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="mr-50">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in" (click)="toggleSidebar('guardarParametrizacion',parametro._id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
                                             <polyline points="21 8 21 21 3 21 3 8"></polyline>
                                             <rect x="1" y="3" width="22" height="5"></rect>
                                             <line x1="10" y1="12" x2="14" y2="12"></line>
                                         </svg>
                                     </a>
                                     <a href="javascript:void(0);" (click)="eliminarParametroModal(parametro._id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="mr-50">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
                                             <polyline points="3 6 5 6 21 6"></polyline>
                                             <path
                                                 d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
@@ -119,22 +113,19 @@
                     </table>
 
                 </div>
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize"
-                    [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 
             </div>
         </section>
         <!-- users list ends -->
     </div>
 </div>
-<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarParametrizacion"
-    overlayClass="modal-backdrop">
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarParametrizacion" overlayClass="modal-backdrop">
     <div class="slideout-content">
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">
                 <form class="add-new-user modal-content pt-0" [formGroup]="parametrizacionForm">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="toggleSidebar('guardarParametrizacion',0)">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('guardarParametrizacion',0)">
                         ×
                     </button>
                     <div class="modal-header mb-1">
@@ -143,47 +134,38 @@
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Nombre parámetro:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="nombre" formControlName="nombre" [(ngModel)]="parametrizacion.nombre" />
-                            <div *ngIf="paramSubmitted && paramForm.nombre.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="nombre" formControlName="nombre" [(ngModel)]="parametrizacion.nombre" />
+                            <div *ngIf="paramSubmitted && paramForm.nombre.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="paramForm.nombre.errors.required">Nombre del parámetro es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-uname">Tipo de parámetro:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="tipo" formControlName="tipo" [(ngModel)]="parametrizacion.tipo" />
-                            <div *ngIf="paramSubmitted && paramForm.tipo.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="tipo" formControlName="tipo" [(ngModel)]="parametrizacion.tipo" />
+                            <div *ngIf="paramSubmitted && paramForm.tipo.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="paramForm.tipo.errors.required">Tipo del parámetro es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-email">Descripción:</label>
-                            <input type="text" id="basic-icon-default-email" class="form-control dt-email"
-                                name="descripcion" formControlName="descripcion"
-                                [(ngModel)]="parametrizacion.descripcion" />
-                            <div *ngIf="paramSubmitted && paramForm.descripcion.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.descripcion.errors.required">Descripción del parámetro es
-                                    requerida</div>
+                            <input type="text" id="basic-icon-default-email" class="form-control dt-email" name="descripcion" formControlName="descripcion" [(ngModel)]="parametrizacion.descripcion" />
+                            <div *ngIf="paramSubmitted && paramForm.descripcion.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="paramForm.descripcion.errors.required">Descripción del parámetro es requerida
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-email">Tipo de variable:</label>
-                            <select class="select2 form-control form-control-sm" name="tipoVariable"
-                                formControlName="tipoVariable" [(ngModel)]="parametrizacion.tipoVariable">
+                            <select class="select2 form-control form-control-sm" name="tipoVariable" formControlName="tipoVariable" [(ngModel)]="parametrizacion.tipoVariable">
                                 <option value="" selected>- Tipo de parámetro -</option>
                                 <option value="entero">Entero</option>
                                 <option value="texto">Texto</option>
                                 <option value="booleano">Booleano</option>
                                 <option value="fecha">Fecha</option>
                             </select>
-                            <div *ngIf="paramSubmitted && paramForm.tipoVariable.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.tipoVariable.errors.required">Selección del tipo de variable es
-                                    requerida</div>
+                            <div *ngIf="paramSubmitted && paramForm.tipoVariable.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="paramForm.tipoVariable.errors.required">Selección del tipo de variable es requerida
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -198,16 +180,13 @@
                         </div> -->
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-email">Valor:</label>
-                            <input type="text" id="basic-icon-default-email" class="form-control dt-email" name="valor"
-                                formControlName="valor" [(ngModel)]="parametrizacion.valor" />
-                            <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" id="basic-icon-default-email" class="form-control dt-email" name="valor" formControlName="valor" [(ngModel)]="parametrizacion.valor" />
+                            <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="paramForm.valor.errors.required">Valor es requerido</div>
                             </div>
                         </div>
                         <button class="btn btn-primary mr-1" (click)="guardarParametro()">Guardar</button>
-                        <button (click)="toggleSidebar('guardarParametrizacion','')" class="btn btn-outline-secondary"
-                            data-dismiss="modal">Cancelar</button>
+                        <button (click)="toggleSidebar('guardarParametrizacion','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -30,6 +30,8 @@ export class ListarComponent implements OnInit {
   public rolesForm: FormGroup;
   public rolSubmitted: boolean;
   public mensaje = "";
+  public cargandoRol = false;
+
   constructor(
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
@@ -46,7 +48,7 @@ export class ListarComponent implements OnInit {
       descripcion: "",
       nombre: ""
     }
-   }
+  }
 
   ngOnInit(): void {
 
@@ -96,12 +98,16 @@ export class ListarComponent implements OnInit {
     if (this.rolesForm.invalid) {
       return;
     }
+    this.cargandoRol = true;
+
     if (this.idRol == "") {
       this._rolService.crearRol({ ...this.rol, tipoUsuario: 'corp' }).subscribe((info) => {
         this.obtenerListaRoles();
         this.mensaje = "Rol guardado con éxito";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarRol', '');
+        this.cargandoRol = false;
+
       },
         (error) => {
           // console.log(error);
@@ -112,6 +118,8 @@ export class ListarComponent implements OnInit {
           //   this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
           // });
           this.abrirModal(this.mensajeModal);
+          this.cargandoRol = false;
+
         });
     } else {
       this._rolService.actualizarRol(this.rol).subscribe((info) => {
@@ -119,25 +127,28 @@ export class ListarComponent implements OnInit {
         this.mensaje = "Rol actualizado con éxito";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarRol', '');
+        this.cargandoRol = false;
 
       },
         (error) => {
           this.mensaje = "Error actualizando el rol";
           this.abrirModal(this.mensajeModal);
+          this.cargandoRol = false;
+
         });
     }
 
   }
   eliminarRol() {
-    this._rolService.eliminarRol(this.idRol).subscribe(()=>{
+    this._rolService.eliminarRol(this.idRol).subscribe(() => {
       this.obtenerListaRoles();
       this.mensaje = "Rol eliminado correctamente";
       this.abrirModal(this.mensajeModal);
     },
-    (error) => {
-      this.mensaje = "Ha ocurrido un error al eliminar el rol";
-      this.abrirModal(this.mensajeModal);
-    });
+      (error) => {
+        this.mensaje = "Ha ocurrido un error al eliminar el rol";
+        this.abrirModal(this.mensajeModal);
+      });
   }
   get rolForm() {
     return this.rolesForm.controls;

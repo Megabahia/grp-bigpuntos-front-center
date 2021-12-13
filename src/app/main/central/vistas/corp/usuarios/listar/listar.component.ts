@@ -9,6 +9,7 @@ import { UsuariosService } from '../usuarios.service';
 import { compararPassword, Usuario } from '../models/usuarios';
 import { RolesService } from '../../roles/roles.service';
 import { Empresa } from '../../empresas/models/empresas';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 
 @Component({
   selector: 'app-listar',
@@ -27,6 +28,7 @@ export class ListarComponent implements OnInit {
   public listaUsuarios;
   public listaRoles;
   public listaEmpresas;
+  public listaCargos;
   public usuario: Usuario;
   private _unsubscribeAll: Subject<any>;
   public idUsuario;
@@ -34,6 +36,15 @@ export class ListarComponent implements OnInit {
   public usuarioForm: FormGroup;
   public usuarioSubmitted: boolean;
   public mensaje = "";
+  public fecha;
+  public startDateOptions: FlatpickrOptions = {
+    altInput: true,
+    mode: 'single',
+    altFormat: 'Y-n-j',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+  };
+  public cargandoUsuario = false;
+
   constructor(
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
@@ -45,25 +56,43 @@ export class ListarComponent implements OnInit {
   ) {
     this._unsubscribeAll = new Subject();
     this.idUsuario = "";
-    this.usuario = {
-      id: "",
-      email: "",
-      // password: "",
-      empresa: "",
-      roles: "",
-    }
+    this.usuario = this.inicializarUsuario();
   }
 
   ngOnInit(): void {
     this.usuarioForm = this._formBuilder.group({
       email: ['', [Validators.required]],
-      rol: ['', [Validators.required]],
+      nombres: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      whatsapp: ['', [Validators.required]],
+      cargo: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      genero: ['', [Validators.required]],
       // password: ['', [Validators.required]],
-      // passwordConfirm: ['', [Validators.required]],
+      roles: ['', [Validators.required]],
       empresa: ['', [Validators.required]],
-    },
-    //  { validators: compararPassword }
-     );
+      estado: ['', [Validators.required]],
+    }
+    );
+  }
+  inicializarUsuario() {
+    return {
+      id: "",
+      email: "",
+      nombres: "",
+      apellidos: "",
+      telefono: "",
+      whatasapp: "",
+      cargo: "",
+      fechaNacimiento: "",
+      genero: "",
+      whatsapp: "",
+      // password:"",
+      roles: "",
+      empresa: "",
+      estado: ""
+    };
   }
   ngAfterViewInit() {
     this.iniciarPaginador();
@@ -104,7 +133,7 @@ export class ListarComponent implements OnInit {
         this.usuario.empresa = "";
         this.usuario = info;
         if (info.empresa) {
-          this.listaEmpresas= [info.empresa];
+          this.listaEmpresas = [info.empresa];
           this.usuario.empresa = info.empresa._id;
         }
         if (info.roles.length) {
@@ -116,32 +145,32 @@ export class ListarComponent implements OnInit {
           this.abrirModal(this.mensajeModal);
         });
     } else {
-      this.usuario = {
-        id: "",
-        // password: "",
-        email: "",
-        roles: "",
-        empresa: "",
-      }
+      this.usuario = this.inicializarUsuario();
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   guardarUsuario() {
     this.usuarioSubmitted = true;
-    console.log(this.usuarioForm);
     if (this.usuarioForm.invalid) {
       return;
     }
+    this.cargandoUsuario = true;
+
+    this.cargandoUsuario = true;
     if (this.idUsuario == "") {
       this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "corp" }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
+
       }, (error) => {
         this.mensaje = "Error al crear el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
+
       });
     } else {
       this._usuariosService.actualizarUsuario(this.usuario).subscribe((info) => {
@@ -149,10 +178,14 @@ export class ListarComponent implements OnInit {
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
+
       }, (error) => {
         this.mensaje = "Error al actualizar el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
+
       });
     }
     // if (this.idEmpresa == "") {

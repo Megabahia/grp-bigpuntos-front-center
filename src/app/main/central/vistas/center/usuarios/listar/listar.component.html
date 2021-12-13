@@ -25,7 +25,7 @@
                     <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
                 </div>
             </div> -->
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-header">
                     <h6 class="d-block">Filtros de búsqueda</h6>
                 </div>
@@ -44,7 +44,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- users filter end -->
             <!-- list section start -->
@@ -132,6 +132,70 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input class="form-control" name="nombres" formControlName="nombres" type="text" [(ngModel)]="usuario.nombres">
+                            <div *ngIf="usuarioSubmitted && usuForm.nombres.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.nombres.errors.required">Nombres son requeridos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input class="form-control" name="apellidos" formControlName="apellidos" type="text" [(ngModel)]="usuario.apellidos">
+                            <div *ngIf="usuarioSubmitted && usuForm.apellidos.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.apellidos.errors.required">Apellidos son requeridos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input class="form-control" name="telefono" formControlName="telefono" type="text" [(ngModel)]="usuario.telefono">
+                            <div *ngIf="usuarioSubmitted && usuForm.telefono.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.telefono.errors.required">Teléfono es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp</label>
+                            <input class="form-control" name="whatsapp" formControlName="whatsapp" type="text" [(ngModel)]="usuario.whatsapp">
+                            <div *ngIf="usuarioSubmitted && usuForm.whatsapp.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.whatsapp.errors.required">Whatsapp es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo</label>
+                            <select class="form-control" name="cargo" formControlName="cargo" [(ngModel)]="usuario.cargo">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="usuarioSubmitted && usuForm.cargo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.cargo.errors.required">Cargo es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha Nacimiento</label>
+                            <ng2-flatpickr [setDate]="fecha" formControlName="fechaNacimiento" [config]="startDateOptions" [(ngModel)]="usuario.fechaNacimiento"></ng2-flatpickr>
+                            <div *ngIf="usuarioSubmitted && usuForm.fechaNacimiento.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.fechaNacimiento.errors.required">Fecha de nacimiento es requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Género</label>
+                            <select class="form-control" name="genero" formControlName="genero" [(ngModel)]="usuario.genero">
+                                <option value="">- Seleccione -</option>
+                                <option value="ifis">Ifis</option>
+                                <option value="corp">Corp</option>
+                            </select>
+                            <div *ngIf="usuarioSubmitted && usuForm.cargo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.cargo.errors.required">Cargo es requerido
+                                </div>
+                            </div>
+                        </div>
                         <!-- <div class="form-group" *ngIf="idUsuario==''">
                             <label>Contraseña</label>
                             <input class="form-control" name="password" formControlName="password" type="password" [(ngModel)]="usuario.password">
@@ -154,17 +218,28 @@
                         </div> -->
                         <div class="form-group">
                             <label>Rol</label>
-                            <select class="form-control" name="rol" formControlName="rol" [(ngModel)]="usuario.roles">
+                            <select class="form-control" name="roles" formControlName="roles" [(ngModel)]="usuario.roles">
                                 <option value="">- Seleccione -</option>
                                 <option value="{{rol._id}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
                             </select>
-                            <div *ngIf="usuarioSubmitted && usuForm.rol.errors" class="invalid-feedback" style="display: block;">
-                                <div *ngIf="usuForm.rol.errors.required">Rol es requerido
+                            <div *ngIf="usuarioSubmitted && usuForm.roles.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.roles.errors.required">Rol es requerido
                                 </div>
                             </div>
                         </div>
-
-                        <button class="btn btn-primary mr-1" (click)="guardarUsuario()">Guardar</button>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control" name="estado" formControlName="estado" [(ngModel)]="usuario.estado">
+                                <option value="">- Seleccione -</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                            <div *ngIf="usuarioSubmitted && usuForm.estado.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="usuForm.estado.errors.required">Estado es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoUsuario" (click)="guardarUsuario()"> <span *ngIf="cargandoUsuario" class="spinner-border spinner-border-sm mr-1"></span> Guardar</button>
                         <button (click)="toggleSidebar('guardarUsuario','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

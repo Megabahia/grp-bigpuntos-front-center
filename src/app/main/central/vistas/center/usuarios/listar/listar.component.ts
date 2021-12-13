@@ -8,6 +8,7 @@ import { UsuariosService } from '../usuarios.service';
 
 import { compararPassword, Usuario } from '../models/usuarios';
 import { RolesService } from '../../roles/roles.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 
 @Component({
   selector: 'app-listar',
@@ -32,6 +33,14 @@ export class ListarComponent implements OnInit {
   public usuarioForm: FormGroup;
   public usuarioSubmitted: boolean;
   public mensaje = "";
+  public fecha;
+  public startDateOptions: FlatpickrOptions = {
+    altInput: true,
+    mode: 'single',
+    altFormat: 'Y-n-j',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+  };
+  public cargandoUsuario = false;
   constructor(
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
@@ -42,24 +51,44 @@ export class ListarComponent implements OnInit {
 
   ) {
     this._unsubscribeAll = new Subject();
-    this.idUsuario = "";
-    this.usuario = {
-      id: "",
-      email: "",
-      // password: "",
-      roles: ""
-    }
+    this.idUsuario =  "";
+    this.usuario = this.inicializarUsuario();
+
   }
 
   ngOnInit(): void {
     this.usuarioForm = this._formBuilder.group({
       email: ['', [Validators.required]],
-      rol: ['', [Validators.required]],
+      nombres: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      whatsapp: ['', [Validators.required]],
+      cargo: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      genero: ['', [Validators.required]],
       // password: ['', [Validators.required]],
-      // passwordConfirm: ['', [Validators.required]],
+      roles: ['', [Validators.required]],
+      estado: ['', [Validators.required]],
     },
     //  { validators: compararPassword }
      );
+  }
+  inicializarUsuario() {
+    return {
+      id: "",
+      email: "",
+      nombres: "",
+      apellidos: "",
+      telefono: "",
+      whatasapp: "",
+      cargo: "",
+      fechaNacimiento: "",
+      genero: "",
+      whatsapp: "",
+      // password:"",
+      roles: "",
+      estado: ""
+    };
   }
   ngAfterViewInit() {
     this.iniciarPaginador();
@@ -99,18 +128,12 @@ export class ListarComponent implements OnInit {
           this.abrirModal(this.mensajeModal);
         });
     } else {
-      this.usuario = {
-        id: "",
-        // password: "",
-        email: "",
-        roles: "",
-      }
+      this.usuario = this.inicializarUsuario();
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   guardarUsuario() {
     this.usuarioSubmitted = true;
-    console.log(this.usuarioForm);
     if (this.usuarioForm.invalid) {
       return;
     }

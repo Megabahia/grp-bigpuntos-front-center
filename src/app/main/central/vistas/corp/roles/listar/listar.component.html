@@ -25,7 +25,7 @@
                     <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
                 </div>
             </div> -->
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-header">
                     <h6 class="d-block">Filtros de búsqueda</h6>
                 </div>
@@ -44,7 +44,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- users filter end -->
             <!-- list section start -->
@@ -154,7 +154,7 @@
                             <label>Configuración</label>
                             <textarea class="form-control" rows="1" name="config" [ngModelOptions]="{standalone: true}" [(ngModel)]="rol.config" placeholder="{}"></textarea>
                         </div>
-                        <button class="btn btn-primary mr-1" (click)="guardarRol()">Guardar</button>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoRol" (click)="guardarRol()"> <span *ngIf="cargandoRol" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
                         <button (click)="toggleSidebar('guardarRol','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

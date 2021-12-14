@@ -31,9 +31,10 @@ export class ListarComponent implements OnInit {
   public parametrizacion: Parametrizacion;
   public nombreBuscar;
   public parametros;
-  public tipoPadre;
+  public tipoPadre = "";
   public padres;
   public mensaje = "";
+  public idPadre = "";
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -129,6 +130,19 @@ export class ListarComponent implements OnInit {
     if (this.idParametro) {
       this.paramService.obtenerParametro(this.idParametro).subscribe((info) => {
         this.parametrizacion = info;
+
+        if (info.idPadre && info.idPadre != "None") {
+          this.paramService.obtenerParametro(info.idPadre).subscribe((data) => {
+            this.tipoPadre = data.tipo;
+            this.paramService.obtenerListaPadres(data.tipo).subscribe((infoLista) => {
+              this.padres = infoLista;
+            });
+          });
+          this.parametrizacion.idPadre = info.idPadre;
+        } else {
+          this.tipoPadre = "";
+          this.parametrizacion.idPadre = "";
+        }
       },
         (error) => {
           this.mensaje = "No se ha podido obtener el parámetro";
@@ -141,10 +155,14 @@ export class ListarComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   iniciarPaginador() {
+    this.paramService.obtenerListaTipos().subscribe((result) => {
+      this.tipos = result;
+    });
     this.paginator.pageChange.subscribe(() => {
       this.obtenerListaParametros();
     });
   }
+
   eliminarParametroModal(id) {
     this.idParametro = id;
     this.abrirModal(this.eliminarParametroMdl);

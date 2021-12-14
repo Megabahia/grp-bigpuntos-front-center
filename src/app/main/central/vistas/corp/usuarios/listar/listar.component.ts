@@ -10,6 +10,7 @@ import { compararPassword, Usuario } from '../models/usuarios';
 import { RolesService } from '../../roles/roles.service';
 import { Empresa } from '../../empresas/models/empresas';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { ParametrizacionesService } from '../../../center/parametrizaciones/parametrizaciones.service';
 
 @Component({
   selector: 'app-listar',
@@ -36,7 +37,10 @@ export class ListarComponent implements OnInit {
   public usuarioForm: FormGroup;
   public usuarioSubmitted: boolean;
   public mensaje = "";
+  public tipoUsuario = "";
   public fecha;
+  public tipoCargoOpciones;
+  public tipoGeneroOpciones;
   public startDateOptions: FlatpickrOptions = {
     altInput: true,
     mode: 'single',
@@ -46,6 +50,7 @@ export class ListarComponent implements OnInit {
   public cargandoUsuario = false;
 
   constructor(
+    private paramService: ParametrizacionesService,
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
     private _usuariosService: UsuariosService,
@@ -83,11 +88,10 @@ export class ListarComponent implements OnInit {
       nombres: "",
       apellidos: "",
       telefono: "",
-      whatasapp: "",
+      whatsapp: "",
       cargo: "",
       fechaNacimiento: "",
       genero: "",
-      whatsapp: "",
       // password:"",
       roles: "",
       empresa: "",
@@ -99,6 +103,8 @@ export class ListarComponent implements OnInit {
 
     this.obtenerListaUsuarios();
     this.obtenerListaRoles();
+    this.obtenerCargoOpciones();
+    this.obtenerGeneroOpciones();
   }
   obtenerListaUsuarios() {
     this._usuariosService.obtenerListaUsuarios({
@@ -126,6 +132,11 @@ export class ListarComponent implements OnInit {
 
       });
   }
+  cambiarTipoUsuario() {
+    this._usuariosService.obtenerEmpresa(this.usuario.empresa).subscribe((info) => {
+      this.tipoUsuario = info.tipoEmpresa;
+    });
+  }
   toggleSidebar(name, id): void {
     this.idUsuario = id;
     if (this.idUsuario) {
@@ -133,6 +144,7 @@ export class ListarComponent implements OnInit {
         this.usuario.empresa = "";
         this.usuario = info;
         if (info.empresa) {
+          this.tipoUsuario = info.tipoUsuario;
           this.listaEmpresas = [info.empresa];
           this.usuario.empresa = info.empresa._id;
         }
@@ -158,7 +170,7 @@ export class ListarComponent implements OnInit {
 
     this.cargandoUsuario = true;
     if (this.idUsuario == "") {
-      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "corp" }).subscribe((info) => {
+      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
@@ -173,7 +185,7 @@ export class ListarComponent implements OnInit {
 
       });
     } else {
-      this._usuariosService.actualizarUsuario(this.usuario).subscribe((info) => {
+      this._usuariosService.actualizarUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario }).subscribe((info) => {
         this.mensaje = "Usuario actualizado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
@@ -223,6 +235,16 @@ export class ListarComponent implements OnInit {
     //     });
     // }
 
+  }
+  obtenerCargoOpciones() {
+    this.paramService.obtenerListaPadres("CARGO").subscribe((info) => {
+      this.tipoCargoOpciones = info;
+    });
+  }
+  obtenerGeneroOpciones() {
+    this.paramService.obtenerListaPadres("GENERO").subscribe((info) => {
+      this.tipoGeneroOpciones = info;
+    });
   }
   eliminarUsuario() {
     this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(() => {

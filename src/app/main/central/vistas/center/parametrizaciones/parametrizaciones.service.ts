@@ -17,8 +17,14 @@ export class ParametrizacionesService {
   obtenerListaPadres(tipo){
     return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/tipo/todos/`,{tipo});
   }
+  obtenerListaTipos(){
+    return this._httpClient.get<any>(`${environment.apiUrl}/central/param/list/tipo/`);
+  }
   crearParametro(datos){
     return this._httpClient.post<any>(`${environment.apiUrl}/central/param/create/`,datos );
+  }
+  obtenerListaHijos(nombre,tipo){
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/filtro/nombre`,{tipo,nombre});
   }
   eliminarParametro(id){
     return this._httpClient.delete<any>(`${environment.apiUrl}/central/param/delete/${id}`);

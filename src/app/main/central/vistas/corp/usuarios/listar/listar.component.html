@@ -149,7 +149,7 @@
                         </div>
                         <div class="form-group">
                             <label>Empresa</label>
-                            <select class="form-control" name="empresa" formControlName="empresa" [(ngModel)]="usuario.empresa">
+                            <select class="form-control" name="empresa" formControlName="empresa" [(ngModel)]="usuario.empresa" (change)="cambiarTipoUsuario()">
                                 <option value="">- Seleccione -</option>
                                 <option value="{{empresa._id}}" *ngFor="let empresa of listaEmpresas">{{empresa.nombreEmpresa}}</option>
                             </select>
@@ -202,8 +202,8 @@
                             <label>Cargo</label>
                             <select class="form-control" name="cargo" formControlName="cargo" [(ngModel)]="usuario.cargo">
                                 <option value="">- Seleccione -</option>
-                                <option value="ifis">Ifis</option>
-                                <option value="corp">Corp</option>
+                                <option *ngFor="let cargoOp of tipoCargoOpciones" value="{{cargoOp.valor}}">{{cargoOp.nombre}}</option>
+
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.cargo.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.cargo.errors.required">Cargo es requerido
@@ -222,8 +222,8 @@
                             <label>Género</label>
                             <select class="form-control" name="genero" formControlName="genero" [(ngModel)]="usuario.genero">
                                 <option value="">- Seleccione -</option>
-                                <option value="ifis">Ifis</option>
-                                <option value="corp">Corp</option>
+                                <option *ngFor="let generoOp of tipoGeneroOpciones" value="{{generoOp.valor}}">{{generoOp.nombre}}</option>
+
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.cargo.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="usuForm.cargo.errors.required">Cargo es requerido

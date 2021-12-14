@@ -22,16 +22,11 @@ export class UsuariosService {
     return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/create/`, datos);
   }
   actualizarUsuario(datos){
-    if(datos.tipoUsuario){
-      delete datos.tipoUsuario;
-    }
     return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/update/${datos._id}`, datos);
   }
   eliminarUsuario(id){
     return this._httpClient.delete<any>(`${environment.apiUrl}/central/usuarios/delete/${id}`);
   }
-
-
   obtenerEmpresa(id){
     return this._httpClient.get<any>(`${environment.apiUrl}/corp/empresas/listOne/${id}`);
   }

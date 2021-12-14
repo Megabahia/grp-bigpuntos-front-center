@@ -6,6 +6,7 @@ import { CoreSidebarService } from '../../../../../../../@core/components/core-s
 import { EmpresasService } from '../empresas.service';
 import { Empresa } from '../models/empresas';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ParametrizacionesService } from '../../../center/parametrizaciones/parametrizaciones.service';
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
@@ -29,8 +30,14 @@ export class ListarComponent implements OnInit {
   public empresaSubmitted: boolean;
   public mensaje = "";
   public cargandoEmpresa = false;
+  public tipoEmpresaOpciones;
+  public categoriaEmpresaOpciones;
+  public paisOpciones;
+  public provinciaOpciones;
+  public ciudadOpciones;
   constructor
     (
+      private paramService: ParametrizacionesService,
       private datePipe: DatePipe,
       private _coreSidebarService: CoreSidebarService,
       private _empresasService: EmpresasService,
@@ -81,12 +88,20 @@ export class ListarComponent implements OnInit {
     this.iniciarPaginador();
 
     this.obtenerListaEmpresas();
+    this.obtenerTipoEmpresaOpciones();
+    this.obtenerCategoriaEmpresaOpciones();
+    this.obtenerPaisOpciones();
+    this.obtenerProvinciaOpciones();
+    this.obtenerCiudadOpciones();
   }
   toggleSidebar(name, id): void {
     this.idEmpresa = id;
     if (this.idEmpresa) {
       this._empresasService.obtenerEmpresa(this.idEmpresa).subscribe((info) => {
         this.empresa = info;
+        this.obtenerPaisOpciones();
+        this.obtenerProvinciaOpciones();
+        this.obtenerCiudadOpciones();
       },
         (error) => {
           this.mensaje = "No se ha podido obtener la empresa";
@@ -150,6 +165,31 @@ export class ListarComponent implements OnInit {
         });
     }
 
+  }
+  obtenerTipoEmpresaOpciones() {
+    this.paramService.obtenerListaPadres("TIPO_EMPRESA").subscribe((info) => {
+      this.tipoEmpresaOpciones = info;
+    });
+  }
+  obtenerCategoriaEmpresaOpciones() {
+    this.paramService.obtenerListaPadres("CATEGORIA_EMPRESA").subscribe((info) => {
+      this.categoriaEmpresaOpciones = info;
+    });
+  }
+  obtenerPaisOpciones() {
+    this.paramService.obtenerListaPadres("PAIS").subscribe((info) => {
+      this.paisOpciones = info;
+    });
+  }
+  obtenerProvinciaOpciones() {
+    this.paramService.obtenerListaHijos(this.empresa.pais, "PAIS").subscribe((info) => {
+      this.provinciaOpciones = info;
+    });
+  }
+  obtenerCiudadOpciones() {
+    this.paramService.obtenerListaHijos(this.empresa.provincia, "PROVINCIA").subscribe((info) => {
+      this.ciudadOpciones = info;
+    });
   }
   eliminarEmpresa() {
     this._empresasService.eliminarEmpresa(this.idEmpresa).subscribe(() => {

@@ -82,6 +82,7 @@ export class ListarComponent implements OnInit {
     );
   }
   inicializarUsuario() {
+    this.fecha = "";
     return {
       id: "",
       email: "",
@@ -143,12 +144,23 @@ export class ListarComponent implements OnInit {
       this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
         this.usuario.empresa = "";
         this.usuario = info;
-        info.fechaNacimiento = this.transformarFecha(info.fechaNacimiento);
-        this.fecha = this.transformarFecha(info.fechaNacimiento);
+        if (info.infoUsuario) {
+          this.usuario.nombres = info.infoUsuario.nombres;
+          this.usuario.apellidos = info.infoUsuario.apellidos;
+          this.usuario.nombres = info.infoUsuario.nombres;
+          // info.fechaNacimiento = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.fecha = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.usuario.fechaNacimiento = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.usuario.cargo = info.infoUsuario.cargo;
+          this.usuario.genero = info.infoUsuario.genero;
+          this.usuario.whatsapp = info.infoUsuario.whatsapp;
+          this.usuario.telefono = info.infoUsuario.telefono;
+        }
+
         if (info.empresa) {
-          this.tipoUsuario = info.tipoUsuario;
           this.listaEmpresas = [info.empresa];
           this.usuario.empresa = info.empresa._id;
+          this.cambiarTipoUsuario();
         }
         if (info.roles.length) {
           this.usuario.roles = info.roles[0]._id;

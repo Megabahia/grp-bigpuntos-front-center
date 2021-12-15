@@ -9,6 +9,7 @@ import { UsuariosService } from '../usuarios.service';
 import { compararPassword, Usuario } from '../models/usuarios';
 import { RolesService } from '../../roles/roles.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { ParametrizacionesService } from '../../parametrizaciones/parametrizaciones.service';
 
 @Component({
   selector: 'app-listar',
@@ -26,6 +27,7 @@ export class ListarComponent implements OnInit {
   public collectionSize;
   public listaUsuarios;
   public listaRoles;
+  public listaCargos;
   public usuario: Usuario;
   private _unsubscribeAll: Subject<any>;
   public idUsuario;
@@ -33,7 +35,10 @@ export class ListarComponent implements OnInit {
   public usuarioForm: FormGroup;
   public usuarioSubmitted: boolean;
   public mensaje = "";
+  public tipoUsuario = "";
   public fecha;
+  public tipoCargoOpciones;
+  public tipoGeneroOpciones;
   public startDateOptions: FlatpickrOptions = {
     altInput: true,
     mode: 'single',
@@ -41,7 +46,9 @@ export class ListarComponent implements OnInit {
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
   };
   public cargandoUsuario = false;
+
   constructor(
+    private paramService: ParametrizacionesService,
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
     private _usuariosService: UsuariosService,
@@ -51,9 +58,8 @@ export class ListarComponent implements OnInit {
 
   ) {
     this._unsubscribeAll = new Subject();
-    this.idUsuario =  "";
+    this.idUsuario = "";
     this.usuario = this.inicializarUsuario();
-
   }
 
   ngOnInit(): void {
@@ -69,9 +75,8 @@ export class ListarComponent implements OnInit {
       // password: ['', [Validators.required]],
       roles: ['', [Validators.required]],
       estado: ['', [Validators.required]],
-    },
-    //  { validators: compararPassword }
-     );
+    }
+    );
   }
   inicializarUsuario() {
     return {
@@ -80,11 +85,10 @@ export class ListarComponent implements OnInit {
       nombres: "",
       apellidos: "",
       telefono: "",
-      whatasapp: "",
+      whatsapp: "",
       cargo: "",
       fechaNacimiento: "",
       genero: "",
-      whatsapp: "",
       // password:"",
       roles: "",
       estado: ""
@@ -95,6 +99,8 @@ export class ListarComponent implements OnInit {
 
     this.obtenerListaUsuarios();
     this.obtenerListaRoles();
+    this.obtenerCargoOpciones();
+    this.obtenerGeneroOpciones();
   }
   obtenerListaUsuarios() {
     this._usuariosService.obtenerListaUsuarios({
@@ -137,16 +143,20 @@ export class ListarComponent implements OnInit {
     if (this.usuarioForm.invalid) {
       return;
     }
+    this.cargandoUsuario = true;
     if (this.idUsuario == "") {
       this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "center" }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
+
       }, (error) => {
         this.mensaje = "Error al crear el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
       });
     } else {
       this._usuariosService.actualizarUsuario(this.usuario).subscribe((info) => {
@@ -154,14 +164,59 @@ export class ListarComponent implements OnInit {
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
       }, (error) => {
         this.mensaje = "Error al actualizar el usuario";
         this.abrirModal(this.mensajeModal);
         this.toggleSidebar('guardarUsuario', '');
+        this.cargandoUsuario = false;
       });
     }
+    // if (this.idEmpresa == "") {
+    //   this._empresasService.crearEmpresa(this.empresa).subscribe((info) => {
+    //     this.obtenerListaEmpresas();
+    //     this.mensaje = "Empresa guardada con éxito";
+    //     this.abrirModal(this.mensajeModal);
+    //     this.toggleSidebar('guardarEmpresa', '');
+    //   },
+    //     (error) => {
+    //       let errores = Object.values(error);
+    //       let llaves = Object.keys(error);
+    //       this.mensaje = "";
+    //       errores.map((infoErrores, index) => {
+    //         this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
+    //       });
+    //       this.abrirModal(this.mensajeModal);
+    //     });
+    // } else {
+    //   this._empresasService.actualizarEmpresa(this.empresa).subscribe((info) => {
+    //     this.obtenerListaEmpresas();
+    //     this.mensaje = "Empresa actualizada con éxito";
+    //     this.abrirModal(this.mensajeModal);
+    //     this.toggleSidebar('guardarEmpresa', '');
 
+    //   },
+    //     (error) => {
+    //       let errores = Object.values(error);
+    //       let llaves = Object.keys(error);
+    //       this.mensaje = "";
+    //       errores.map((infoErrores, index) => {
+    //         this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
+    //       });
+    //       this.abrirModal(this.mensajeModal);
+    //     });
+    // }
 
+  }
+  obtenerCargoOpciones() {
+    this.paramService.obtenerListaPadres("CARGO").subscribe((info) => {
+      this.tipoCargoOpciones = info;
+    });
+  }
+  obtenerGeneroOpciones() {
+    this.paramService.obtenerListaPadres("GENERO").subscribe((info) => {
+      this.tipoGeneroOpciones = info;
+    });
   }
   eliminarUsuario() {
     this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(() => {

@@ -38,7 +38,7 @@ const routes = [
     data: { animation: 'auth' }
   },
   {
-    path: 'reseteoPassword',
+    path: 'asignacionPassword',
     component: ReseteoPasswordComponent,
     data: { animation: 'auth' }
   },

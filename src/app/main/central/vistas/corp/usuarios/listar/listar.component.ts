@@ -143,6 +143,8 @@ export class ListarComponent implements OnInit {
       this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
         this.usuario.empresa = "";
         this.usuario = info;
+        info.fechaNacimiento = this.transformarFecha(info.fechaNacimiento);
+        this.fecha = this.transformarFecha(info.fechaNacimiento);
         if (info.empresa) {
           this.tipoUsuario = info.tipoUsuario;
           this.listaEmpresas = [info.empresa];
@@ -167,10 +169,8 @@ export class ListarComponent implements OnInit {
       return;
     }
     this.cargandoUsuario = true;
-
-    this.cargandoUsuario = true;
     if (this.idUsuario == "") {
-      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario }).subscribe((info) => {
+      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario, fechaNacimiento: this.transformarFecha(this.usuario.fechaNacimiento) }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
@@ -185,7 +185,7 @@ export class ListarComponent implements OnInit {
 
       });
     } else {
-      this._usuariosService.actualizarUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario }).subscribe((info) => {
+      this._usuariosService.actualizarUsuario({ ...this.usuario, tipoUsuario: this.tipoUsuario, fechaNacimiento: this.transformarFecha(this.usuario.fechaNacimiento) }).subscribe((info) => {
         this.mensaje = "Usuario actualizado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
@@ -245,6 +245,10 @@ export class ListarComponent implements OnInit {
     this.paramService.obtenerListaPadres("GENERO").subscribe((info) => {
       this.tipoGeneroOpciones = info;
     });
+  }
+  transformarFecha(fecha) {
+    let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
+    return nuevaFecha;
   }
   eliminarUsuario() {
     this._usuariosService.eliminarUsuario(this.idUsuario).subscribe(() => {

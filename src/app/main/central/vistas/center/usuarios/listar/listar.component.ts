@@ -118,13 +118,17 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
-
+  transformarFecha(fecha) {
+    let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
+    return nuevaFecha;
+  }
   toggleSidebar(name, id): void {
     this.idUsuario = id;
     if (this.idUsuario) {
       this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
         this.usuario = info;
-
+        info.fechaNacimiento = this.transformarFecha(info.fechaNacimiento);
+        this.fecha = this.transformarFecha(info.fechaNacimiento);
         if (info.roles.length) {
           this.usuario.roles = info.roles[0]._id;
         }
@@ -145,7 +149,7 @@ export class ListarComponent implements OnInit {
     }
     this.cargandoUsuario = true;
     if (this.idUsuario == "") {
-      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "center" }).subscribe((info) => {
+      this._usuariosService.crearUsuario({ ...this.usuario, tipoUsuario: "center", fechaNacimiento: this.transformarFecha(this.usuario.fechaNacimiento) }).subscribe((info) => {
         this.mensaje = "Usuario creado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();
@@ -159,7 +163,7 @@ export class ListarComponent implements OnInit {
         this.cargandoUsuario = false;
       });
     } else {
-      this._usuariosService.actualizarUsuario(this.usuario).subscribe((info) => {
+      this._usuariosService.actualizarUsuario({ ...this.usuario, fechaNacimiento: this.transformarFecha(this.usuario.fechaNacimiento) }).subscribe((info) => {
         this.mensaje = "Usuario actualizado correctamente";
         this.abrirModal(this.mensajeModal);
         this.obtenerListaUsuarios();

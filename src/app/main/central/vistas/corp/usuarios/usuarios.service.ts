@@ -22,6 +22,10 @@ export class UsuariosService {
     return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/create/`, datos);
   }
   actualizarUsuario(datos){
+    if(datos.infoUsuario){
+      delete datos.infoUsuario;
+    }
+    console.log(datos);
     return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/update/${datos._id}`, datos);
   }
   eliminarUsuario(id){

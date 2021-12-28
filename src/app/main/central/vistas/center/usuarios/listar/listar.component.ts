@@ -127,8 +127,20 @@ export class ListarComponent implements OnInit {
     if (this.idUsuario) {
       this._usuariosService.obtenerUsuario(this.idUsuario).subscribe((info) => {
         this.usuario = info;
-        info.fechaNacimiento = this.transformarFecha(info.fechaNacimiento);
-        this.fecha = this.transformarFecha(info.fechaNacimiento);
+        // info.fechaNacimiento = this.transformarFecha(info.fechaNacimiento);
+        // this.fecha = this.transformarFecha(info.fechaNacimiento);
+        if (info.infoUsuario) {
+          this.usuario.nombres = info.infoUsuario.nombres;
+          this.usuario.apellidos = info.infoUsuario.apellidos;
+          this.usuario.nombres = info.infoUsuario.nombres;
+          // info.fechaNacimiento = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.fecha = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.usuario.fechaNacimiento = this.transformarFecha(info.infoUsuario.fechaNacimiento);
+          this.usuario.cargo = info.infoUsuario.cargo;
+          this.usuario.genero = info.infoUsuario.genero;
+          this.usuario.whatsapp = info.infoUsuario.whatsapp;
+          this.usuario.telefono = info.infoUsuario.telefono;
+        }
         if (info.roles.length) {
           this.usuario.roles = info.roles[0]._id;
         }

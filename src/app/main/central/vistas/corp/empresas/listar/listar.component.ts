@@ -86,7 +86,6 @@ export class ListarComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.iniciarPaginador();
-
     this.obtenerListaEmpresas();
     this.obtenerTipoEmpresaOpciones();
     this.obtenerCategoriaEmpresaOpciones();

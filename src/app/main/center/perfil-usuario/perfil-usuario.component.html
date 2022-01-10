@@ -14,15 +14,15 @@
                             <!-- profile picture -->
                             <div class="profile-img-container d-flex align-items-center">
                                 <div class="profile-img">
-                                    <img [src]="imagen" class="rounded img-fluid" alt="Card image" />
+                                    <img src="{{imagenTemp ? imagenTemp: imagen ? imagen: '/assets/images/avatars/avatar.png' }}" class="rounded img-fluid" alt="Card image" />
                                 </div>
                                 <!-- profile title -->
                                 <div class="profile-title ml-3">
-                                    <h2>Edgar Flores</h2>
+                                    <h2>{{usuario.persona.nombres}} {{usuario.persona.apellidos}}</h2>
                                     <div class="col-12 d-flex px-0">
                                         <label class="btn btn-primary btn-sm mr-75 waves-effect waves-float waves-light" for="change-picture">
                                             <span class="d-none d-sm-block">Cambiar foto</span>
-                                            <input class="form-control" type="file" id="change-picture" hidden=""
+                                            <input class="form-control" type="file" id="change-picture" hidden="" (change)="subirImagen($event)"
                                                 accept="image/png, image/jpeg, image/jpg">
                                         </label>
                                     </div>

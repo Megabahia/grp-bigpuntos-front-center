@@ -15,4 +15,7 @@ export class PerfilUsuarioService {
   guardarInformacion(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/personas/personas/update/${datos.user_id}`, datos);
   }
+  guardarImagen(datos,id){
+    return this._httpClient.post<any>(`${environment.apiUrl}/personas/personas/update/imagen/${id}`, datos);
+  }
 }

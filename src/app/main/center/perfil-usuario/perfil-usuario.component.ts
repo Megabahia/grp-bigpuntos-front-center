@@ -23,6 +23,7 @@ export class PerfilUsuarioComponent implements OnInit {
   public informacionBasica: InformacionBasica;
   public persona;
   public imagen;
+  public imagenTemp;
   public fecha;
   public startDateOptions: FlatpickrOptions = {
     altInput: true,
@@ -113,5 +114,22 @@ export class PerfilUsuarioComponent implements OnInit {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+  async subirImagen(event) {
 
+    if (event.target.files && event.target.files[0]) {
+      let imagen = event.target.files[0];
+      let nuevaImagen = new FormData();
+      nuevaImagen.append('imagen', imagen, imagen.name);
+
+      let reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.imagenTemp = event.target.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+      this._perfilUsuarioService.guardarImagen(nuevaImagen, this.usuario.id).subscribe((data) => {
+      });
+    }
+  }
 }

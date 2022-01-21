@@ -23,6 +23,7 @@ import { ListarComponent as RolesCorpComponent } from './vistas/corp/roles/lista
 import { ListarComponent as UsuariosCenterComponent } from './vistas/center/usuarios/listar/listar.component';
 import { ListarComponent as RolesCenterComponent } from './vistas/center/roles/listar/listar.component';
 import { ListarComponent as ParametrizacionesCenterComponent } from './vistas/center/parametrizaciones/listar/listar.component';
+import { ListarComponent as ProductosCenterComponent } from './vistas/center/productos/listar/listar.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -63,6 +64,9 @@ const routes = [
       {
         path: 'parametrizaciones', component: ParametrizacionesCenterComponent, canActivate: [AuthGuard]
       },
+      {
+        path: 'productos', component: ProductosCenterComponent, canActivate: [AuthGuard]
+      },
     ]
   }
 
@@ -78,7 +82,8 @@ const routes = [
     RolesCorpComponent,
     UsuariosCenterComponent,
     RolesCenterComponent,
-    ParametrizacionesCenterComponent
+    ParametrizacionesCenterComponent,
+    ProductosCenterComponent
   ],
   imports: [
     CoreCommonModule,
@@ -104,7 +109,8 @@ const routes = [
     RolesCorpComponent,
     UsuariosCenterComponent,
     RolesCenterComponent,
-    ParametrizacionesCenterComponent
+    ParametrizacionesCenterComponent,
+    ProductosCenterComponent
   ]
 })
 export class CentralModule { }

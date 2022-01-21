@@ -1,11 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService } from '../productos.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Parametrizacion } from '../models/productos';
+import { Producto } from '../models/productos';
 import { DatePipe } from '@angular/common';
 import { Subject } from 'rxjs';
 import { CoreSidebarService } from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import { ParametrizacionesService } from '../../parametrizaciones/parametrizaciones.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-listar',
@@ -18,23 +21,35 @@ export class ListarComponent implements OnInit {
   @ViewChild(NgbPagination) paginator: NgbPagination;
   @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
   @ViewChild('mensajeModal') mensajeModal;
-  public parametrizacionForm: FormGroup;
+  public productoForm: FormGroup;
   public productosSubmitted: boolean = false;
   public page = 1;
   public pageSize: any = 10;
   public maxSize;
   public collectionSize;
   public idParametro;
+  public loading = false;
   public listaProductos;
+  public empresa_id;
+  public imagen;
+  public productosFormData = new FormData();
   public tiposOpciones: string = "";
   public tipos;
-  public parametrizacion: Parametrizacion;
+  public tipoProductoOpciones;
+  public producto: Producto;
   public nombreBuscar;
-  public parametros;
+  public productos;
   public tipoPadre = "";
+  public fecha = "";
   public padres;
   public mensaje = "";
   public idPadre = "";
+  public startDateOptions: FlatpickrOptions = {
+    altInput: true,
+    mode: 'single',
+    altFormat: 'Y-n-j',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+  };
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -42,66 +57,169 @@ export class ListarComponent implements OnInit {
     private _modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private _coreSidebarService: CoreSidebarService,
+    private paramService: ParametrizacionesService,
+    private datePipe: DatePipe,
+    private changeDetector: ChangeDetectorRef,
 
   ) {
     this._unsubscribeAll = new Subject();
     this.idParametro = "";
-    this.parametrizacion = this.inicializarParametrizacion();
+    this.producto = this.inicializarProducto();
   }
-  get paramForm() {
-    return this.parametrizacionForm.controls;
+  get prodForm() {
+    return this.productoForm.controls;
   }
-  inicializarParametrizacion() {
+  inicializarProducto(): Producto {
     return {
-      id: "",
-      descripcion: "",
-      idPadre: "",
-      // maximo: "",
-      // minimo: "",
+      _id: "",
+      cantidad: 0,
+      codigoQR: "",
+      efectivo: 0,
+      empresa_id: "",
+      marca: "",
       nombre: "",
+      precioNormal: 0,
+      precioSupermonedas: 0,
+      vigencia: "",
       tipo: "",
-      tipoVariable: "",
-      valor: ""
+      imagen: ""
     }
   }
-
-  ngOnInit(): void {
-    this.parametrizacionForm = this._formBuilder.group({
-      nombre: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]],
-      tipoVariable: ['', [Validators.required]],
-      valor: ['', [Validators.required]]
+  obtenerEmpresaId() {
+    this.paramService.obtenerEmpresa({
+      nombreComercial: "Global Red Pyme"
+    }).subscribe((info) => {
+      this.empresa_id = info._id;
+    }, (error) => {
+      this.mensaje = "Ha ocurrido un error al actualizar su imagen";
+      this.abrirModal(this.mensajeModal);
     });
+  }
+  obtenerFecha() {
+    this.producto.vigencia = moment(this.prodForm.vigencia.value[0]).format('YYYY-MM-DD');
+
+  }
+  ngOnInit(): void {
+    this.productoForm = this._formBuilder.group({
+      cantidad: [0, [Validators.required]],
+      efectivo: [0, [Validators.required]],
+      marca: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      precioNormal: [0, [Validators.required]],
+      precioSupermonedas: [0, [Validators.required]],
+      vigencia: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+    });
+    this.fecha = this.transformarFecha(new Date());
+    this.opcionesTipoProductos();
+    this.obtenerEmpresaId();
+    this.changeDetector.detectChanges();
+
+  }
+  transformarFecha(fecha) {
+    let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
+    return nuevaFecha;
   }
   ngAfterViewInit() {
     this.iniciarPaginador();
 
     this.obtenerListaProductos();
   }
-  guardarParametro() {
+
+  guardarProducto() {
     this.productosSubmitted = true;
-    if (this.parametrizacionForm.invalid) {
+    if (this.productoForm.invalid) {
       return;
     }
+    let productoValores = Object.values(this.producto);
+    let productoLlaves = Object.keys(this.producto);
+    productoLlaves.map((llaves, index) => {
+      if (llaves != 'imagen') {
+        if (productoValores[index]) {
+          this.productosFormData.delete(llaves);
+          this.productosFormData.append(llaves, productoValores[index]);
+        }
+      }
+      this.productosFormData.delete('empresa_id');
+      this.productosFormData.append('empresa_id', this.empresa_id);
+    });
+    this.loading = true;
+    if (this.producto._id) {
+      delete this.producto.imagen;
+      this.productosService.actualizarProducto(this.producto, this.producto._id).subscribe(() => {
+        this.obtenerListaProductos();
+        this.toggleSidebar('guardarProducto', '');
+        this.mensaje = "Producto actualizado con éxito";
+        this.abrirModal(this.mensajeModal);
+        this.loading = false;
 
+      },
+        (error) => {
+          this.mensaje = "Ha ocurrido un error";
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+
+        });
+    } else {
+
+      this.productosService.crearProducto(this.productosFormData).subscribe((info) => {
+        this.obtenerListaProductos();
+        this.toggleSidebar('guardarProducto', '');
+        this.mensaje = "Producto guardado con éxito";
+        this.abrirModal(this.mensajeModal);
+        this.loading = false;
+
+      },
+        (error) => {
+          this.mensaje = "Ha ocurrido un error";
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+
+        });
+    }
+
+
+  }
+  async subirImagen(event) {
+
+    if (event.target.files && event.target.files[0]) {
+      let imagen = event.target.files[0];
+      this.imagen = imagen.name;
+      this.productosFormData.delete('imagen');
+      this.productosFormData.append('imagen', imagen, Date.now() + "_" + imagen.name);
+    }
+  }
+  opcionesTipoProductos() {
+    this.paramService.obtenerListaPadres("TIPO_PRODUCTO").subscribe((info) => {
+      this.tipoProductoOpciones = info;
+    });
   }
   obtenerListaProductos() {
-    // this.paramService.obtenerListaParametrizaciones(
-    //   {
-    //     page: this.page - 1,
-    //     page_size: this.pageSize,
-    //     // tipo: this.tiposOpciones,
-    //     // nombre: this.nombreBuscar
-    //   }
-    // ).subscribe((info) => {
-    //   this.parametros = info.info;
-    //   this.collectionSize = info.cont;
-    // });
+    this.productosService.obtenerListaProductos(
+      {
+        page: this.page - 1,
+        page_size: this.pageSize,
+        // tipo: this.tiposOpciones,
+        // nombre: this.nombreBuscar
+      }
+    ).subscribe((info) => {
+      this.productos = info.info;
+      this.collectionSize = info.cont;
+    });
   }
   toggleSidebar(name, id): void {
-    this.idParametro = id;
+    if (id) {
+      this.productosService.obtenerProducto(id).subscribe((info) => {
+        this.producto = info;
+        this.fecha = info.vigencia;
+        this.imagen = this.visualizarNombreArchivo(info.imagen);
+      }, (error) => {
 
+      });
+    } else {
+      this.productosFormData = new FormData();
+      this.producto = this.inicializarProducto();
+    }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   iniciarPaginador() {
@@ -110,7 +228,10 @@ export class ListarComponent implements OnInit {
       this.obtenerListaProductos();
     });
   }
-
+  visualizarNombreArchivo(nombre) {
+    let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
+    return nombre.replace(stringArchivos, '');
+  }
   eliminarParametroModal(id) {
     this.idParametro = id;
     this.abrirModal(this.eliminarParametroMdl);

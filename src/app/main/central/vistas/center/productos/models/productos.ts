@@ -1,13 +1,16 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export class Parametrizacion {
-    id: string;
+export class Producto {
+    _id: string;
     nombre: string;
+    marca: string;
+    precioNormal: number;
+    precioSupermonedas: number;
+    efectivo: number;
+    codigoQR: string;
+    cantidad: number;
+    empresa_id: string;
+    vigencia: string;
     tipo: string;
-    descripcion: string;
-    tipoVariable: string;
-    valor: string;
-    idPadre: string;
-    // minimo: string;
-    // maximo: string;
+    imagen: string;
 }

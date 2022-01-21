@@ -8,28 +8,17 @@ import { environment } from 'environments/environment';
 export class ProductosService {
 
   constructor(private _httpClient: HttpClient) { }
-  obtenerListaParametrizaciones(datos) {
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/`, datos);
+  obtenerListaProductos(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/list/`, datos);
   }
-  obtenerParametro(id) {
-    return this._httpClient.get<any>(`${environment.apiUrl}/central/param/listOne/${id}`,);
+  crearProducto(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/create/`, datos);
   }
-  obtenerListaPadres(tipo){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/tipo/todos/`,{tipo});
+  obtenerProducto(id) {
+    return this._httpClient.get<any>(`${environment.apiUrl}/central/productos/listOne/${id}`, );
   }
-  obtenerListaTipos(){
-    return this._httpClient.get<any>(`${environment.apiUrl}/central/param/list/tipo/`);
+  actualizarProducto(datos,id) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/update/${id}`, datos);
   }
-  crearParametro(datos){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/create/`,datos );
-  }
-  obtenerListaHijos(nombre,tipo){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/filtro/nombre`,{tipo,nombre});
-  }
-  eliminarParametro(id){
-    return this._httpClient.delete<any>(`${environment.apiUrl}/central/param/delete/${id}`);
-  }  
-  actualizarParametro(datos){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/update/${datos._id}`,datos);
-  }  
+
 }

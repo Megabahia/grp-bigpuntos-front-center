@@ -42,8 +42,8 @@
                         <!-- <button class="btn btn-success" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in">
                             Exportar a Excel
                         </button> -->
-                        <a (click)="toggleSidebar('guardarParametrizacion','')" class="btn btn-primary">
-                            Añadir Parámetro
+                        <a (click)="toggleSidebar('guardarProducto','')" class="btn btn-primary">
+                            Añadir Producto
                         </a>
                     </div>
                 </div>
@@ -57,18 +57,21 @@
                                         <label class="custom-control-label" for="customCheck2"></label>
                                     </div>
                                 </th>
-                                <th>Parámetro</th>
-                                <th>Tipo</th>
-                                <th>Descripción</th>
-                                <th>Valor</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Precio Normal</th>
+                                <th>Precio Supermonedas</th>
                                 <!-- <th>Minimo</th>
                                 <th>Máximo</th> -->
-                                <th>Tipo de dato</th>
+                                <th>Efectivo</th>
+                                <th>Imagen</th>
+                                <th>Código Qr</th>
+                                <th>Tipo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr *ngFor="let parametro of parametros">
+                            <tr *ngFor="let producto of productos">
                                 <td>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck2" />
@@ -79,16 +82,21 @@
                                     <div class="d-flex justify-content-left align-items-center">
                                         <div class="d-flex flex-column">
                                             <a class="user-name text-truncate mb-0">
-                                                <span class="font-weight-bold">{{parametro.nombre}}</span></a>
+                                                <span class="font-weight-bold">{{producto.nombre}}</span></a>
                                         </div>
                                     </div>
                                 </td>
-                                <td> {{parametro.tipo}} </td>
-                                <td> {{parametro.descripcion}}</td>
-                                <td> {{parametro.valor}}</td>
-                                <td> {{parametro.tipoVariable}}</td>
+                                <td> {{producto.marca}} </td>
+                                <td> {{producto.precioNormal}}</td>
+                                <td> {{producto.precioSupermonedas}}</td>
+                                <td> {{producto.efectivo}}</td>
+                                <td> <a class="text-primary" target="_blank" href="{{producto.imagen}}">Ver Imagen</a> </td>
                                 <td>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in" (click)="toggleSidebar('guardarParametrizacion',parametro._id)">
+                                    <qrcode [qrdata]="producto.imagen" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+                                </td>
+                                <td> {{producto.tipo}}</td>
+                                <td>
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in" (click)="toggleSidebar('guardarProducto',producto._id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
                                             <polyline points="21 8 21 21 3 21 3 8"></polyline>
                                             <rect x="1" y="3" width="22" height="5"></rect>
@@ -106,113 +114,96 @@
                                         </svg>
                                     </a>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table>
 
                 </div>
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize"
-                    [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 
             </div>
         </section>
         <!-- users list ends -->
     </div>
 </div>
-<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarParametrizacion"
-    overlayClass="modal-backdrop">
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarProducto" overlayClass="modal-backdrop">
     <div class="slideout-content">
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">
-                <!-- <form class="add-new-user modal-content pt-0" [formGroup]="parametrizacionForm">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="toggleSidebar('guardarParametrizacion',0)">
+                <form class="add-new-user modal-content pt-0" [formGroup]="productoForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('guardarProducto',0)">
                         ×
                     </button>
                     <div class="modal-header mb-1">
-                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Rol</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
                     </div>
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-fullname">Nombre parámetro:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="nombre" formControlName="nombre" [(ngModel)]="parametrizacion.nombre" />
-                            <div *ngIf="paramSubmitted && paramForm.nombre.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.nombre.errors.required">Nombre del parámetro es requerido</div>
+                            <label class="form-label" for="basic-icon-default-fullname">Nombre:</label>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="nombre" formControlName="nombre" [(ngModel)]="producto.nombre" />
+                            <div *ngIf="productosSubmitted && prodForm.nombre.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.nombre.errors.required">Nombre es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-uname">Tipo de parámetro:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="tipo" formControlName="tipo" [(ngModel)]="parametrizacion.tipo" />
-                            <div *ngIf="paramSubmitted && paramForm.tipo.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.tipo.errors.required">Tipo del parámetro es requerido</div>
+                            <label class="form-label" for="basic-icon-default-fullname">Marca:</label>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="marca" formControlName="marca" [(ngModel)]="producto.marca" />
+                            <div *ngIf="productosSubmitted && prodForm.marca.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.marca.errors.required">Marca es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-email">Descripción:</label>
-                            <input type="text" id="basic-icon-default-email" class="form-control dt-email"
-                                name="descripcion" formControlName="descripcion"
-                                [(ngModel)]="parametrizacion.descripcion" />
-                            <div *ngIf="paramSubmitted && paramForm.descripcion.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.descripcion.errors.required">Descripción del parámetro es
-                                    requerida
-                                </div>
+                            <label for="customFile1">Imagen</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile1" (change)="subirImagen($event)" accept="image/png, image/jpeg, image/jpg" />
+                                <label class="custom-file-label" for="customFile1">{{imagen}}</label>
+                                <!-- <div *ngIf="productosSubmitted && prodForm.imagen.errors" class="invalid-feedback" style="display: block;">
+                                    <div *ngIf="prodForm.imagen.errors.required">Imagen es requerido</div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-email">Tipo de variable:</label>
-                            <select class="select2 form-control form-control-sm" name="tipoVariable"
-                                formControlName="tipoVariable" [(ngModel)]="parametrizacion.tipoVariable">
-                                <option value="" selected>- Tipo de parámetro -</option>
-                                <option value="entero">Entero</option>
-                                <option value="texto">Texto</option>
-                                <option value="booleano">Booleano</option>
-                                <option value="fecha">Fecha</option>
-                            </select>
-                            <div *ngIf="paramSubmitted && paramForm.tipoVariable.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.tipoVariable.errors.required">Selección del tipo de variable es
-                                    requerida
-                                </div>
+                            <label class="form-label" for="basic-icon-default-fullname">Precio Normal:</label>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="precioNormal" formControlName="precioNormal" [(ngModel)]="producto.precioNormal" />
+                            <div *ngIf="productosSubmitted && prodForm.precioNormal.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.precioNormal.errors.required">Precio Normal es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-email">Valor:</label>
-                            <input type="text" id="basic-icon-default-email" class="form-control dt-email" name="valor"
-                                formControlName="valor" [(ngModel)]="parametrizacion.valor" />
-                            <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback"
-                                style="display: block;">
-                                <div *ngIf="paramForm.valor.errors.required">Valor es requerido</div>
+                            <label class="form-label" for="basic-icon-default-fullname">Precio SuperMonedas:</label>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="precioSupermonedas" formControlName="precioSupermonedas" [(ngModel)]="producto.precioSupermonedas" />
+                            <div *ngIf="productosSubmitted && prodForm.precioSupermonedas.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.precioSupermonedas.errors.required">Precio SuperMonedas es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="">Padre:</label>
+                            <label class="form-label" for="basic-icon-default-fullname">Precio Efectivo:</label>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="efectivo" formControlName="efectivo" [(ngModel)]="producto.efectivo" />
+                            <div *ngIf="productosSubmitted && prodForm.efectivo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.efectivo.errors.required">Nombre es requerido</div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-email">Tipo Padre:</label>
-                            <select class="select2 form-control form-control-sm" name="tipoPadre"
-                                [(ngModel)]="tipoPadre"  [ngModelOptions]="{standalone: true}">
-                                <option value="" selected>- Tipo de parámetro -</option>
-                                <option *ngFor="let tipo of tipos" value="{{tipo.valor}}">{{tipo.valor}}</option>
-                            </select>
+                            <label class="form-label" for="basic-icon-default-fullname">Tipo:</label>
+                            <select class="form-control select2" formControlName="tipo" [(ngModel)]="producto.tipo">
+                                <option value="">- Seleccione -</option>
+                                <option *ngFor="let tipoProductoOp of tipoProductoOpciones" value="{{tipoProductoOp.valor}}">{{tipoProductoOp.nombre}}</option>
+                         </select>
+                            <div *ngIf="productosSubmitted && prodForm.tipo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.tipo.errors.required">Tipo es requerido</div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-email">Padre:</label>
-                            <select class="select2 form-control form-control-sm" name="idPadre"
-                                [(ngModel)]="parametrizacion.idPadre" [ngModelOptions]="{standalone: true}">
-                                <option value="" selected>- Padre -</option>
-                                <option *ngFor="let padre of padres" [ngValue]="padre._id">{{padre.valor}}</option>
-                            </select>
+                            <label class="form-label" for="basic-icon-default-fullname">Vigencia:</label>
+                            <ng2-flatpickr [setDate]="fecha" formControlName="vigencia" [config]="startDateOptions" (input)="obtenerFecha()"></ng2-flatpickr>
+                            <div *ngIf="productosSubmitted && prodForm.vigencia.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.vigencia.errors.required">Vigencia es requerida</div>
+                            </div>
                         </div>
-                        <button class="btn btn-primary mr-1" (click)="guardarParametro()">Guardar</button>
-                        <button (click)="toggleSidebar('guardarParametrizacion','')" class="btn btn-outline-secondary"
-                            data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary mr-1" (click)="guardarProducto()" [disabled]="loading"> <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
+                        <button (click)="toggleSidebar('guardarProducto','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
-                </form> -->
+                </form>
             </div>
         </div>
     </div>

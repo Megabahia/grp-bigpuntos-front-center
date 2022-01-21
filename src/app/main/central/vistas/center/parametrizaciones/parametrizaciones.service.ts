@@ -14,22 +14,26 @@ export class ParametrizacionesService {
   obtenerParametro(id) {
     return this._httpClient.get<any>(`${environment.apiUrl}/central/param/listOne/${id}`,);
   }
-  obtenerListaPadres(tipo){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/tipo/todos/`,{tipo});
+  obtenerListaPadres(tipo) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/tipo/todos/`, { tipo });
   }
-  obtenerListaTipos(){
+  obtenerListaTipos() {
     return this._httpClient.get<any>(`${environment.apiUrl}/central/param/list/tipo/`);
   }
-  crearParametro(datos){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/create/`,datos );
+  crearParametro(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/create/`, datos);
   }
-  obtenerListaHijos(nombre,tipo){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/filtro/nombre`,{tipo,nombre});
+  obtenerListaHijos(nombre, tipo) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/filtro/nombre`, { tipo, nombre });
   }
-  eliminarParametro(id){
+  eliminarParametro(id) {
     return this._httpClient.delete<any>(`${environment.apiUrl}/central/param/delete/${id}`);
-  }  
-  actualizarParametro(datos){
-    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/update/${datos._id}`,datos);
-  }  
+  }
+  actualizarParametro(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/param/update/${datos._id}`, datos);
+  }
+  obtenerEmpresa(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/listOne/filtros/`, datos
+    );
+  }
 }

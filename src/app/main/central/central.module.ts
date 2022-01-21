@@ -17,6 +17,7 @@ import { CardSnippetModule } from '../../../@core/components/card-snippet/card-s
 import { PerfilUsuarioComponent } from '../center/perfil-usuario/perfil-usuario.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { QRCodeModule } from 'angularx-qrcode';
 import { ListarComponent as EmpresasComponent } from './vistas/corp/empresas/listar/listar.component';
 import { ListarComponent as UsuariosCorpComponent } from './vistas/corp/usuarios/listar/listar.component';
 import { ListarComponent as RolesCorpComponent } from './vistas/corp/roles/listar/listar.component';
@@ -98,7 +99,8 @@ const routes = [
     Ng2FlatpickrModule,
     CardSnippetModule,
     ShareIconsModule,
-    ShareButtonsModule
+    ShareButtonsModule,
+    QRCodeModule,
   ],
   exports: [
 

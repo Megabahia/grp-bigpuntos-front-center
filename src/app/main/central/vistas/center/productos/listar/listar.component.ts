@@ -101,12 +101,12 @@ export class ListarComponent implements OnInit {
   }
   ngOnInit(): void {
     this.productoForm = this._formBuilder.group({
-      cantidad: [0, [Validators.required]],
-      efectivo: [0, [Validators.required]],
+      // cantidad: [0, [Validators.required, Validators.min(1)]],
+      efectivo: [0, [Validators.required, Validators.min(1)]],
       marca: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
-      precioNormal: [0, [Validators.required]],
-      precioSupermonedas: [0, [Validators.required]],
+      precioNormal: [0, [Validators.required, Validators.min(1)]],
+      precioSupermonedas: [0, [Validators.required, Validators.min(1)]],
       vigencia: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
     });
@@ -159,13 +159,11 @@ export class ListarComponent implements OnInit {
         this.mensaje = "Producto actualizado con éxito";
         this.abrirModal(this.mensajeModal);
         this.loading = false;
-
       },
         (error) => {
           this.mensaje = "Ha ocurrido un error";
           this.abrirModal(this.mensajeModal);
           this.loading = false;
-
         });
     } else {
 
@@ -175,13 +173,11 @@ export class ListarComponent implements OnInit {
         this.mensaje = "Producto guardado con éxito";
         this.abrirModal(this.mensajeModal);
         this.loading = false;
-
       },
         (error) => {
           this.mensaje = "Ha ocurrido un error";
           this.abrirModal(this.mensajeModal);
           this.loading = false;
-
         });
     }
 
@@ -215,6 +211,7 @@ export class ListarComponent implements OnInit {
     });
   }
   toggleSidebar(name, id): void {
+    this.imagen = "";
     if (id) {
       this.productosService.obtenerProducto(id).subscribe((info) => {
         this.producto = info;

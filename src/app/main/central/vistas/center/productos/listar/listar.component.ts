@@ -243,12 +243,10 @@ export class ListarComponent implements OnInit {
   eliminarProducto() {
     this.productosService.eliminarProducto(this.idProducto).subscribe((info) => {
       this.obtenerListaProductos();
-      this.toggleSidebar('guardarProducto', '');
       this.mensaje = "Producto eliminado con éxito";
       this.abrirModal(this.mensajeModal);
     },
       (error) => {
-        this.toggleSidebar('guardarProducto', '');
         this.mensaje = "Error al eliminar producto";
         this.abrirModal(this.mensajeModal);
       });

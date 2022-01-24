@@ -81,7 +81,7 @@ export class ListarComponent implements OnInit {
       precioNormal: 0,
       precioSupermonedas: 0,
       vigencia: "",
-      tipo: "",
+      tipo: "presentacion",
       imagen: ""
     }
   }

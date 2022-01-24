@@ -19,7 +19,7 @@ import moment from 'moment';
 })
 export class ListarComponent implements OnInit {
   @ViewChild(NgbPagination) paginator: NgbPagination;
-  @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
+  @ViewChild('eliminarProductoMdl') eliminarProductoMdl;
   @ViewChild('mensajeModal') mensajeModal;
   public productoForm: FormGroup;
   public productosSubmitted: boolean = false;
@@ -27,7 +27,7 @@ export class ListarComponent implements OnInit {
   public pageSize: any = 10;
   public maxSize;
   public collectionSize;
-  public idParametro;
+  public idProducto;
   public loading = false;
   public listaProductos;
   public empresa_id;
@@ -63,7 +63,7 @@ export class ListarComponent implements OnInit {
 
   ) {
     this._unsubscribeAll = new Subject();
-    this.idParametro = "";
+    this.idProducto = "";
     this.producto = this.inicializarProducto();
   }
   get prodForm() {
@@ -143,10 +143,17 @@ export class ListarComponent implements OnInit {
       this.productosFormData.delete('empresa_id');
       this.productosFormData.append('empresa_id', this.empresa_id);
     });
+
     this.loading = true;
     if (this.producto._id) {
-      delete this.producto.imagen;
-      this.productosService.actualizarProducto(this.producto, this.producto._id).subscribe(() => {
+      // let productoAct: any;
+      // if (!this.productosFormData.get('imagen')) {
+      //   productoAct = this.producto;
+      //   delete productoAct.imagen;
+      // } else {
+      //   productoAct = this.productosFormData;
+      // }
+      this.productosService.actualizarProducto(this.productosFormData, this.producto._id).subscribe(() => {
         this.obtenerListaProductos();
         this.toggleSidebar('guardarProducto', '');
         this.mensaje = "Producto actualizado con éxito";
@@ -232,11 +239,23 @@ export class ListarComponent implements OnInit {
     let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
     return nombre.replace(stringArchivos, '');
   }
-  eliminarParametroModal(id) {
-    this.idParametro = id;
-    this.abrirModal(this.eliminarParametroMdl);
+  eliminarProductoModal(id) {
+    this.idProducto = id;
+    this.abrirModal(this.eliminarProductoMdl);
   }
-
+  eliminarProducto() {
+    this.productosService.eliminarProducto(this.idProducto).subscribe((info) => {
+      this.obtenerListaProductos();
+      this.toggleSidebar('guardarProducto', '');
+      this.mensaje = "Producto eliminado con éxito";
+      this.abrirModal(this.mensajeModal);
+    },
+      (error) => {
+        this.toggleSidebar('guardarProducto', '');
+        this.mensaje = "Error al eliminar producto";
+        this.abrirModal(this.mensajeModal);
+      });
+  }
   abrirModal(modal) {
     this._modalService.open(modal)
   }

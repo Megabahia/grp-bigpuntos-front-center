@@ -29,7 +29,7 @@ export class MisMonedasComponent implements OnInit {
 
   ) {
     this._unsubscribeAll = new Subject();
-    this.usuario = this._coreMenuService.currentUser;
+    this.usuario = this._coreMenuService.grpCenterUser;
 
   }
 

@@ -14,7 +14,7 @@ import { User } from 'app/auth/models';
   templateUrl: './collapsible.component.html'
 })
 export class CoreMenuVerticalCollapsibleComponent implements OnInit, OnDestroy {
-  currentUser: User;
+  grpCenterUser: User;
 
   @Input()
   item: CoreMenuItem;
@@ -65,7 +65,7 @@ export class CoreMenuVerticalCollapsibleComponent implements OnInit, OnDestroy {
 
     // Subscribe to the current menu changes
     this._coreMenuService.onMenuChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(() => {
-      this.currentUser = this._coreMenuService.currentUser;
+      this.grpCenterUser = this._coreMenuService.grpCenterUser;
     });
 
     // Listen for collapsing of any menu item

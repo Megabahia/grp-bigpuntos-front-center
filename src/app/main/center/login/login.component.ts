@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         enableLocalStorage: false
       }
     };
-    if (this._authenticationService.currentUserValue) {
+    if (this._authenticationService.grpCenterUserValue) {
       this._router.navigate(['/']);
     }
   }

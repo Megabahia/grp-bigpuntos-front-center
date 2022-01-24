@@ -37,7 +37,7 @@ export class PrincipalComponent implements OnInit {
     private modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
-    this.usuario = this._coreMenuService.currentUser;
+    this.usuario = this._coreMenuService.grpCenterUser;
     this.productos = {
       cont: 0,
       info: []

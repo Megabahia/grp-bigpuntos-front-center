@@ -78,7 +78,7 @@ export class PerfilUsuarioComponent implements OnInit {
       tiktok: ['',],
       youtube: ['',],
     });
-    this.usuario = this._coreMenuService.currentUser;
+    this.usuario = this._coreMenuService.grpCenterUser;
     this._perfilUsuarioService.obtenerInformacion(this.usuario.id).subscribe(info => {
       this.imagen = info.imagen;
       info.created_at = this.transformarFecha(info.created_at);
@@ -99,7 +99,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
     this._perfilUsuarioService.guardarInformacion(this.informacionBasica).subscribe(info => {
       this.usuario.persona = info;
-      localStorage.setItem("currentUser", JSON.stringify(this.usuario));
+      localStorage.setItem("grpCenterUser", JSON.stringify(this.usuario));
     });
   }
   calcularEdad() {

@@ -24,10 +24,13 @@ export class ListarComponent implements OnInit {
   public collectionSize;
   public empresas;
   public empresa: Empresa;
+  public imagen;
   private _unsubscribeAll: Subject<any>;
   private idEmpresa;
   public empresaForm: FormGroup;
   public empresaSubmitted: boolean;
+  public empresaFormData = new FormData();
+
   public mensaje = "";
   public cargandoEmpresa = false;
   public tipoEmpresaOpciones;
@@ -67,6 +70,15 @@ export class ListarComponent implements OnInit {
       tipoEmpresa: ""
     }
   }
+  async subirImagen(event) {
+
+    if (event.target.files && event.target.files[0]) {
+      let imagen = event.target.files[0];
+      this.imagen = imagen.name;
+      this.empresaFormData.delete('imagen');
+      this.empresaFormData.append('imagen', imagen, Date.now() + "_" + imagen.name);
+    }
+  }
   ngOnInit(): void {
     this.empresaForm = this._formBuilder.group({
       direccion: ['', [Validators.required]],
@@ -98,6 +110,7 @@ export class ListarComponent implements OnInit {
     if (this.idEmpresa) {
       this._empresasService.obtenerEmpresa(this.idEmpresa).subscribe((info) => {
         this.empresa = info;
+        this.imagen = this.visualizarNombreArchivo(info.imagen);
         this.obtenerPaisOpciones();
         this.obtenerProvinciaOpciones();
         this.obtenerCiudadOpciones();
@@ -112,6 +125,10 @@ export class ListarComponent implements OnInit {
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+  visualizarNombreArchivo(nombre) {
+    let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CORP/imgEmpresas/';
+    return nombre.replace(stringArchivos, '');
+  }
   get empForm() {
     return this.empresaForm.controls;
   }
@@ -121,9 +138,18 @@ export class ListarComponent implements OnInit {
       return;
     }
     this.cargandoEmpresa = true;
-
+    let productoValores = Object.values(this.empresa);
+    let productoLlaves = Object.keys(this.empresa);
+    productoLlaves.map((llaves, index) => {
+      if (llaves != 'imagen') {
+        if (productoValores[index]) {
+          this.empresaFormData.delete(llaves);
+          this.empresaFormData.append(llaves, productoValores[index]);
+        }
+      }
+    });
     if (this.idEmpresa == "") {
-      this._empresasService.crearEmpresa(this.empresa).subscribe((info) => {
+      this._empresasService.crearEmpresa(this.empresaFormData).subscribe((info) => {
         this.obtenerListaEmpresas();
         this.mensaje = "Empresa guardada con éxito";
         this.abrirModal(this.mensajeModal);
@@ -134,16 +160,14 @@ export class ListarComponent implements OnInit {
         (error) => {
           let errores = Object.values(error);
           let llaves = Object.keys(error);
-          this.mensaje = "";
-          errores.map((infoErrores, index) => {
-            this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
-          });
+          this.mensaje = "Error al crear empresa";
+
           this.abrirModal(this.mensajeModal);
           this.cargandoEmpresa = false;
 
         });
     } else {
-      this._empresasService.actualizarEmpresa(this.empresa).subscribe((info) => {
+      this._empresasService.actualizarEmpresa(this.empresaFormData, this.idEmpresa).subscribe((info) => {
         this.obtenerListaEmpresas();
         this.mensaje = "Empresa actualizada con éxito";
         this.abrirModal(this.mensajeModal);
@@ -154,10 +178,7 @@ export class ListarComponent implements OnInit {
         (error) => {
           let errores = Object.values(error);
           let llaves = Object.keys(error);
-          this.mensaje = "";
-          errores.map((infoErrores, index) => {
-            this.mensaje += llaves[index] + ": " + infoErrores + "<br>";
-          });
+          this.mensaje = "Error al actualizar empresa";
           this.abrirModal(this.mensajeModal);
           this.cargandoEmpresa = false;
 

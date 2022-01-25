@@ -98,20 +98,15 @@
                                 </td>
                                 <td> {{producto.tipo}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
-                                        (click)="toggleSidebar('guardarProducto',producto._id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="mr-50">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in" (click)="toggleSidebar('guardarProducto',producto._id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
                                             <polyline points="21 8 21 21 3 21 3 8"></polyline>
                                             <rect x="1" y="3" width="22" height="5"></rect>
                                             <line x1="10" y1="12" x2="14" y2="12"></line>
                                         </svg>
                                     </a>
                                     <a href="javascript:void(0);" (click)="eliminarProductoModal(producto._id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="mr-50">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
                                             <polyline points="3 6 5 6 21 6"></polyline>
                                             <path
                                                 d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
@@ -126,8 +121,7 @@
                     </table>
 
                 </div>
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize"
-                    [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 
             </div>
         </section>
@@ -139,8 +133,7 @@
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">
                 <form class="add-new-user modal-content pt-0" [formGroup]="productoForm">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="toggleSidebar('guardarProducto',0)">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('guardarProducto',0)">
                         ×
                     </button>
                     <div class="modal-header mb-1">
@@ -149,27 +142,22 @@
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Nombre:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="nombre" formControlName="nombre" [(ngModel)]="producto.nombre" />
-                            <div *ngIf="productosSubmitted && prodForm.nombre.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="nombre" formControlName="nombre" [(ngModel)]="producto.nombre" />
+                            <div *ngIf="productosSubmitted && prodForm.nombre.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.nombre.errors.required">Nombre es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Marca:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="marca" formControlName="marca" [(ngModel)]="producto.marca" />
-                            <div *ngIf="productosSubmitted && prodForm.marca.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="marca" formControlName="marca" [(ngModel)]="producto.marca" />
+                            <div *ngIf="productosSubmitted && prodForm.marca.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.marca.errors.required">Marca es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="customFile1">Imagen</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile1"
-                                    (change)="subirImagen($event)" accept="image/png, image/jpeg, image/jpg" />
+                                <input type="file" class="custom-file-input" id="customFile1" (change)="subirImagen($event)" accept="image/png, image/jpeg, image/jpg" />
                                 <label class="custom-file-label" for="customFile1">{{imagen}}</label>
                                 <!-- <div *ngIf="productosSubmitted && prodForm.imagen.errors" class="invalid-feedback" style="display: block;">
                                     <div *ngIf="prodForm.imagen.errors.required">Imagen es requerido</div>
@@ -178,34 +166,26 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Precio Normal:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="precioNormal" formControlName="precioNormal"
-                                [(ngModel)]="producto.precioNormal" />
-                            <div *ngIf="productosSubmitted && prodForm.precioNormal.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="precioNormal" formControlName="precioNormal" [(ngModel)]="producto.precioNormal" />
+                            <div *ngIf="productosSubmitted && prodForm.precioNormal.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.precioNormal.errors.required">Precio Normal es requerido</div>
                                 <div *ngIf="prodForm.precioNormal.errors.min">Precio Normal válido es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Precio SuperMonedas:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="precioSupermonedas" formControlName="precioSupermonedas"
-                                [(ngModel)]="producto.precioSupermonedas" />
-                            <div *ngIf="productosSubmitted && prodForm.precioSupermonedas.errors"
-                                class="invalid-feedback" style="display: block;">
-                                <div *ngIf="prodForm.precioSupermonedas.errors.required">Precio SuperMonedas es
-                                    requerido</div>
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="precioSupermonedas" formControlName="precioSupermonedas" [(ngModel)]="producto.precioSupermonedas" />
+                            <div *ngIf="productosSubmitted && prodForm.precioSupermonedas.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="prodForm.precioSupermonedas.errors.required">Precio SuperMonedas es requerido
+                                </div>
                                 <div *ngIf="prodForm.precioSupermonedas.errors.min">Precio SuperMonedas válido es requerido</div>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Precio Efectivo:</label>
-                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-                                name="efectivo" formControlName="efectivo" [(ngModel)]="producto.efectivo" />
-                            <div *ngIf="productosSubmitted && prodForm.efectivo.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" name="efectivo" formControlName="efectivo" [(ngModel)]="producto.efectivo" />
+                            <div *ngIf="productosSubmitted && prodForm.efectivo.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.efectivo.errors.required">Precio efectivo es requerido</div>
                                 <div *ngIf="prodForm.efectivo.errors.min">Precio efectivo válido es requerido</div>
                             </div>
@@ -217,24 +197,20 @@
                                 <option *ngFor="let tipoProductoOp of tipoProductoOpciones"
                                     value="{{tipoProductoOp.valor}}">{{tipoProductoOp.nombre}}</option>
                             </select>
-                            <div *ngIf="productosSubmitted && prodForm.tipo.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <div *ngIf="productosSubmitted && prodForm.tipo.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.tipo.errors.required">Tipo es requerido</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="basic-icon-default-fullname">Vigencia:</label>
-                            <ng2-flatpickr [setDate]="fecha" formControlName="vigencia" [config]="startDateOptions"
-                                (input)="obtenerFecha()"></ng2-flatpickr>
-                            <div *ngIf="productosSubmitted && prodForm.vigencia.errors" class="invalid-feedback"
-                                style="display: block;">
+                            <ng2-flatpickr [setDate]="fecha" formControlName="vigencia" [config]="startDateOptions" (input)="obtenerFecha()"></ng2-flatpickr>
+                            <div *ngIf="productosSubmitted && prodForm.vigencia.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="prodForm.vigencia.errors.required">Vigencia es requerida</div>
                             </div>
                         </div>
                         <button class="btn btn-primary mr-1" (click)="guardarProducto()" [disabled]="loading"> <span
                                 *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
-                        <button (click)="toggleSidebar('guardarProducto','')" class="btn btn-outline-secondary"
-                            data-dismiss="modal">Cancelar</button>
+                        <button (click)="toggleSidebar('guardarProducto','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -25,6 +25,7 @@ import { ListarComponent as UsuariosCenterComponent } from './vistas/center/usua
 import { ListarComponent as RolesCenterComponent } from './vistas/center/roles/listar/listar.component';
 import { ListarComponent as ParametrizacionesCenterComponent } from './vistas/center/parametrizaciones/listar/listar.component';
 import { ListarComponent as ProductosCenterComponent } from './vistas/center/productos/listar/listar.component';
+import { ListarComponent as CargarSuperMonedasCorpComponent } from './vistas/corp/cargarSuperMonedas/listar/listar.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -48,6 +49,9 @@ const routes = [
       },
       {
         path: 'roles', component: RolesCorpComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarSuperMonedas', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
       },
     ],
   },
@@ -84,7 +88,8 @@ const routes = [
     UsuariosCenterComponent,
     RolesCenterComponent,
     ParametrizacionesCenterComponent,
-    ProductosCenterComponent
+    ProductosCenterComponent,
+    CargarSuperMonedasCorpComponent
   ],
   imports: [
     CoreCommonModule,
@@ -112,7 +117,8 @@ const routes = [
     UsuariosCenterComponent,
     RolesCenterComponent,
     ParametrizacionesCenterComponent,
-    ProductosCenterComponent
+    ProductosCenterComponent,
+    CargarSuperMonedasCorpComponent
   ]
 })
 export class CentralModule { }

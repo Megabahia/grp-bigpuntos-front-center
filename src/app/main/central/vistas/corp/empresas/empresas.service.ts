@@ -14,8 +14,8 @@ export class EmpresasService {
   crearEmpresa(datos){
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/create/`, datos);
   }
-  actualizarEmpresa(datos){
-    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/update/${datos._id}`, datos);
+  actualizarEmpresa(datos,id){
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/update/${id}`, datos);
   }
   obtenerEmpresa(id){
     return this._httpClient.get<any>(`${environment.apiUrl}/corp/empresas/listOne/${id}`);

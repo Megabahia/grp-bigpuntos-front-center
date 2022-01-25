@@ -46,6 +46,15 @@ export const menu: CoreMenu[] = [
         icon: 'clipboard',
         url: 'central/corp/roles',
       },
+      {
+        id: 'superMonedasCord',
+        title: 'Cargar supermonedas de Corp',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'dollar-sign',
+        url: 'central/corp/cargarSuperMonedas',
+      },
     ]
   },
   {

@@ -182,6 +182,7 @@ export class ListarComponent implements OnInit {
       this.loading = true;
       this.archivoFacElec.append('user_id', this.usuario.id);
       this._misFacturasService.asignarSuperMonedas(this.archivoFacElec).subscribe((info) => {
+        this.loading = false;
         this.obtenerListaSupermonedas();
         this.toggleSidebar("factura-electronica");
         this.mensaje = "Supermonedas asignadas correctamente";

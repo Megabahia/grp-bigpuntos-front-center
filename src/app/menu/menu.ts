@@ -101,6 +101,15 @@ export const menu: CoreMenu[] = [
         icon: 'package',
         url: 'central/center/productos',
       },
+      {
+        id: 'solicitudesCreditos',
+        title: 'Solicitudes de créditos',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/solicitudesCreditos',
+      },
     ]
   },
 ]

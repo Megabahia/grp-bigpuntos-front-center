@@ -87,12 +87,12 @@ export class SolicitudesCreditosComponent implements OnInit {
     if (this.actualizarCreditoForm.invalid) {
       return;
     }
-    let productoValores = Object.values(this.actualizarCredito);
-    let productoLlaves = Object.keys(this.actualizarCredito);
-    productoLlaves.map((llaves, index) => {
-      if (productoValores[index]) {
+    let creditoValores = Object.values(this.actualizarCredito);
+    let creditoLlaves = Object.keys(this.actualizarCredito);
+    creditoLlaves.map((llaves, index) => {
+      if (creditoValores[index]) {
         this.actualizarCreditoFormData.delete(llaves);
-        this.actualizarCreditoFormData.append(llaves, productoValores[index]);
+        this.actualizarCreditoFormData.append(llaves, creditoValores[index]);
       }
     });
     this.cargando = true;

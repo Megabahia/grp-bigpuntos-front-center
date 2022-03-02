@@ -155,7 +155,6 @@ export class ListarComponent implements OnInit {
       // }
       this.productosService.actualizarProducto(this.productosFormData, this.producto._id).subscribe(() => {
         this.obtenerListaProductos();
-        this.toggleSidebar('guardarProducto', '');
         this.mensaje = "Producto actualizado con éxito";
         this.abrirModal(this.mensajeModal);
         this.loading = false;
@@ -169,7 +168,6 @@ export class ListarComponent implements OnInit {
 
       this.productosService.crearProducto(this.productosFormData).subscribe((info) => {
         this.obtenerListaProductos();
-        this.toggleSidebar('guardarProducto', '');
         this.mensaje = "Producto guardado con éxito";
         this.abrirModal(this.mensajeModal);
         this.loading = false;

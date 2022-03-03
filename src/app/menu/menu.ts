@@ -110,6 +110,15 @@ export const menu: CoreMenu[] = [
         icon: 'package',
         url: 'central/center/solicitudesCreditos',
       },
+      {
+        id: 'publicaciones',
+        title: 'Publicaciones',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/publicaciones',
+      },
     ]
   },
 ]

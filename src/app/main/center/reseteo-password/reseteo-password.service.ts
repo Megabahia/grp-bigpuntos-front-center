@@ -14,4 +14,9 @@ export class ReseteoPasswordService {
       datos
     );
   }
+  updateUsuarioByEmail(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/usuarios/update/by/email/`,
+      datos
+    );
+  }
 }

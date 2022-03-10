@@ -117,8 +117,11 @@ export class ReseteoPasswordComponent implements OnInit {
     ).subscribe((info) => {
       this.error = null;
       if (info.status) {
-        this._reseteoPasswordService.updateUsuarioByEmail({email: this.email,estado: "2"})
-        this._router.navigate(['/']);
+        this._reseteoPasswordService.updateUsuarioByEmail({email: this.email,estado: "2"}).subscribe(info=>{
+          this._router.navigate(['/']);
+        },error=>{
+          console.log(error);
+        })
       }
     },
       (error) => {

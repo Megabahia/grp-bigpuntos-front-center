@@ -55,6 +55,15 @@ export const menu: CoreMenu[] = [
         icon: 'dollar-sign',
         url: 'central/corp/cargarSuperMonedas',
       },
+      {
+        id: 'creditosEmpleados',
+        title: 'Cargar Creditos Empleados',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'dollar-sign',
+        url: 'central/corp/cargarCreditosEmpleados',
+      },
     ]
   },
   {

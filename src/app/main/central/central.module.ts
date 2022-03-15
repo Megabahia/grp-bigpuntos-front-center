@@ -28,6 +28,7 @@ import { ListarComponent as ProductosCenterComponent } from './vistas/center/pro
 import { ListarComponent as CargarSuperMonedasCorpComponent } from './vistas/corp/cargarSuperMonedas/listar/listar.component';
 import { SolicitudesCreditosComponent } from './vistas/center/solicitudes-creditos/solicitudes-creditos.component';
 import { ListarComponent as PublicacionesListar} from './vistas/center/publicaciones/listar/listar.component';
+import { UploadComponent } from './vistas/corp/cargarCreditosEmpleados/vistas/upload/upload.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -54,6 +55,9 @@ const routes = [
       },
       {
         path: 'cargarSuperMonedas', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarCreditosEmpleados', component: UploadComponent, canActivate: [AuthGuard]
       },
     ],
   },
@@ -100,6 +104,7 @@ const routes = [
     CargarSuperMonedasCorpComponent,
     SolicitudesCreditosComponent,
     PublicacionesListar,
+    UploadComponent,
   ],
   imports: [
     CoreCommonModule,
@@ -130,6 +135,7 @@ const routes = [
     ProductosCenterComponent,
     CargarSuperMonedasCorpComponent,
     PublicacionesListar,
+    UploadComponent,
   ]
 })
 export class CentralModule { }

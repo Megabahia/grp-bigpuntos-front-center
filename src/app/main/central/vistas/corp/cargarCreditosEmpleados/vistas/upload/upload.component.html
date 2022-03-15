@@ -1,0 +1,108 @@
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">Cargar créditos Empleados</h2>
+                    <div class="breadcrumb-wrapper">
+                        <!-- <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">Cargar créditos
+                                    pre aprobados</a>
+                            </li>
+                        </ol> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <!-- users list start -->
+        <section class="app-user-list">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row justify-content-center p-2">
+                        <div class="col-md-6">
+                            <form class="add-new-user pt-0" [formGroup]="usuarioForm">
+                                <div class="form-group">
+                                    <label>Empresa IFIs</label>
+                                    <select class="form-control" name="empresaIfis_id" formControlName="empresaIfis_id" (change)="obtenerEmpresaIfi()">
+                                        <option value="">- Seleccione -</option>
+                                        <option value="{{empresaIfi._id}}" *ngFor="let empresaIfi of listaEmpresasIfis" >{{empresaIfi.nombreEmpresa}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && usuForm.empresaIfis_id.errors" class="invalid-feedback" style="display: block;">
+                                        <div *ngIf="usuForm.empresaIfis_id.errors.required">Empresa Corp es requerida
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Empresa Corps</label>
+                                    <select class="form-control" name="empresaComercial_id" formControlName="empresaComercial_id" (change)="obtenerEmpresaCorp()">
+                                        <option value="">- Seleccione -</option>
+                                        <option value="{{empresaCorp._id}}" *ngFor="let empresaCorp of listaEmpresasCorps">{{empresaCorp.nombreEmpresa}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && usuForm.empresaComercial_id.errors" class="invalid-feedback" style="display: block;">
+                                        <div *ngIf="usuForm.empresaComercial_id.errors.required">Empresa Ifis es requerida
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile02" accept=".xlsx,.xls"
+                                            (change)="cargarCreditos($event)">
+                                        <label class="custom-file-label" for="inputGroupFile02">{{nombreArchivo}}</label>
+                                    </div>
+                                    <div *ngIf="submitted && !archivo" class="invalid-feedback" style="display: block;">
+                                        <div *ngIf="!archivo">Archivo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary mr-1" [disabled]="cargandoUsuario" (click)="cargar()"> <span
+                                    *ngIf="cargandoUsuario" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- list section end -->
+        </section>
+        <!-- users list ends -->
+    </div>
+
+</div>
+
+<ng-template #mensajeModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Mensaje</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #confirmarModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Mensaje</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="guardar()">Confirmar</button>
+        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+    </div>
+</ng-template>

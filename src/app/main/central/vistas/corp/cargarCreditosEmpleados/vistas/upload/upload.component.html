@@ -138,6 +138,7 @@
                             <th>Link de archivo</th>
                             <th>Tamaño de archivo</th>
                             <th>Usuario que cargó el archivo</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -155,6 +156,7 @@
                             <td><a [href]="archivo.linkArchivo">Link</a></td>
                             <td>{{archivo.tamanioArchivo}}MB</td>
                             <td>{{archivo.usuarioCargo}}</td>
+                            <td>{{archivo.estado}}</td>
                             <td class="d-flex">
                                 <a href="javascript:void(0);" class="avatar bg-danger mr-1" data-target="#eliminar" data-toggle="modal"
                                 (click)="eliminarArchivoPreAprobado(archivo.id)"
@@ -171,6 +173,7 @@
                                 </a>
                                 <a href="javascript:void(0);" class="avatar bg-info mr-1" data-target="#gestionar" data-toggle="modal"
                                    (click)="subirArchivoPreAprobado(archivo.id)"
+                                   *ngIf="archivo.estado != 'Cargado'"
                                 >
                                     <div class="avatar-content" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Aprobar/Rechazar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>

@@ -159,6 +159,8 @@ export class UploadComponent implements OnInit {
     this.abrirModal(this.confirmarModal);
   }
   guardar() {
+    this.nuevoArchivo.delete('estado');
+    this.nuevoArchivo.append('estado', 'Pendiente Carga');
     this.nuevoArchivo.delete('fechaCargaArchivo');
     this.nuevoArchivo.append('fechaCargaArchivo', String(moment().format('YYYY-MM-DD')));
     this.nuevoArchivo.delete('registrosCargados');

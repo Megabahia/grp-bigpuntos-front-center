@@ -94,6 +94,7 @@ export class UploadComponent implements OnInit {
       maximaCreacion: '',
       user_id: '',
       campania: '',
+      tipoCredito: 'Empleado'
     }).subscribe((info) => {
       this.listaArchivosPreAprobados = info.info;
     },

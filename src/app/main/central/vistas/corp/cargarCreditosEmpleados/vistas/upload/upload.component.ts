@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { CargarCreditosEmpleadosService } from '../../cargar-creditos-empleados.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx-js-style';
+import moment from 'moment';
 type AOA = any[][];
 
 @Component({
@@ -25,20 +26,23 @@ export class UploadComponent implements OnInit {
   public contentHeader: object;
   public submitted = false;
   public archivo = true;
-  public nombreArchivo = "Seleccionar archivo";
-  public mensaje = "";
+  public nombreArchivo = 'Seleccionar archivo';
+  public mensaje = '';
   public nuevoArchivo = new FormData();
   public usuarioForm: FormGroup;
   private _unsubscribeAll: Subject<any>;
   public listaEmpresasCorps;
   public listaEmpresasIfis;
-  public numeroRegistros=0;
+  public numeroRegistros = 0;
   public empresaIfi;
   public empresaCorp;
 
   public cantidadMonedas;
   public usuario;
   public cargandoUsuario = false;
+  public listaArchivosPreAprobados = [];
+  inicio;
+  fin;
 
   constructor(
     private _cargarCreditosEmpleados: CargarCreditosEmpleadosService,
@@ -57,6 +61,7 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerListaEmpresasCorp();
     this.obtenerListaEmpresasIfis();
+    this.obtenerListaArchivosPreAprobados();
     this.usuarioForm = this._formBuilder.group({
       empresaIfis_id: ['', [Validators.required]],
       empresaComercial_id: ['', [Validators.required]],
@@ -79,23 +84,41 @@ export class UploadComponent implements OnInit {
 
     });
   }
-  obtenerEmpresaIfi(){
-    this.empresaIfi = this.listaEmpresasIfis.find((empresa)=>empresa._id === this.usuarioForm.get('empresaIfis_id').value);
+  obtenerListaArchivosPreAprobados() {
+    this._cargarCreditosEmpleados.obtenerListaArchivosPreAprobados({
+      page_size: 10,
+      page: 0,
+      minimoCarga: this.inicio,
+      maximoCarga: this.fin,
+      minimoCreacion: '',
+      maximaCreacion: '',
+      user_id: '',
+      campania: '',
+    }).subscribe((info) => {
+      this.listaArchivosPreAprobados = info.info;
+    },
+    (error) => {
+
+    });
   }
-  obtenerEmpresaCorp(){
-    this.empresaCorp = this.listaEmpresasCorps.find((empresa)=>empresa._id === this.usuarioForm.get('empresaComercial_id').value);
+  obtenerEmpresaIfi() {
+    this.empresaIfi = this.listaEmpresasIfis.find((empresa) => empresa._id === this.usuarioForm.get('empresaIfis_id').value);
+  }
+  obtenerEmpresaCorp() {
+    this.empresaCorp = this.listaEmpresasCorps.find((empresa) => empresa._id === this.usuarioForm.get('empresaComercial_id').value);
   }
   cargarCreditos(event) {
-    this.numeroRegistros=0;
-    let archivo = event.target.files[0];
+    this.numeroRegistros = 0;
+    const archivo = event.target.files[0];
     this.nuevoArchivo = new FormData();
-    this.nuevoArchivo.append('documento', archivo, archivo.name);
+    this.nuevoArchivo.append('linkArchivo', archivo, archivo.name);
+    this.nuevoArchivo.append('tamanioArchivo', String(archivo.size / (1000000 )));
     this.nombreArchivo = archivo.name;
     this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
     this.archivo = true;
 
     const target: DataTransfer = <DataTransfer>event.target;
-    let data = [];
+    const data = [];
     if (target.files.length === 1) {
         const reader: FileReader = new FileReader();
         reader.onload = (e: any) => {
@@ -108,7 +131,7 @@ export class UploadComponent implements OnInit {
             const ws: XLSX.WorkSheet = wb.Sheets[wsname];
             /* save data */
             data.push(<AOA>XLSX.utils.sheet_to_json(ws, {header: 1}));
-            
+
             // Recuep
             // data[0].map((item, index) => {
             //   if (index > 0) {
@@ -119,31 +142,69 @@ export class UploadComponent implements OnInit {
             //     console.log(item[8]);
             //   }
             // });
-            this.numeroRegistros=data[0].length-1;
+            this.numeroRegistros = data[0].length - 1;
         };
         reader.readAsBinaryString(target.files[0]);
     }
   }
   cargar() {
     this.submitted = true;
-    if (!this.nuevoArchivo.get('documento')) {
+    if (!this.nuevoArchivo.get('linkArchivo')) {
       this.archivo = false;
       return;
     }
-    this.mensaje = `Empresa Corp: ${this.empresaCorp.nombreComercial}<br>Ruc: ${this.empresaCorp.ruc}<br>Registros: ${this.numeroRegistros}`;
+    this.mensaje = `Empresa Corp: ${this.empresaCorp.nombreComercial}<br>Ruc: ${this.empresaCorp.ruc}
+                            <br>Registros: ${this.numeroRegistros}`;
     this.abrirModal(this.confirmarModal);
   }
-  guardar(){
-    this._cargarCreditosEmpleados.cargarCreditos(
+  guardar() {
+    this.nuevoArchivo.delete('fechaCargaArchivo');
+    this.nuevoArchivo.append('fechaCargaArchivo', String(moment().format('YYYY-MM-DD')));
+    this.nuevoArchivo.delete('registrosCargados');
+    this.nuevoArchivo.append('registrosCargados', String(this.numeroRegistros));
+    this.nuevoArchivo.delete('usuarioCargo');
+    this.nuevoArchivo.append('usuarioCargo', this.usuario.persona.nombres);
+    this.nuevoArchivo.delete('user_id');
+    this.nuevoArchivo.append('user_id', this.usuario.id);
+    this.nuevoArchivo.append('tipoCredito', 'Empleado');
+    this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
+    this._cargarCreditosEmpleados.crearArchivoPreAprobados(
       this.nuevoArchivo
     ).subscribe(info => {
-      this.mensaje = ` ${info.mensaje}, incorrectos: ${info.incorrectos}, correctos: ${info.correctos}`;
+      this.mensaje = `Se subio el excel correctamente.`;
       this.abrirModal(this.mensajeModal);
+      this.obtenerListaArchivosPreAprobados();
+    });
+  }
+  eliminarArchivoPreAprobado(id) {
+    this._cargarCreditosEmpleados.eliminarArchivosPreAprobados(id).subscribe(info => {
+        this.obtenerListaArchivosPreAprobados();
+        this.mensaje = 'Se elimino correctamente.';
+        this.abrirModal(this.mensajeModal);
+    });
+  }
+  subirArchivoPreAprobado(id) {
+    this._cargarCreditosEmpleados.subirArchivosPreAprobados(id).subscribe(info => {
+        this.obtenerListaArchivosPreAprobados();
+        this.mensaje = `${info.mensaje} <br> correctos: ${info.correctos} <br>
+                        incorrectos: ${info.incorrectos} <br> errores: ${info.errores}`;
+        this.abrirModal(this.mensajeModal);
     });
   }
 
+  download(url) {
+    const downloadInicial = document.createElement('a');
+    downloadInicial.href = url;
+    downloadInicial.target = '_blank';
+    downloadInicial.download = 'downloadFile';
+
+    document.body.appendChild(downloadInicial);
+    downloadInicial.click();
+    document.body.removeChild(downloadInicial);
+  }
+
   abrirModal(modal) {
-    this.modalService.open(modal)
+    this.modalService.open(modal);
   }
   cerrarModal() {
     this.modalService.dismissAll();

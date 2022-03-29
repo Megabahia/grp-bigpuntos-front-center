@@ -18,4 +18,16 @@ export class CargarCreditosEmpleadosService {
   obtenerListaEmpresasIfis(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/ifis`, datos);
   }
+  crearArchivoPreAprobados(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoArchivos/create/`, datos);
+  }
+  obtenerListaArchivosPreAprobados(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoArchivos/list/`, datos);
+  }
+  eliminarArchivosPreAprobados(id) {
+    return this._httpClient.delete<any>(`${environment.apiUrl}/corp/creditoArchivos/delete/${id}`);
+  }
+  subirArchivosPreAprobados(id) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoArchivos/subir/${id}`, {});
+  }
 }

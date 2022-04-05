@@ -119,9 +119,6 @@
                         </select>
 
                     </div>
-                    <div class="col-lg-12 col-xl-6 text-right">
-                        <button class="btn btn-outline-danger waves-effect">Eliminar</button>
-                    </div>
                 </div>
                 <div class="card-datatable table-responsive pt-0">
                     <table class="table table-striped">
@@ -136,6 +133,9 @@
                             <th>Fecha de carga de archivo</th>
                             <th># registros cargados</th>
                             <th>Link de archivo</th>
+                            <th>Nombre de Ifis</th>
+                            <th>Nombre de Corp</th>
+                            <th>Nombre de archivo</th>
                             <th>Tamaño de archivo</th>
                             <th>Usuario que cargó el archivo</th>
                             <th>Estado</th>
@@ -154,12 +154,16 @@
                             <td>{{archivo.fechaCargaArchivo}}</td>
                             <td>{{archivo.registrosCargados}}</td>
                             <td><a [href]="archivo.linkArchivo">Link</a></td>
+                            <td>{{archivo.empresa_financiera}}</td>
+                            <td>{{archivo.empresa_comercial}}</td>
+                            <td>{{archivo.linkArchivo.split('/')[5]}}</td>
                             <td>{{archivo.tamanioArchivo}}MB</td>
                             <td>{{archivo.usuarioCargo}}</td>
                             <td>{{archivo.estado}}</td>
                             <td class="d-flex">
                                 <a href="javascript:void(0);" class="avatar bg-danger mr-1" data-target="#eliminar" data-toggle="modal"
                                 (click)="eliminarArchivoPreAprobado(archivo.id)"
+                                   *ngIf="archivo.estado != 'Cargado'"
                                 >
                                     <div class="avatar-content">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"

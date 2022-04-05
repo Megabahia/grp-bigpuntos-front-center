@@ -171,6 +171,8 @@ export class UploadComponent implements OnInit {
     this.nuevoArchivo.append('user_id', this.usuario.id);
     this.nuevoArchivo.append('tipoCredito', 'Empleado');
     this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
+    this.nuevoArchivo.delete('empresa_comercial');
+    this.nuevoArchivo.append('empresa_comercial', this.empresaCorp._id);
     this._cargarCreditosEmpleados.crearArchivoPreAprobados(
       this.nuevoArchivo
     ).subscribe(info => {

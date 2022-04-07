@@ -31,6 +31,10 @@ import { ListarComponent as CargarSuperMonedasCorpComponent } from './vistas/cor
 import { SolicitudesCreditosComponent } from './vistas/center/solicitudes-creditos/solicitudes-creditos.component';
 import { ListarComponent as PublicacionesListar} from './vistas/center/publicaciones/listar/listar.component';
 import { UploadComponent } from './vistas/corp/cargarCreditosEmpleados/vistas/upload/upload.component';
+import { ListarComponent as ProductosBienvenidaListar } from './vistas/center/productos-bienvenida-sm/listar/listar.component';
+import { ListarComponent as ProductosMensajeListar } from './vistas/center/productos-mensaje-sm/listar/listar.component';
+import { ListarComponent as ProductosNuestraFamiliaListar } from './vistas/center/productos-nuestra-familia-sm/listar/listar.component';
+import { ListarComponent as CorreosLandingListar } from './vistas/center/Correos-landing/listar/listar.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -81,6 +85,18 @@ const routes = [
         path: 'productos', component: ProductosCenterComponent, canActivate: [AuthGuard]
       },
       {
+        path: 'productos-bienvenido-sm', component: ProductosBienvenidaListar, canActivate: [AuthGuard]
+      },
+      {
+        path: 'productos-mensaje-sm', component: ProductosMensajeListar, canActivate: [AuthGuard]
+      },
+      {
+        path: 'productos-nuestra-familia-sm', component: ProductosNuestraFamiliaListar, canActivate: [AuthGuard]
+      },
+      {
+        path: 'reporte-correos-landing', component: CorreosLandingListar, canActivate: [AuthGuard]
+      },
+      {
         path: 'solicitudesCreditos', component: SolicitudesCreditosComponent, canActivate: [AuthGuard]
       },
       {
@@ -107,6 +123,10 @@ const routes = [
     SolicitudesCreditosComponent,
     PublicacionesListar,
     UploadComponent,
+    ProductosBienvenidaListar,
+    ProductosMensajeListar,
+    ProductosNuestraFamiliaListar,
+    CorreosLandingListar,
   ],
   imports: [
     CoreCommonModule,
@@ -139,6 +159,10 @@ const routes = [
     CargarSuperMonedasCorpComponent,
     PublicacionesListar,
     UploadComponent,
+    ProductosBienvenidaListar,
+    ProductosMensajeListar,
+    ProductosNuestraFamiliaListar,
+    CorreosLandingListar,
   ]
 })
 export class CentralModule { }

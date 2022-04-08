@@ -81,7 +81,7 @@ export class ListarComponent implements OnInit {
             precioNormal: 0,
             precioSupermonedas: 0,
             vigencia: '',
-            tipo: 'producto-mesaje-sm',
+            tipo: 'producto-mensaje-sm',
             imagen: '',
             codigoDescuento: '',
             empresaAplica_id: ''
@@ -208,7 +208,7 @@ export class ListarComponent implements OnInit {
             {
                 page: this.page - 1,
                 page_size: this.pageSize,
-                tipo: 'producto-mesaje-sm',
+                tipo: 'producto-mensaje-sm',
                 // nombre: this.nombreBuscar
             }
         ).subscribe((info) => {

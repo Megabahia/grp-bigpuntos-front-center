@@ -29,6 +29,15 @@ export const menu: CoreMenu[] = [
         url: 'central/corp/empresas',
       },
       {
+        id: 'empresasQR',
+        title: 'Generar QR Establecimiento',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/corp/empresas-qr',
+      },
+      {
         id: 'usuariosCorp',
         title: 'Usuarios',
         // translate: 'MENU.HOME',
@@ -109,6 +118,15 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'package',
         url: 'central/center/productos',
+      },
+      {
+        id: 'productosPremios',
+        title: 'Productos premios por establecimientos',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/productos-premios',
       },
       {
         id: 'productosBienvenida',

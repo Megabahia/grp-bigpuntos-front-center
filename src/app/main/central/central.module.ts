@@ -35,6 +35,8 @@ import { ListarComponent as ProductosBienvenidaListar } from './vistas/center/pr
 import { ListarComponent as ProductosMensajeListar } from './vistas/center/productos-mensaje-sm/listar/listar.component';
 import { ListarComponent as ProductosNuestraFamiliaListar } from './vistas/center/productos-nuestra-familia-sm/listar/listar.component';
 import { ListarComponent as CorreosLandingListar } from './vistas/center/Correos-landing/listar/listar.component';
+import { ListarComponent as ProductosPremios } from './vistas/center/productos-premios/listar/listar.component';
+import { ListarQrComponent } from './vistas/corp/empresas/listar-qr/listar-qr.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -52,6 +54,9 @@ const routes = [
       },
       {
         path: 'empresas', component: EmpresasComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'empresas-qr', component: ListarQrComponent, canActivate: [AuthGuard]
       },
       {
         path: 'usuarios', component: UsuariosCorpComponent, canActivate: [AuthGuard]
@@ -83,6 +88,9 @@ const routes = [
       },
       {
         path: 'productos', component: ProductosCenterComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'productos-premios', component: ProductosPremios, canActivate: [AuthGuard]
       },
       {
         path: 'productos-bienvenido-sm', component: ProductosBienvenidaListar, canActivate: [AuthGuard]
@@ -127,6 +135,8 @@ const routes = [
     ProductosMensajeListar,
     ProductosNuestraFamiliaListar,
     CorreosLandingListar,
+    ProductosPremios,
+    ListarQrComponent,
   ],
   imports: [
     CoreCommonModule,
@@ -163,6 +173,8 @@ const routes = [
     ProductosMensajeListar,
     ProductosNuestraFamiliaListar,
     CorreosLandingListar,
+    ProductosPremios,
+    ListarQrComponent,
   ]
 })
 export class CentralModule { }

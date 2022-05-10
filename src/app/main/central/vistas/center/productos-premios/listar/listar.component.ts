@@ -101,11 +101,11 @@ export class ListarComponent implements OnInit {
     ngOnInit(): void {
         this.productoForm = this._formBuilder.group({
             // cantidad: [0, [Validators.required, Validators.min(1)]],
-            efectivo: [0, [Validators.required, Validators.min(1)]],
+            efectivo: [0, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+([,.][0-9]+)?$')]],
             marca: ['', [Validators.required]],
             nombre: ['', [Validators.required]],
-            precioNormal: [0, [Validators.required, Validators.min(1)]],
-            precioSupermonedas: [0, [Validators.required, Validators.min(1)]],
+            precioNormal: [0, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+([,.][0-9]+)?$')]],
+            precioSupermonedas: [0, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+([,.][0-9]+)?$')]],
             vigencia: ['', [Validators.required]],
             empresa_id: ['', [Validators.required]],
         });

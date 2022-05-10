@@ -45,7 +45,7 @@ const routes = [
   {
     path: 'perfil',
     component: PerfilUsuarioComponent,
-    data: { roles: [Role.SuperMonedas, Role.Autonomo, Role.Empleado] },
+    data: { roles: [Role.BigPuntos, Role.Autonomo, Role.Empleado] },
     canActivate: [AuthGuard]
   }
 ];

@@ -23,4 +23,7 @@ export class PublicacionesService {
   eliminarPublicacion(id) {
     return this._httpClient.delete<any>(`${environment.apiUrl}/central/publicaciones/delete/${id}`,);
   }
+  obtenerReportePublicaciones(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/central/publicaciones/reporte/`, datos);
+  }
 }

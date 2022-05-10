@@ -174,6 +174,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/solicitudesCreditos',
       },
       {
+        id: 'reportePublicaciones',
+        title: 'Reporte Publicaciones',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/reporte-publicaciones',
+      },
+      {
         id: 'publicaciones',
         title: 'Publicaciones',
         // translate: 'MENU.HOME',

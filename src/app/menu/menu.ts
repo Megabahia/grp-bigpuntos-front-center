@@ -57,7 +57,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'superMonedasCord',
-        title: 'Cargar supermonedas de Corp',
+        title: 'Cargar Big Puntos de Corp',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
@@ -181,6 +181,15 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'package',
         url: 'central/center/reporte-publicaciones',
+      },
+      {
+        id: 'reporteCobrosBP',
+        title: 'Reporte de Cobros con BP',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/reporte-pagos-empresas',
       },
       {
         id: 'publicaciones',

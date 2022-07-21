@@ -43,6 +43,12 @@
                         <thead>
                             <tr>
                                 <th>Fecha de solicitud</th>
+                                <th>Nombre Empresa</th>
+                                <th>Ruc Empresa</th>
+                                <th>Nombres cliente</th>
+                                <th>Apellidos cliente</th>
+                                <th>Whatsapp</th>
+                                <th>Correo cliente</th>
                                 <th>Canal de crédito</th>
                                 <th>Valor</th>
                                 <th>Plazo del crédito</th>
@@ -55,7 +61,13 @@
 
                             <tr *ngFor="let credito of listaCreditos">
                                 <td>{{transformarFecha(credito.created_at)}}</td>
+                                <td>{{credito.nombreComercial}}</td>
+                                <td>{{credito.rucComercial}}</td>
                                 <td>{{credito.nombres}}</td>
+                                <td>{{credito.apellidos}}</td>
+                                <td>{{credito.whatsappPersona}}</td>
+                                <td>{{credito.emailPersona}}</td>
+                                <td>{{credito.canal}}</td>
                                 <td>{{credito.monto}}</td>
                                 <td>{{credito.plazo}} meses</td>
                                 <td>{{credito.telefono}}</td>

@@ -200,6 +200,15 @@ export const menu: CoreMenu[] = [
         icon: 'package',
         url: 'central/center/publicaciones',
       },
+        {
+        id: 'publicaciones',
+        title: 'Publicaciones Instagram',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/publicaciones-instagram',
+      },
     ]
   },
 ]

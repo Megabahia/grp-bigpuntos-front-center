@@ -116,7 +116,10 @@ const routes = [
         path: 'reporte-pagos-empresas', component: ReportePagosComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'publicaciones', component: PublicacionesListar, canActivate: [AuthGuard]
+        path: 'publicaciones', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'facebook' },
+      },
+      {
+        path: 'publicaciones-instagram', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'instagram' }
       },
     ]
   }

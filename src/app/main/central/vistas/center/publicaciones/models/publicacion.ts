@@ -1,4 +1,3 @@
-
 export class Publicacion {
     _id: string;
     titulo: string;
@@ -6,4 +5,5 @@ export class Publicacion {
     descripcion: string;
     imagen: string;
     url: string;
+    tipo: string;
 }

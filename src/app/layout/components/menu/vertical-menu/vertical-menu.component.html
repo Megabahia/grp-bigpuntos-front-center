@@ -26,7 +26,10 @@
 <div class="shadow-bottom" [ngClass]="{ 'd-block': isScrolled }"></div>
 
 <!-- Main menu -->
-<div class="main-menu-content" [perfectScrollbar] (scroll)="onSidebarScroll()">
+<!--<div class="main-menu-content" [perfectScrollbar] (scroll)="onSidebarScroll()">-->
+<!--    <ul class="navigation navigation-main" layout="vertical" core-menu></ul>-->
+<!--</div>-->
+<div style="position: relative; max-width: 100%; max-height: 85%;" (scroll)="onSidebarScroll()" [perfectScrollbar]>
     <ul class="navigation navigation-main" layout="vertical" core-menu></ul>
 </div>
 <!--/ Main menu -->

@@ -193,7 +193,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'publicaciones',
-        title: 'Publicaciones',
+        title: 'Publicaciones Facebook',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
@@ -202,12 +202,12 @@ export const menu: CoreMenu[] = [
       },
         {
         id: 'publicaciones',
-        title: 'Publicaciones Instagram',
+        title: 'Publicaciones Whatsapp',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'package',
-        url: 'central/center/publicaciones-instagram',
+        url: 'central/center/publicaciones-whatsapp',
       },
     ]
   },

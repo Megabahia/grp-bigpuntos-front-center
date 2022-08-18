@@ -119,7 +119,7 @@ const routes = [
         path: 'publicaciones', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'facebook' },
       },
       {
-        path: 'publicaciones-instagram', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'instagram' }
+        path: 'publicaciones-whatsapp', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'whatsapp' }
       },
     ]
   }

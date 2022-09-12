@@ -39,6 +39,8 @@ import { ListarComponent as ProductosPremios } from './vistas/center/productos-p
 import { ListarQrComponent } from './vistas/corp/empresas/listar-qr/listar-qr.component';
 import { ReporteComponent as ReportePublicacionesComponent } from './vistas/center/publicaciones/reporte/reporte.component';
 import { ListarComponent as ReportePagosComponent } from './vistas/center/pagos/listar/listar.component';
+import {LecturaArchivosComponent} from './vistas/center/lectura-archivos/lectura-archivos.component';
+import { VisualizarComponent } from './vistas/center/lectura-archivos/visualizar/visualizar.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -116,6 +118,12 @@ const routes = [
         path: 'reporte-pagos-empresas', component: ReportePagosComponent, canActivate: [AuthGuard]
       },
       {
+        path: 'lectura-archivos', component: LecturaArchivosComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'creditoPersona/visualizar/:creditoId', component: VisualizarComponent, canActivate: [AuthGuard]
+      },
+      {
         path: 'publicaciones', component: PublicacionesListar, canActivate: [AuthGuard], data: { tipo: 'facebook' },
       },
       {
@@ -150,6 +158,8 @@ const routes = [
     ListarQrComponent,
     ReportePublicacionesComponent,
     ReportePagosComponent,
+    LecturaArchivosComponent,
+    VisualizarComponent,
   ],
   imports: [
     CoreCommonModule,

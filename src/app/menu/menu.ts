@@ -192,6 +192,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/reporte-pagos-empresas',
       },
       {
+        id: 'lecturaArchivos',
+        title: 'Lectura archivos',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/lectura-archivos',
+      },
+      {
         id: 'publicaciones',
         title: 'Publicaciones Facebook',
         // translate: 'MENU.HOME',

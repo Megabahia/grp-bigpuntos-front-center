@@ -19,6 +19,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     @ViewChild('mensajeModal') mensajeModal;
 
     // public
+    public tab;
     public page = 1;
     public page_size: any = 4;
     public maxSize;

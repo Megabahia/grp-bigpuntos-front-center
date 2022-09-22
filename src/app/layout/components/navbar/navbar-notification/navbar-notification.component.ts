@@ -33,5 +33,7 @@ export class NavbarNotificationComponent implements OnInit {
     this._notificationsService.onApiDataChange.subscribe(res => {
       this.notifications = res;
     });
+    console.log('holaaa');
+    this._notificationsService.getCoffeeOrders().subscribe(res =>(console.log('respuesta firebase    ----->',res)));
   }
 }

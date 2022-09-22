@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "grp-bigpuntos": {
+      "hosting": {
+        "vuexy": [
+          "grp-bigpuntos"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "vuexy",
+      "public": "dist/vuexy",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

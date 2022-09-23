@@ -21,10 +21,12 @@
         <!-- users list start -->
         <section class="app-user-list">
             <div class="card card-company-table">
-                <div class="profile-header-nav" >
+                <div class="profile-header-nav">
                     <!-- navbar -->
                     <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
-                        <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <i data-feather="align-justify" class="font-medium-5"></i>
                         </button>
 
@@ -33,11 +35,13 @@
                             <div class="d-flex justify-content-between flex-wrap mt-1 mt-md-0">
                                 <ul ngbNav #nav="ngbNav" [(activeId)]="tab" class="nav nav-pills mb-0">
                                     <li class="nav-item" [ngbNavItem]="1">
-                                        <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span class="d-none d-sm-block">Negocios Propios</span></a
+                                        <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span
+                                                class="d-none d-sm-block">Negocios Propios</span></a
                                         >
                                     </li>
                                     <li class="nav-item" [ngbNavItem]="2">
-                                        <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span class="d-none d-sm-block">Empleados</span></a
+                                        <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span
+                                                class="d-none d-sm-block">Empleados</span></a
                                         >
                                     </li>
 
@@ -45,7 +49,7 @@
                             </div>
                         </div>
                         <!--/ collapse  -->
-                        <div class="col-3" style="text-align: right" >
+                        <div class="col-3" style="text-align: right">
                             <label>Mostrar</label>
                             <select class="form-control-sm" [(ngModel)]="page_size"
                                     (change)="obtenerSolicitudesCreditos()">
@@ -62,11 +66,10 @@
                 </div>
 
 
-
             </div>
             <!-- list section end -->
         </section>
-        <section class="app-user-list" >
+        <section class="app-user-list">
             <div class="card-datatable table-responsive pt-0">
                 <table class="table table-striped">
                     <thead>
@@ -96,8 +99,13 @@
                         <td>{{credito.monto}}</td>
                         <td>{{credito.canal}}</td>
                         <td>{{credito.emailPersona}}</td>
-                        <td>{{credito.apellidos}}</td>
                         <td>{{credito.plazo}} meses</td>
+                        <td>    <!-- Button trigger modal -->
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)" class="btn btn-outline-primary"
+                                    rippleEffect>
+                                View
+                            </button>
+                        </td>
                         <td>{{credito.telefono}}</td>
                         <td>
                             <div class="badge badge-light-success">{{credito.estado}}</div>
@@ -259,3 +267,104 @@
         <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
     </div>
 </ng-template>
+
+
+<!-- modal Open Srolling Long Content -->
+<div class="scrolling-long-content">
+
+    <!-- Modal -->
+    <ng-template #modalSLC let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div style="padding: 20px 20px 20px 20px;">
+
+            <div class="content-header">
+                <h5 class="mb-0">Datos Generales</h5>
+            </div>
+            <div   class="row">
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-username">Fecha de creación de solicitud</label>
+                    <input type="text" id="vertical-modern-username" class="form-control"
+                           value="{{userViewData.created_at}}" disabled/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-email">Nombres</label>
+                    <input
+                            type="email"
+
+                            class="form-control"
+                            disabled
+                    />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-email">Apellidos</label>
+                    <input
+                            type="text"
+                            id="vertical-modern-email"
+                            class="form-control"
+                            disabled
+                    />
+                </div>
+            </div>
+            <div   class="row">
+                <div class="form-group col-md-6">
+                    <label class="form-label" for="vertical-modern-username">Nivel de instrucción</label>
+                    <input type="text"  class="form-control"
+                           value="{{userViewData.created_at}}" disabled/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label" for="vertical-modern-email">Número de cargas</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            disabled
+                    />
+                </div>
+            </div>
+            <div   class="row">
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-username">Tipo de vivienda</label>
+                    <input type="text"  class="form-control"
+                           value="{{userViewData.created_at}}" disabled/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-email">Nombre del dueño</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            disabled
+                    />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-email">Dirección del domicilio</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            disabled
+                    />
+                </div>
+            </div>
+            <div   class="row">
+                <div class="form-group col-md-4">
+                    <label class="form-label" for="vertical-modern-username">Referencias del domicilio</label>
+                    <input type="text"  class="form-control"
+                           value="{{userViewData.created_at}}" disabled/>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+                Accept
+            </button>
+        </div>
+    </ng-template>
+    <!-- / Modal -->
+</div>

@@ -41,6 +41,7 @@ import { ReporteComponent as ReportePublicacionesComponent } from './vistas/cent
 import { ListarComponent as ReportePagosComponent } from './vistas/center/pagos/listar/listar.component';
 import {LecturaArchivosComponent} from './vistas/center/lectura-archivos/lectura-archivos.component';
 import { VisualizarComponent } from './vistas/center/lectura-archivos/visualizar/visualizar.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -161,23 +162,24 @@ const routes = [
     LecturaArchivosComponent,
     VisualizarComponent,
   ],
-  imports: [
-    CoreCommonModule,
-    RouterModule.forChild(routes),
-    ContentHeaderModule,
-    TranslateModule,
-    SwiperModule,
-    FormsModule,
-    CoreTouchspinModule,
-    CoreSidebarModule,
-    NgbModule,
-    Ng2FlatpickrModule,
-    CardSnippetModule,
-    ShareIconsModule,
-    ShareButtonsModule,
-    QRCodeModule,
-    FlatpickrModule.forRoot()
-  ],
+    imports: [
+        CoreCommonModule,
+        RouterModule.forChild(routes),
+        ContentHeaderModule,
+        TranslateModule,
+        SwiperModule,
+        FormsModule,
+        CoreTouchspinModule,
+        CoreSidebarModule,
+        NgbModule,
+        Ng2FlatpickrModule,
+        CardSnippetModule,
+        ShareIconsModule,
+        ShareButtonsModule,
+        QRCodeModule,
+        FlatpickrModule.forRoot(),
+        NgSelectModule
+    ],
   exports: [
 
     PrincipalComponent,

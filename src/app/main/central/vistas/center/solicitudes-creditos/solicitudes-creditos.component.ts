@@ -6,6 +6,7 @@ import {CoreSidebarService} from '../../../../../../@core/components/core-sideba
 import {FormBuilder, Validators} from '@angular/forms';
 import {ActualizarCredito} from '../../../models/creditos';
 import {DatePipe} from '@angular/common';
+import Stepper from 'bs-stepper';
 
 @Component({
     selector: 'app-solicitudes-creditos',
@@ -19,6 +20,9 @@ export class SolicitudesCreditosComponent implements OnInit {
     @ViewChild('mensajeModal') mensajeModal;
 
     // public
+    public selectMulti = [{name: 'English'}, {name: 'French'}, {name: 'Spanish'}];
+    public selectMultiSelected;
+
     public tab;
     public page = 1;
     public page_size: any = 4;
@@ -27,7 +31,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public collectionSize;
     private _unsubscribeAll: Subject<any>;
     public submitted = false;
-
+    public userViewData;
     public listaCreditos;
     public actualizarCreditoForm;
     public reporteBuro;
@@ -38,6 +42,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public actualizarCreditoFormData = new FormData();
     public actualizarCredito: ActualizarCredito;
     public cargando = false;
+    private modernVerticalWizardStepper: Stepper;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -199,4 +204,27 @@ export class SolicitudesCreditosComponent implements OnInit {
         const nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
         return nuevaFecha;
     }
+
+    viewDataUser(modal, user) {
+        this.modalOpenSLC(modal);
+        console.log('suer view ', user);
+        this.userViewData = user;
+    }
+
+    modalOpenSLC(modalSLC) {
+        this.modalService.open(modalSLC, {
+                centered: true,
+                size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+            }
+        );
+    }
+
+    modernVerticalNext() {
+        this.modernVerticalWizardStepper.next();
+    }
+
+    modernVerticalPrevious() {
+        this.modernVerticalWizardStepper.previous();
+    }
+
 }

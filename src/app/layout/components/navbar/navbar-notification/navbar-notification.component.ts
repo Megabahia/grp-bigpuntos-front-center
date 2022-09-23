@@ -16,6 +16,7 @@ interface notification {
 export class NavbarNotificationComponent implements OnInit {
   // Public
   public notifications: notification;
+  public notificaciones;
 
   /**
    *
@@ -34,6 +35,6 @@ export class NavbarNotificationComponent implements OnInit {
       this.notifications = res;
     });
     console.log('holaaa');
-    this._notificationsService.getCoffeeOrders().subscribe(res =>(console.log('respuesta firebase    ----->',res)));
+    this._notificationsService.getCoffeeOrders().subscribe(res => this.notificaciones = res);
   }
 }

@@ -44,6 +44,10 @@ export class SolicitudesCreditosComponent implements OnInit {
     public actualizarCredito: ActualizarCredito;
     public cargando = false;
     private modernVerticalWizardStepper: Stepper;
+    private ocupacionSolicitante;
+    public referenciasSolicitante;
+    public ingresosSolicitante;
+    public gastosSolicitante;
     public observacionCreditoForm: FormGroup;
 
     constructor(
@@ -215,6 +219,10 @@ export class SolicitudesCreditosComponent implements OnInit {
         this.modalOpenSLC(modal);
         console.log('suer view ', user);
         this.userViewData = user;
+        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
+       this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
+       this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
+       this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
     }
 
     viewObservacionUser(modal, credito) {

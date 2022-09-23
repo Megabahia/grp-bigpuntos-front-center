@@ -3,7 +3,7 @@ import {SolicitudesCreditosService} from './solicitudes-creditos.service';
 import {NgbPagination, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {CoreSidebarService} from '../../../../../../@core/components/core-sidebar/core-sidebar.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActualizarCredito} from '../../../models/creditos';
 import {DatePipe} from '@angular/common';
 import Stepper from 'bs-stepper';
@@ -31,6 +31,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public collectionSize;
     private _unsubscribeAll: Subject<any>;
     public submitted = false;
+    public observacionSubmitted = false;
     public userViewData;
     public listaCreditos;
     public actualizarCreditoForm;
@@ -43,6 +44,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public actualizarCredito: ActualizarCredito;
     public cargando = false;
     private modernVerticalWizardStepper: Stepper;
+    public observacionCreditoForm: FormGroup;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -56,6 +58,10 @@ export class SolicitudesCreditosComponent implements OnInit {
 
     get tForm() {
         return this.actualizarCreditoForm.controls;
+    }
+
+    get fobservacionCredito() {
+        return this.observacionCreditoForm.controls;
     }
 
     ngOnInit(): void {
@@ -209,6 +215,25 @@ export class SolicitudesCreditosComponent implements OnInit {
         this.modalOpenSLC(modal);
         console.log('suer view ', user);
         this.userViewData = user;
+    }
+
+    viewObservacionUser(modal, credito) {
+        this.modalOpenSLC(modal);
+        this.observacionCreditoForm = this._formBuilder.group({
+            observacion: [credito.observacion, [Validators.required]],
+            _id: [credito._id, Validators.required]
+        });
+        this.observacionSubmitted = false;
+    }
+
+    guardarObservacionCredito() {
+        this.observacionSubmitted = true;
+        if (this.observacionCreditoForm.invalid) {
+            return;
+        }
+        this._solicitudCreditosService.actualizarSolictudesCreditosObservacion(this.observacionCreditoForm.value).subscribe(res => {
+            console.log(res);
+        });
     }
 
     modalOpenSLC(modalSLC) {

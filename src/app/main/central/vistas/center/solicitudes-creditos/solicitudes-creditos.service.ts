@@ -20,4 +20,7 @@ export class SolicitudesCreditosService {
   actualizarSolictudesCreditos(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`, datos);
   }
+  actualizarSolictudesCreditosObservacion(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`, datos);
+  }
 }

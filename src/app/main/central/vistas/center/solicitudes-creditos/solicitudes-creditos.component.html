@@ -95,7 +95,6 @@
                         <td>{{credito.nombres}} {{credito.apellidos}}</td>
                         <td>{{credito.nombreComercial}}</td>
                         <td>{{credito.whatsappPersona}}</td>
-                        <td>{{credito.nombres}}</td>
                         <td>{{credito.monto}}</td>
                         <td>{{credito.canal}}</td>
                         <td>{{credito.emailPersona}}</td>
@@ -106,7 +105,18 @@
                                 View
                             </button>
                         </td>
-                        <td>{{credito.telefono}}</td>
+                        <td>    <!-- Button trigger modal -->
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)" class="btn btn-outline-primary"
+                                    rippleEffect>
+                                Enlace
+                            </button>
+                        </td>
+                        <td>    <!-- Button trigger modal -->
+                            <button type="button" (click)="viewObservacionUser(observacionCreditoMdl,credito)" class="btn btn-outline-primary"
+                                    rippleEffect>
+                                Enlace
+                            </button>
+                        </td>
                         <td>
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
@@ -265,6 +275,32 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #observacionCreditoMdl let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Ingresar observaciones del credito</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <form class="auth-login-form mt-2" [formGroup]="observacionCreditoForm">
+            <div class="form-group col-md-12">
+                <label for="basicTextarea">Observaciones</label>
+                <fieldset class="form-group">
+                    <textarea class="form-control" formControlName="observacion" id="basicTextarea" rows="3"></textarea>
+                </fieldset>
+                <div *ngIf="observacionSubmitted && fobservacionCredito.observacion.errors" class="invalid-feedback" style="display: block;">
+                    <div *ngIf="fobservacionCredito.observacion.errors.required">Observacion es requerido</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="guardarObservacionCredito()">Guardar</button>
+        <button type="button" class="btn btn-light" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
 </ng-template>
 

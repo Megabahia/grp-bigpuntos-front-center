@@ -23,6 +23,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public selectMulti = [{name: 'English'}, {name: 'French'}, {name: 'Spanish'}];
     public selectMultiSelected;
 
+    public tipoCredito = true;
     public tab;
     public page = 1;
     public page_size: any = 4;
@@ -119,7 +120,12 @@ export class SolicitudesCreditosComponent implements OnInit {
     }
 
     obtenerSolicitudesCreditos() {
-        this._solicitudCreditosService.obtenerSolicitudesCreditos({page_size: this.page_size, page: this.page - 1}).subscribe(info => {
+        this.tipoCredito = !this.tipoCredito;
+        this._solicitudCreditosService.obtenerSolicitudesCreditos({
+            page_size: this.page_size,
+            page: this.page - 1,
+            tipoCredito: this.tipoCredito ? 'Empleado' : 'Autonomo'
+        }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
         });
@@ -242,7 +248,7 @@ export class SolicitudesCreditosComponent implements OnInit {
             return;
         }
         this._solicitudCreditosService.actualizarSolictudesCreditosObservacion(this.observacionCreditoForm.value).subscribe(res => {
-            console.log(res);
+            this.modalService.dismissAll('observacionCreditoMdl');
         });
     }
 

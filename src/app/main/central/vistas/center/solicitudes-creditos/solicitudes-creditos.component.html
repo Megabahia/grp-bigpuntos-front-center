@@ -36,12 +36,12 @@
                                 <ul ngbNav #nav="ngbNav" [(activeId)]="tab" class="nav nav-pills mb-0">
                                     <li class="nav-item" [ngbNavItem]="1">
                                         <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span
-                                                class="d-none d-sm-block">Negocios Propios</span></a
+                                                class="d-none d-sm-block" (click)="obtenerSolicitudesCreditos()">Negocios Propios</span></a
                                         >
                                     </li>
                                     <li class="nav-item" [ngbNavItem]="2">
                                         <a ngbNavLink class="d-flex align-items-center nav-link font-weight-bold"><span
-                                                class="d-none d-sm-block">Empleados</span></a
+                                                class="d-none d-sm-block" (click)="obtenerSolicitudesCreditos()">Empleados</span></a
                                         >
                                     </li>
 
@@ -107,15 +107,13 @@
                             </button>
                         </td>
                         <td>    <!-- Button trigger modal -->
-                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)"
-                                    class="btn btn-outline-primary"
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)" class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
                             </button>
                         </td>
                         <td>    <!-- Button trigger modal -->
-                            <button type="button" (click)="viewObservacionUser(observacionCreditoMdl,credito)"
-                                    class="btn btn-outline-primary"
+                            <button type="button" (click)="viewObservacionUser(observacionCreditoMdl,credito)" class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
                             </button>
@@ -445,6 +443,7 @@
         <button type="button" class="btn btn-light" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
 </ng-template>
+
 
 <!-- modal Open Srolling Long Content -->
 <div class="scrolling-long-content">

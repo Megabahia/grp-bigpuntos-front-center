@@ -7,7 +7,8 @@ import { environment } from 'environments/environment';
 })
 export class SolicitudesCreditosService {
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {
+  }
   obtenerLecturaArchivos(id) {
     return this._httpClient.get<any>(`${environment.apiUrl}/corp/creditoPersonas/lecturaArchivos/${id}`);
   }

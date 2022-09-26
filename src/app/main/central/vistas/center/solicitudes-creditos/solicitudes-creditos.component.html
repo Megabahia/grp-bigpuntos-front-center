@@ -107,13 +107,15 @@
                             </button>
                         </td>
                         <td>    <!-- Button trigger modal -->
-                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)" class="btn btn-outline-primary"
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)"
+                                    class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
                             </button>
                         </td>
                         <td>    <!-- Button trigger modal -->
-                            <button type="button" (click)="viewObservacionUser(observacionCreditoMdl,credito)" class="btn btn-outline-primary"
+                            <button type="button" (click)="viewObservacionUser(observacionCreditoMdl,credito)"
+                                    class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
                             </button>
@@ -135,7 +137,7 @@
                     </tbody>
                 </table>
             </div>
-            <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="page_size"
+            <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page"
                             [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
         </section>
         <!-- users list ends -->
@@ -155,91 +157,229 @@
                     <div class="modal-header mb-1">
                         <h5 class="modal-title" id="exampleModalLabel">Gestión de solicitud de crédito</h5>
                     </div>
-                    <div class="modal-body flex-grow-1">
-                        <div class="form-group">
-                            <label for="reporteBuroCredito">Reporte Buró de Crédito</label>
+                    <div class="modal-body flex-grow-1" >
+
+                        <div class="form-group" *ngIf="!dataCreditShow?.identificacion">
+                            <label for="identificacion">Copia de cédula y Ruc</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="reporteBuroCredito"
-                                       formControlName="reporteBuroCredito"
-                                       (change)="subirBuroCredito($event)" accept="application/pdf"/>
-                                <label class="custom-file-label" for="customFile1">{{reporteBuro}}</label>
-                                <div *ngIf="submitted && tForm.reporteBuroCredito.errors" class="invalid-feedback"
+                                <input type="file" class="custom-file-input" id="identificacion"
+                                       formControlName="identificacion"
+                                       (change)="subirDoc( $event, 'identificacion')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="identificacion">{{identificacion}}</label>
+                                <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
                                      style="display: block;">
-                                    <div *ngIf="tForm.reporteBuroCredito.errors.required">Reporte Buró de Crédito es
+                                    <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad o
+                                        Ruc es requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="!dataCreditShow?.papeletaVotacion">
+                            <label for="papeletaVotacion">Papeleta de votación</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="papeletaVotacion"
+                                       formControlName="papeletaVotacion"
+                                       (change)="subirDoc( $event,'papeletaVotacion')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="papeletaVotacion">{{papeletaVotacion}}</label>
+                                <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
                                         requerido
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="calificacionBuro">Calificación de Buró de Crédito</label>
-                            <input type="text" class="form-control" formControlName="calificacionBuro"
-                                   [(ngModel)]="actualizarCredito.calificacionBuro">
-                            <div *ngIf="submitted && tForm.calificacionBuro.errors" class="invalid-feedback"
-                                 style="display: block;">
-                                <div *ngIf="tForm.calificacionBuro.errors.required">Calificación de Buró de Crédito es
-                                    requerido
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="buroValido">Buro Validado</label>
-                            <select class="form-control select2" name="buroValido" formControlName="buroValido"
-                                    [(ngModel)]="actualizarCredito.buroValido">
-                                <option value="">- Seleccione -</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                            <div *ngIf="submitted && tForm.buroValido.errors" class="invalid-feedback"
-                                 style="display: block;">
-                                <div *ngIf="tForm.buroValido.errors.required">Buro Valido es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="identificacion">Cédula de Identidad</label>
+                        <div class="form-group" *ngIf="!dataCreditShow?.identificacionConyuge">
+                            <label for="identificacionConyuge">Copia de cédula de cónyuge</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="identificacion"
-                                       formControlName="identificacion"
-                                       (change)="subirIdentificacion($event)"
+                                <input type="file" class="custom-file-input" id="identificacionConyuge"
+                                       formControlName="identificacionConyuge"
+                                       (change)="subirDoc( $event,'identificacionConyuge')"
                                        accept="image/jpeg,image/png,application/pdf"/>
-                                <label class="custom-file-label" for="identificacion">{{identificacion}}</label>
-                                <div *ngIf="submitted && tForm.identificacion.errors" class="invalid-feedback"
+                                <label class="custom-file-label" for="identificacionConyuge">{{identificacionConyuge}}</label>
+                                <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
                                      style="display: block;">
-                                    <div *ngIf="tForm.identificacion.errors.required">Cédula de Identidad es requerido
+                                    <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de cónyuge
+                                        es requerido
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="customFile1">RUC</label>
+                        <div class="form-group" *ngIf="!dataCreditShow?.papeletaVotacionConyuge">
+                            <label for="papeletaVotacionConyuge">Papeleta de votación de cónyuge</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile1"
-                                       (change)="subirRuc($event)" accept="application/pdf"/>
-                                <label class="custom-file-label" for="customFile1">{{ruc}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="customFile1">Roles de Pago</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile1"
-                                       (change)="subirRolesPago($event)" accept="image/jpeg,image/png,application/pdf"/>
-                                <label class="custom-file-label" for="customFile1">{{rolesPago}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="customFile1">Plantilla IESS</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile1"
-                                       (change)="subirPlanillaIESS($event)"
+                                <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
+                                       formControlName="papeletaVotacionConyuge"
+                                       (change)="subirDoc( $event,'papeletaVotacionConyuge')"
                                        accept="image/jpeg,image/png,application/pdf"/>
-                                <label class="custom-file-label" for="customFile1">{{panillaIESS}}</label>
+                                <label class="custom-file-label"
+                                       for="papeletaVotacionConyuge">{{papeletaVotacionConyuge}}</label>
+                                <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.papeletaVotacionConyuge.errors.required">Papeleta de votación de
+                                        cónyuge es requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.planillaLuzNegocio">
+                            <label for="planillaLuzNegocio">Copia de planilla de luz del Negocio, Oficina o de la Asociación
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="planillaLuzNegocio"
+                                       formControlName="planillaLuzNegocio"
+                                       (change)="subirDoc( $event,'planillaLuzNegocio')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="planillaLuzNegocio">{{planillaLuzNegocio}}</label>
+                                <div *ngIf="submitted && controlsFrom.planillaLuzNegocio.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.planillaLuzNegocio.errors.required">Planilla de luz es
+                                        requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.planillaLuzDomicilio">
+                            <label for="planillaLuzDomicilio">Copia de planilla de luz del Domicilio
+
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
+                                       formControlName="planillaLuzDomicilio"
+                                       (change)="subirDoc( $event,'planillaLuzDomicilio')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="planillaLuzDomicilio">{{planillaLuzDomicilio}}</label>
+                                <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
+                                        Domicilio es requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.facturas">
+                            <label for="facturas">2 Copias de Facturas de Ventas del último mes o Certificado de
+                                la Asociación
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="facturas"
+                                       formControlName="facturas"
+                                       (change)="subirDoc( $event,'facturas')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="facturas">{{facturas}}</label>
+                                <div *ngIf="submitted && controlsFrom.facturas.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.facturas.errors.required">2 Copias de Facturas es
+                                        requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.matriculaVehiculo">
+                            <label for="matriculaVehiculo">Copia de matrícula del vehículo (opcional)
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="matriculaVehiculo"
+                                       formControlName="matriculaVehiculo"
+                                       (change)="subirDoc( $event,'matriculaVehiculo')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="matriculaVehiculo">{{matriculaVehiculo}}</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.impuestoPredial">
+                            <label for="impuestoPredial">Copia de pago de impuesto predial (opcional)
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="impuestoPredial"
+                                       formControlName="impuestoPredial"
+                                       (change)="subirDoc( $event,'impuestoPredial')"
+                                       accept="image/jpeg,image/png,application/pdf"/>
+                                <label class="custom-file-label" for="impuestoPredial">{{impuestoPredial}}</label>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="!dataCreditShow?.buroCredito">
+                            <label for="buroCredito">Buró de Crédito</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="buroCredito"
+                                       formControlName="buroCredito"
+                                       (change)="subirDoc( $event,'buroCredito')"
+                                       accept="application/pdf"/>
+                                <label class="custom-file-label" for="buroCredito">{{buroCredito}}</label>
+                                <div *ngIf="submitted && controlsFrom.buroCredito.errors"
+                                     class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.buroCredito.errors.required">Buró de Crédito es
+                                        requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="!dataCreditShow?.evaluacionCrediticia">
+                            <label for="evaluacionCrediticia">Evaluación crediticia</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="evaluacionCrediticia"
+                                       formControlName="evaluacionCrediticia"
+                                       (change)="subirDoc( $event,'evaluacionCrediticia')"
+                                       accept="application/pdf"/>
+                                <label class="custom-file-label"
+                                       for="evaluacionCrediticia">{{evaluacionCrediticia}}</label>
+                                <div *ngIf="submitted && controlsFrom.evaluacionCrediticia.errors"
+                                     class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.evaluacionCrediticia.errors.required">Evaluación crediticia
+                                        es requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.calificacionBuro">
+                            <label for="calificacionBuro">Calificación de Buró de Crédito</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="calificacionBuro"
+                                       formControlName="calificacionBuro"
+                                       (change)="subirDoc( $event,'calificacionBuro')"
+                                       accept="application/pdf"/>
+                                <label class="custom-file-label"
+                                       for="calificacionBuro">{{calificacionBuro}}</label>
+                                <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
+                                     class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.calificacionBuro.errors.required">Calificación de Buró es
+                                        requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.buroValido">
+                            <label for="buroValido">Buró valido</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="buroValido"
+                                       formControlName="buroValido"
+                                       (change)="subirDoc( $event,'buroValido')"
+                                       accept="application/pdf"/>
+                                <label class="custom-file-label" for="buroValido">{{buroValido}}</label>
+                                <div *ngIf="submitted && controlsFrom.buroValido.errors"
+                                     class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.buroValido.errors.required">Buró valido es
+                                        requerido
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito()"
                                 [disabled]="cargando">Procesar
                         </button>
-                        <button class="btn btn-outline-secondary" (click)="cerrarModal('actualizar-credito')"
+                        <button class="btn btn-outline-secondary"
+                                (click)="cerrarModal('actualizar-credito')"
                                 data-dismiss="modal">Cancelar
                         </button>
                     </div>
@@ -252,7 +392,7 @@
 </core-sidebar>
 <ng-template #mensajeModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Mensaje</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle1">Mensaje</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -261,12 +401,12 @@
         <div [innerHTML]="mensaje"></div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+        <button type="button" class="btn btn-light" (click)="cerrarModal('')">Cerrar</button>
     </div>
 </ng-template>
 <ng-template #detalleCreditoMdl let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Detalle del crédito</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle2">Detalle del crédito</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -275,7 +415,7 @@
         <div [innerHTML]="mensaje"></div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+        <button type="button" class="btn btn-light" (click)="cerrarModal('')">Cerrar</button>
     </div>
 </ng-template>
 
@@ -293,7 +433,8 @@
                 <fieldset class="form-group">
                     <textarea class="form-control" formControlName="observacion" id="basicTextarea" rows="3"></textarea>
                 </fieldset>
-                <div *ngIf="observacionSubmitted && fobservacionCredito.observacion.errors" class="invalid-feedback" style="display: block;">
+                <div *ngIf="observacionSubmitted && fobservacionCredito.observacion.errors" class="invalid-feedback"
+                     style="display: block;">
                     <div *ngIf="fobservacionCredito.observacion.errors.required">Observacion es requerido</div>
                 </div>
             </div>
@@ -304,7 +445,6 @@
         <button type="button" class="btn btn-light" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
 </ng-template>
-
 
 <!-- modal Open Srolling Long Content -->
 <div class="scrolling-long-content">
@@ -329,7 +469,7 @@
                            value="{{userViewData.created_at}}" disabled/>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="form-label" >Nombres</label>
+                    <label class="form-label">Nombres</label>
                     <input
                             type="email"
                             value="{{userViewData.nombres}}"
@@ -338,7 +478,7 @@
                     />
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="form-label" >Apellidos</label>
+                    <label class="form-label">Apellidos</label>
                     <input
                             type="text"
                             value="{{userViewData.apellidos}}"
@@ -354,7 +494,7 @@
                            value="{{userViewData.nivelInstruccion}}" disabled/>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="form-label" >Número de cargas</label>
+                    <label class="form-label">Número de cargas</label>
                     <input
                             type="text"
                             class="form-control"
@@ -370,7 +510,7 @@
                            value="{{userViewData.tipoVivienda}}" disabled/>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="form-label" >Nombre del dueño</label>
+                    <label class="form-label">Nombre del dueño</label>
                     <input
                             type="text"
                             class="form-control"
@@ -379,7 +519,7 @@
                     />
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="form-label" >Dirección del domicilio</label>
+                    <label class="form-label">Dirección del domicilio</label>
                     <input
                             type="text"
                             class="form-control"
@@ -442,7 +582,8 @@
                     <label class="form-label" for="vertical-modern-username">Refencia familiar:</label>
                     <br>
                     Nombre:<input type="text" class="form-control"
-                                  value="{{referenciasSolicitante.nombre}}{{referenciasSolicitante.apellidos}}" disabled/>
+                                  value="{{referenciasSolicitante.nombre}}{{referenciasSolicitante.apellidos}}"
+                                  disabled/>
                     Dirección:<input type="text" class="form-control"
                                      value="{{referenciasSolicitante.direccion}}" disabled/>
                     Teléfono:<input type="text" class="form-control"
@@ -547,7 +688,8 @@
                            value="{{gastosSolicitante.educacion}}" disabled/>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="form-label" for="vertical-modern-username">Otros préstamos(Ingrese el valor mensual)</label>
+                    <label class="form-label" for="vertical-modern-username">Otros préstamos(Ingrese el valor
+                        mensual)</label>
                     <input type="text" class="form-control"
                            value="{{gastosSolicitante.otrosPrestamos}}" disabled/>
                 </div>
@@ -560,7 +702,8 @@
                            value="{{gastosSolicitante.otrosGastos}}" disabled/>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="form-label" for="vertical-modern-username">Especifique otros gastos(ejemplo: colegiaturas dividias,cuidado a terceras personas,etc.)</label>
+                    <label class="form-label" for="vertical-modern-username">Especifique otros gastos(ejemplo:
+                        colegiaturas dividias,cuidado a terceras personas,etc.)</label>
                     <input type="text" class="form-control"
                            value="{{gastosSolicitante.deccripcion}}" disabled/>
                 </div>

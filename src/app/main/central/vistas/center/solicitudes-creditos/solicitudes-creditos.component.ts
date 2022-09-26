@@ -36,10 +36,23 @@ export class SolicitudesCreditosComponent implements OnInit {
     public listaCreditos;
     public actualizarCreditoForm;
     public reporteBuro;
+
+    // data modal user
     public identificacion;
+    public papeletaVotacion;
+    public identificacionConyuge;
+    public papeletaVotacionConyuge;
+    public planillaLuzNegocio;
+    public planillaLuzDomicilio;
+    public facturas;
+    public matriculaVehiculo;
+    public impuestoPredial;
+    public buroCredito;
+    public evaluacionCrediticia;
+    public calificacionBuro;
+    public buroValido;
+    // end Data
     public ruc;
-    public rolesPago;
-    public panillaIESS;
     public actualizarCreditoFormData = new FormData();
     public actualizarCredito: ActualizarCredito;
     public cargando = false;
@@ -49,6 +62,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public ingresosSolicitante;
     public gastosSolicitante;
     public observacionCreditoForm: FormGroup;
+    public dataCreditShow;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -60,7 +74,7 @@ export class SolicitudesCreditosComponent implements OnInit {
         this._unsubscribeAll = new Subject();
     }
 
-    get tForm() {
+    get controlsFrom() {
         return this.actualizarCreditoForm.controls;
     }
 
@@ -70,10 +84,19 @@ export class SolicitudesCreditosComponent implements OnInit {
 
     ngOnInit(): void {
         this.actualizarCreditoForm = this._formBuilder.group({
-            reporteBuroCredito: ['', [Validators.required]],
+            identificacion: ['', [Validators.required]],
+            papeletaVotacion: ['', [Validators.required]],
+            identificacionConyuge: ['', [Validators.required]],
+            papeletaVotacionConyuge: ['', [Validators.required]],
+            planillaLuzNegocio: ['', [Validators.required]],
+            planillaLuzDomicilio: ['', [Validators.required]],
+            facturas: ['', [Validators.required]],
+            matriculaVehiculo: [''],
+            impuestoPredial: [''],
+            buroCredito: ['', [Validators.required]],
+            evaluacionCrediticia: ['', [Validators.required]],
             calificacionBuro: ['', [Validators.required]],
             buroValido: ['', [Validators.required]],
-            identificacion: ['', [Validators.required]],
         });
         this.actualizarCredito = this.inicializarActualizarCredito();
     }
@@ -129,56 +152,36 @@ export class SolicitudesCreditosComponent implements OnInit {
             });
     }
 
-    async subirBuroCredito(event) {
-        if (event.target.files && event.target.files[0]) {
-            const imagen = event.target.files[0];
-            this.reporteBuro = imagen.name;
-            this.actualizarCreditoFormData.delete('reporteBuro');
-            this.actualizarCreditoFormData.append('reporteBuro', imagen, Date.now() + '_' + imagen.name);
-        }
-    }
 
-    async subirIdentificacion(event) {
+    async subirDoc(event, key) {
         if (event.target.files && event.target.files[0]) {
-            const imagen = event.target.files[0];
-            this.identificacion = imagen.name;
-            this.actualizarCreditoFormData.delete('identificacion');
-            this.actualizarCreditoFormData.append('identificacion', imagen, Date.now() + '_' + imagen.name);
-        }
-    }
-
-    async subirRuc(event) {
-        if (event.target.files && event.target.files[0]) {
-            const imagen = event.target.files[0];
-            this.ruc = imagen.name;
-            this.actualizarCreditoFormData.delete('ruc');
-            this.actualizarCreditoFormData.append('ruc', imagen, Date.now() + '_' + imagen.name);
-        }
-    }
-
-    async subirRolesPago(event) {
-        if (event.target.files && event.target.files[0]) {
-            const imagen = event.target.files[0];
-            this.rolesPago = imagen.name;
-            this.actualizarCreditoFormData.delete('rolesPago');
-            this.actualizarCreditoFormData.append('rolesPago', imagen, Date.now() + '_' + imagen.name);
-        }
-    }
-
-    async subirPlanillaIESS(event) {
-        if (event.target.files && event.target.files[0]) {
-            const imagen = event.target.files[0];
-            this.panillaIESS = imagen.name;
-            this.actualizarCreditoFormData.delete('panillaIESS');
-            this.actualizarCreditoFormData.append('panillaIESS', imagen, Date.now() + '_' + imagen.name);
+            const doc = event.target.files[0];
+            this[key] = doc.name;
+            this.actualizarCreditoFormData.delete(`${key}`);
+            this.actualizarCreditoFormData.append(`${key}`, doc, Date.now() + '_' + doc.name);
         }
     }
 
     toggleSidebar(name, id): void {
+        this.submitted = false;
+        this.actualizarCreditoForm.reset();
+        for (const elementForm in this.actualizarCreditoForm.controls) {
+            this[elementForm] = '';
+        }
         if (id) {
             this._solicitudCreditosService.obtenersolicitudCredito(id).subscribe((info) => {
+                    console.log('info', info);
                     const {reporteBuro, identificacion, ruc, rolesPago, panillaIESS, ...resto} = info;
                     this.actualizarCredito = resto;
+                    this.dataCreditShow = info;
+                    for (const elementForm in this.actualizarCreditoForm.controls) {
+                        if (info[elementForm]) {
+                            this.actualizarCreditoForm.get(elementForm).setValidators(null);
+                            this.actualizarCreditoForm.get(elementForm).setErrors(null);
+                        }
+                    }
+
+
                     this.actualizarCredito.id = id;
                 },
                 (error) => {
@@ -217,12 +220,11 @@ export class SolicitudesCreditosComponent implements OnInit {
 
     viewDataUser(modal, user) {
         this.modalOpenSLC(modal);
-        console.log('suer view ', user);
         this.userViewData = user;
         this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-       this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-       this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-       this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
+        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
+        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
     }
 
     viewObservacionUser(modal, credito) {

@@ -340,12 +340,11 @@
                         <div class="form-group" *ngIf="!dataCreditShow?.calificacionBuro">
                             <label for="calificacionBuro">Calificación de Buró de Crédito</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="calificacionBuro"
+                                <input type="text" class="form-control" id="calificacionBuro"
                                        formControlName="calificacionBuro"
-                                       (change)="subirDoc( $event,'calificacionBuro')"
-                                       accept="application/pdf"/>
-                                <label class="custom-file-label"
-                                       for="calificacionBuro">{{calificacionBuro}}</label>
+                                       value="{{calificacionBuro}}"
+                                />
+
                                 <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
                                      class="invalid-feedback"
                                      style="display: block;">
@@ -358,15 +357,32 @@
                         <div class="form-group" *ngIf="!dataCreditShow?.buroValido">
                             <label for="buroValido">Buró valido</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="buroValido"
+                                <input type="text" class="form-control" id="buroValido"
                                        formControlName="buroValido"
-                                       (change)="subirDoc( $event,'buroValido')"
-                                       accept="application/pdf"/>
-                                <label class="custom-file-label" for="buroValido">{{buroValido}}</label>
+                                       value="{{buroValido}}"
+                                    />
+
                                 <div *ngIf="submitted && controlsFrom.buroValido.errors"
                                      class="invalid-feedback"
                                      style="display: block;">
                                     <div *ngIf="controlsFrom.buroValido.errors.required">Buró valido es
+                                        requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!dataCreditShow?.observacion">
+                            <label for="observacion">Observacion</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="observacion"
+                                       formControlName="observacion"
+                                       (change)="subirDoc( $event,'observacion')"
+                                       accept="application/pdf"/>
+                                <label class="custom-file-label" for="observacion">{{observacion}}</label>
+                                <div *ngIf="submitted && controlsFrom.observacion.errors"
+                                     class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="controlsFrom.observacion.errors.required">Buró valido es
                                         requerido
                                     </div>
                                 </div>

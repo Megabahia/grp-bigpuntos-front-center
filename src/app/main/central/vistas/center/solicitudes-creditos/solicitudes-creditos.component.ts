@@ -198,6 +198,18 @@ export class SolicitudesCreditosComponent implements OnInit {
         this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     }
 
+    borrarDocumentoFirebase(id) {
+        let creditosFirebase = [];
+        this._solicitudCreditosService.getCreditosFirebase().subscribe((res) => {
+            creditosFirebase = res;
+            creditosFirebase.map(item => {
+                if (item.payload._delegate.doc._document.data.value.mapValue.fields._id.stringValue === id) {
+                    this._solicitudCreditosService.deleteCoffeeOrder(item.payload.doc.id);
+                }
+            });
+        });
+    }
+
     iniciarPaginador() {
         this.paginator.pageChange.subscribe(() => {
             this.obtenerSolicitudesCreditos();

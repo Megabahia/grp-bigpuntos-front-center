@@ -52,6 +52,7 @@ export class SolicitudesCreditosComponent implements OnInit {
     public evaluacionCrediticia;
     public calificacionBuro;
     public buroValido;
+    public observacion;
     // end Data
     public ruc;
     public actualizarCreditoFormData = new FormData();

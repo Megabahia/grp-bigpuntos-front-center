@@ -61,7 +61,8 @@ export class ListarComponent implements OnInit {
       nombre: "",
       tipo: "",
       tipoVariable: "",
-      valor: ""
+      valor: "",
+      config: {},
     }
   }
 

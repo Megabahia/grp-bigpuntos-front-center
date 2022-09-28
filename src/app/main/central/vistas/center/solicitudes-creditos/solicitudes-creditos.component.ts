@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActualizarCredito} from '../../../models/creditos';
 import {DatePipe} from '@angular/common';
 import Stepper from 'bs-stepper';
+import {element} from 'protractor';
 
 @Component({
     selector: 'app-solicitudes-creditos',
@@ -18,6 +19,7 @@ export class SolicitudesCreditosComponent implements OnInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('mensajeModal') mensajeModal;
+    @ViewChild('checksCreditoMdl') checksCreditoMdl;
 
     // public
     public selectMulti = [{name: 'English'}, {name: 'French'}, {name: 'Spanish'}];
@@ -66,6 +68,10 @@ export class SolicitudesCreditosComponent implements OnInit {
     public observacionCreditoForm: FormGroup;
     public dataCreditShow;
 
+    public creditoCheckForm: FormGroup;
+    public checksSubmitted = false;
+    public detalleCredito = '';
+
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
         private modalService: NgbModal,
@@ -84,6 +90,10 @@ export class SolicitudesCreditosComponent implements OnInit {
         return this.observacionCreditoForm.controls;
     }
 
+    get fcreditoCheckForm() {
+        return this.creditoCheckForm.controls;
+    }
+
     ngOnInit(): void {
         this.actualizarCreditoForm = this._formBuilder.group({
             identificacion: ['', [Validators.required]],
@@ -99,6 +109,25 @@ export class SolicitudesCreditosComponent implements OnInit {
             evaluacionCrediticia: ['', [Validators.required]],
             calificacionBuro: ['', [Validators.required]],
             buroValido: ['', [Validators.required]],
+            observacion: ['', [Validators.required]],
+        });
+
+        this.creditoCheckForm = this._formBuilder.group({
+            id: ['', [Validators.required]],
+            checkIdentificacion: ['', [Validators.required]],
+            checkPapeletaVotacion: ['', [Validators.required]],
+            checkIdentificacionConyuge: ['', [Validators.required]],
+            checkPapeletaVotacionConyuge: ['', [Validators.required]],
+            checkPlanillaLuzNegocio: ['', [Validators.required]],
+            checkPlanillaLuzDomicilio: ['', [Validators.required]],
+            checkFacturas: ['', [Validators.required]],
+            checkMatriculaVehiculo: [''],
+            checkImpuestoPredial: [''],
+            checkBuroCredito: ['', [Validators.required]],
+            checkEvaluacionCrediticia: ['', [Validators.required]],
+            checkCalificacionBuro: ['', [Validators.required]],
+            checkBuroValido: ['', [Validators.required]],
+            checkObservacion: ['', [Validators.required]],
         });
         this.actualizarCredito = this.inicializarActualizarCredito();
     }
@@ -125,7 +154,7 @@ export class SolicitudesCreditosComponent implements OnInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: this.tipoCredito ? 'Empleado' : 'Autonomo'
+            tipoCredito: this.tipoCredito ? 'Empleado' : 'Autonomo',
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
@@ -137,20 +166,26 @@ export class SolicitudesCreditosComponent implements OnInit {
         if (this.actualizarCreditoForm.invalid) {
             return;
         }
+        this.actualizarCredito = {...this.actualizarCredito, ...this.actualizarCreditoForm.value};
         const creditoValores = Object.values(this.actualizarCredito);
         const creditoLlaves = Object.keys(this.actualizarCredito);
+        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial'];
         creditoLlaves.map((llaves, index) => {
-            if (creditoValores[index]) {
+            if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);
                 this.actualizarCreditoFormData.append(llaves, creditoValores[index]);
             }
         });
         this.cargando = true;
+        this.actualizarCreditoFormData.delete('estado');
+        this.actualizarCreditoFormData.append('estado', 'Datos completos');
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 this.mensaje = 'Crédito actualizado con éxito';
                 this.cerrarModal('actualizar-credito');
                 this.obtenerSolicitudesCreditos();
+                this.borrarDocumentoFirebase(this.actualizarCreditoFormData.get('id'));
             },
             (error) => {
                 this.cargando = false;
@@ -159,6 +194,26 @@ export class SolicitudesCreditosComponent implements OnInit {
             });
     }
 
+    guardarChecksCredito() {
+        this.checksSubmitted = true;
+        if (this.creditoCheckForm.invalid) {
+            return;
+        }
+        this._solicitudCreditosService.actualizarChecksCreditos(this.creditoCheckForm.value).subscribe((info) => {
+            this.cerrarModal(this.checksCreditoMdl);
+            },
+            (error) => {
+                this.cargando = false;
+                this.mensaje = 'Error al actualizar el crédito';
+                this.abrirModal(this.mensajeModal);
+            });
+    }
+
+    checks(modal, creditoId?) {
+        this.checksSubmitted = false;
+        this.creditoCheckForm.patchValue({id: creditoId});
+        this.modalOpenSLC(modal);
+    }
 
     async subirDoc(event, key) {
         if (event.target.files && event.target.files[0]) {
@@ -177,17 +232,16 @@ export class SolicitudesCreditosComponent implements OnInit {
         }
         if (id) {
             this._solicitudCreditosService.obtenersolicitudCredito(id).subscribe((info) => {
-                    console.log('info', info);
                     const {reporteBuro, identificacion, ruc, rolesPago, panillaIESS, ...resto} = info;
-                    this.actualizarCredito = resto;
                     this.dataCreditShow = info;
                     for (const elementForm in this.actualizarCreditoForm.controls) {
                         if (info[elementForm]) {
-                            this.actualizarCreditoForm.get(elementForm).setValidators(null);
-                            this.actualizarCreditoForm.get(elementForm).setErrors(null);
+                            delete this.actualizarCreditoForm.controls[elementForm];
+                            delete this.actualizarCreditoForm.value[elementForm];
+                            // this.actualizarCreditoForm.get(elementForm).setValidators(null);
+                            // this.actualizarCreditoForm.get(elementForm).setErrors(null);
                         }
                     }
-
 
                     this.actualizarCredito.id = id;
                 },
@@ -205,7 +259,7 @@ export class SolicitudesCreditosComponent implements OnInit {
             creditosFirebase = res;
             creditosFirebase.map(item => {
                 if (item.payload._delegate.doc._document.data.value.mapValue.fields._id.stringValue === id) {
-                    this._solicitudCreditosService.deleteCoffeeOrder(item.payload.doc.id);
+                    this._solicitudCreditosService.deleteDocumentFirebase(item.payload.doc.id);
                 }
             });
         });
@@ -215,6 +269,11 @@ export class SolicitudesCreditosComponent implements OnInit {
         this.paginator.pageChange.subscribe(() => {
             this.obtenerSolicitudesCreditos();
         });
+    }
+
+    abrirModalDetalleCredito(modal, credito) {
+        this.detalleCredito = `Monto del credito ${credito.monto}, plazo del credito ${credito.plazo}`;
+        this.modalOpenSLC(modal);
     }
 
     abrirModal(modal) {

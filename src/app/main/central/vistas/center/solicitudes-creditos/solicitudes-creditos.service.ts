@@ -25,11 +25,14 @@ export class SolicitudesCreditosService {
   actualizarSolictudesCreditosObservacion(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`, datos);
   }
+  actualizarChecksCreditos(datos) {
+    const {id, ...resto} = datos;
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoPersonas/update/${id}`, {'checks': JSON.stringify(resto), 'estado': 'Verificado'});
+  }
   getCreditosFirebase() {
     return this.firestore.collection('creditosPersonas').snapshotChanges();
   }
-  deleteCoffeeOrder(data) {
-    console.log(data);
+  deleteDocumentFirebase(data) {
     return this.firestore.collection('creditosPersonas').doc(data).delete();
   }
 }

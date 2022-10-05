@@ -42,6 +42,8 @@ import { ListarComponent as ReportePagosComponent } from './vistas/center/pagos/
 import {LecturaArchivosComponent} from './vistas/center/lectura-archivos/lectura-archivos.component';
 import { VisualizarComponent } from './vistas/center/lectura-archivos/visualizar/visualizar.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {EmpleadosComponent as SolicitudesEmpleadosComponent} from './vistas/center/solicitudes-creditos/empleados/empleados.component';
+import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -110,7 +112,22 @@ const routes = [
         path: 'reporte-correos-landing', component: CorreosLandingListar, canActivate: [AuthGuard]
       },
       {
-        path: 'solicitudesCreditos', component: SolicitudesCreditosComponent, canActivate: [AuthGuard]
+        path: 'solicitudes-creditos',
+        children: [
+          {path: '', redirectTo: 'empleados', pathMatch: 'full'},
+          {
+            path: 'empleados',
+            component: SolicitudesEmpleadosComponent,
+            data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'negocios',
+            component: SolicitudesCreditosComponent,
+            data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+        ]
       },
       {
         path: 'reporte-publicaciones', component: ReportePublicacionesComponent, canActivate: [AuthGuard]
@@ -161,6 +178,8 @@ const routes = [
     ReportePagosComponent,
     LecturaArchivosComponent,
     VisualizarComponent,
+    SolicitudesEmpleadosComponent,
+    RevisionDocumentosComponent,
   ],
     imports: [
         CoreCommonModule,

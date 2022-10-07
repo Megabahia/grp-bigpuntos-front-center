@@ -44,6 +44,7 @@ import { VisualizarComponent } from './vistas/center/lectura-archivos/visualizar
 import {NgSelectModule} from '@ng-select/ng-select';
 import {EmpleadosComponent as SolicitudesEmpleadosComponent} from './vistas/center/solicitudes-creditos/empleados/empleados.component';
 import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
+import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -122,6 +123,12 @@ const routes = [
             canActivate: [AuthGuard]
           },
           {
+            path: 'negocios-propio',
+            component: NegocioPropioComponent,
+            data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
             path: 'negocios',
             component: SolicitudesCreditosComponent,
             data: {roles: [Role.BigPuntos]},
@@ -180,6 +187,7 @@ const routes = [
     VisualizarComponent,
     SolicitudesEmpleadosComponent,
     RevisionDocumentosComponent,
+    NegocioPropioComponent,
   ],
     imports: [
         CoreCommonModule,

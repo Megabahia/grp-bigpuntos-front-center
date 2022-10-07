@@ -173,7 +173,7 @@ export const menu: CoreMenu[] = [
         icon: 'credit-card',
         children: [
           {
-            id: 'negocios',
+            id: 'empleados',
             title: 'Créditos empleados',
             // translate: 'MENU.APPS.EMAIL',
             type: 'item',
@@ -181,12 +181,12 @@ export const menu: CoreMenu[] = [
             url: 'central/center/solicitudes-creditos/empleados'
           },
           {
-            id: 'empleados',
+            id: 'negocios',
             title: 'Créditos negocios',
             // translate: 'MENU.APPS.EMAIL',
             type: 'item',
             icon: 'circle',
-            url: 'central/center/solicitudes-creditos/negocios'
+            url: 'central/center/solicitudes-creditos/negocios-propio'
           },
         ]
       },

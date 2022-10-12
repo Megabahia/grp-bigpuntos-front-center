@@ -221,8 +221,8 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         // this.mensaje = 'Crédito actualizado con éxito';
         // this.cerrarModal('actualizar-credito');
         this.pantalla = 0;
-        // this.obtenerSolicitudesCreditos();
-        // this.borrarDocumentoFirebase(this.actualizarCreditoFormData.get('id'));
+        this.obtenerSolicitudesCreditos();
+        this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
       },
       (error) => {
         this.cargando = false;

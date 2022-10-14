@@ -45,6 +45,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {EmpleadosComponent as SolicitudesEmpleadosComponent} from './vistas/center/solicitudes-creditos/empleados/empleados.component';
 import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
 import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
+import { EmpleadosPreaprovadosComponent } from './vistas/center/solicitudes-creditos/empleados-preaprovados/empleados-preaprovados.component';
+import { NegocioPropioPreaprovadosComponent } from './vistas/center/solicitudes-creditos/negocio-propio-preaprovados/negocio-propio-preaprovados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -134,6 +136,18 @@ const routes = [
             data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'negocios-propios-pre-aprobados',
+            component: NegocioPropioPreaprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'empelados-pre-aprobados',
+            component: EmpleadosPreaprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -188,6 +202,8 @@ const routes = [
     SolicitudesEmpleadosComponent,
     RevisionDocumentosComponent,
     NegocioPropioComponent,
+    EmpleadosPreaprovadosComponent,
+    NegocioPropioPreaprovadosComponent,
   ],
     imports: [
         CoreCommonModule,

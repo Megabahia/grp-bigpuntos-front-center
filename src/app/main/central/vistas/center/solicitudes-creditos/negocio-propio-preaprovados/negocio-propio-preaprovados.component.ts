@@ -95,7 +95,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
     this._solicitudCreditosService.obtenerSolicitudesCreditos({
       page_size: this.page_size,
       page: this.page - 1,
-      tipoCredito: 'Negocio propio',
+      tipoCredito: 'Negocio-PreAprobado',
     }).subscribe(info => {
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;
@@ -165,13 +165,10 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
   }
 
   actualizarSolicitudCredito() {
-    console.log('entra');
     this.submitted = true;
     if (this.actualizarCreditoForm.invalid) {
-      console.log('if');
       return;
     }
-    console.log('paso');
     const {
       id,
       identificacion,

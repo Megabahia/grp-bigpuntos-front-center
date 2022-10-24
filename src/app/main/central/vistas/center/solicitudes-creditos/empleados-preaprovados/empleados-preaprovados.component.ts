@@ -114,7 +114,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+    this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       identificacion: ['', credito.identificacion ? [] : [Validators.required]],
@@ -162,13 +162,10 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
   }
 
   actualizarSolicitudCredito() {
-    console.log('entra');
     this.submitted = true;
     if (this.actualizarCreditoForm.invalid) {
-      console.log('if');
       return;
     }
-    console.log('paso');
     const {
       id,
       identificacion,

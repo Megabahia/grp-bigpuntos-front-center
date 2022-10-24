@@ -115,7 +115,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+    this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       identificacion: ['', credito.identificacion ? [] : [Validators.required]],

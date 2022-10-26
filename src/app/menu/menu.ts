@@ -1,4 +1,4 @@
-import { CoreMenu } from '@core/types'
+import { CoreMenu } from '@core/types';
 import { Role } from '../auth/models/role';
 
 export const menu: CoreMenu[] = [
@@ -204,6 +204,22 @@ export const menu: CoreMenu[] = [
             icon: 'circle',
             url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
           },
+          // {
+          //   id: 'microcreditPreAprovado',
+          //   title: 'PYMES pre-aprobados ',
+          //   // translate: 'MENU.APPS.EMAIL',
+          //   type: 'item',
+          //   icon: 'circle',
+          //   url: 'central/center/solicitudes-creditos/microcreditPreAprovado'
+          // },
+          // {
+          //   id: 'microcreditNormales',
+          //   title: 'PYMES Normales ',
+          //   // translate: 'MENU.APPS.EMAIL',
+          //   type: 'item',
+          //   icon: 'circle',
+          //   url: 'central/center/solicitudes-creditos/microcreditNormales'
+          // },
         ]
       },
       {
@@ -253,4 +269,4 @@ export const menu: CoreMenu[] = [
       },
     ]
   },
-]
+];

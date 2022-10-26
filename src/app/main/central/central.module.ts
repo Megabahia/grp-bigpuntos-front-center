@@ -47,6 +47,8 @@ import { RevisionDocumentosComponent } from './vistas/center/solicitudes-credito
 import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
 import { EmpleadosPreaprovadosComponent } from './vistas/center/solicitudes-creditos/empleados-preaprovados/empleados-preaprovados.component';
 import { NegocioPropioPreaprovadosComponent } from './vistas/center/solicitudes-creditos/negocio-propio-preaprovados/negocio-propio-preaprovados.component';
+import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-creditos/microcreditos-normales/microcreditos-normales.component';
+import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-creditos/microcreditos-pre-aprovados/microcreditos-pre-aprovados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -148,6 +150,34 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'microcreditPreAprovado',
+            component: MicrocreditosPreAprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'microcreditNormales',
+            component: MicrocreditosNormalesComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            id: 'microcreditPreAprovado',
+            title: 'PYMES pre-aprobados ',
+            // translate: 'MENU.APPS.EMAIL',
+            type: 'item',
+            icon: 'circle',
+            url: 'central/center/solicitudes-creditos/microcreditPreAprovado'
+          },
+          {
+            id: 'microcreditNormales',
+            title: 'PYMES Normales ',
+            // translate: 'MENU.APPS.EMAIL',
+            type: 'item',
+            icon: 'circle',
+            url: 'central/center/solicitudes-creditos/microcreditNormales'
+          },
         ]
       },
       {
@@ -204,6 +234,8 @@ const routes = [
     NegocioPropioComponent,
     EmpleadosPreaprovadosComponent,
     NegocioPropioPreaprovadosComponent,
+    MicrocreditosNormalesComponent,
+    MicrocreditosPreAprovadosComponent,
   ],
     imports: [
         CoreCommonModule,

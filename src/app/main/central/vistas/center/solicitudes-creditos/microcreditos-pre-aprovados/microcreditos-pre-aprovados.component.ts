@@ -129,6 +129,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             papeletaVotacion: ['', [Validators.required]], //
             identificacionConyuge: ['', [Validators.required]], //
             papeletaVotacionConyuge: ['', [Validators.required]], //
+            planillaLuzDomicilio: ['', [Validators.required]], //
             planillaLuzNegocio: ['', [Validators.required]], //
             facturasVentas2meses: ['', [Validators.required]], //
             facturasVentasCertificado: ['', [Validators.required]], //
@@ -138,11 +139,12 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             buroCredito: ['', [Validators.required]], //
             observacion: ['', [Validators.required]], //
             // checks
-            checkIdenficicacion: ['', [Validators.requiredTrue]], //
+            checkIdentificacion: ['', [Validators.requiredTrue]], //
             checkFotoCarnet: ['', [Validators.requiredTrue]], //
             checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
             checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
+            checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
             checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
             checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
             checkfacturasVentasCertificado: ['', [Validators.requiredTrue]], //
@@ -209,8 +211,8 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
             {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
+            {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
             {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
-            {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses},
             {
                 'label': '3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación',

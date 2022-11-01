@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 
@@ -22,6 +22,10 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public maxSize;
     public collectionSize;
     private _unsubscribeAll: Subject<any>;
+    public formSolicitud: FormGroup;
+    public formConyuge: FormGroup;
+    public casado = false;
+    public empresa;
 
     // Variables
     public listaCreditos;
@@ -67,6 +71,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     }
 
     ngOnInit(): void {
+        this.declareFormularios();
     }
 
     ngAfterViewInit() {
@@ -107,13 +112,54 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         });
     }
 
-    viewDataUser(modal, user) {
+    declareFormularios() {
+        this.formSolicitud = this._formBuilder.group(
+            {
+                reprsentante: ['', [Validators.required]], //
+                rucEmpresa: ['', [Validators.required]], //
+                comercial: ['', [Validators.required]], //
+                actividadEconomica: ['', [Validators.required]], //
+                direccionDomiciolRepresentante: ['', [Validators.required]], //
+                direccionEmpresa: ['', [Validators.required]], //
+                referenciaDomicilio: ['', [Validators.required]], //
+                esatdo_civil: ['', [Validators.required]], //
+                correo: ['', [Validators.required]], //
+                telefono: ['', [Validators.required]], //
+                celular: ['', [Validators.required]], //
+                conyuge: this._formBuilder.group({
+                    nombreConyuge: [''], //
+                    telefonoConyuge: [''], //
+                    correoConyuge: [''],
+                }),
+                familiares: this._formBuilder.array([]),
+                inresosMensualesVentas: ['', [Validators.required]], //
+                sueldoConyuge: [''], //
+                otrosIngresos: [''], //
+                gastosMensuales: ['', [Validators.required]], //
+                gastosFamilaires: ['', [Validators.required]], //
+                especificaIngresos: [''], //
+            });
+    }
+
+    declareFormConyuge() {
+        this.formConyuge = this._formBuilder.group({
+            nombreConyuge: [''], //
+            telefonoConyuge: [''], //
+            correoConyuge: [''],
+        });
+    }
+
+    viewDataUser(modal, empresa) {
+        console.log('this.empresa', empresa);
+        const infoEmpresa = JSON.parse(empresa);
+        this.empresa = infoEmpresa;
+        console.log('infoEmpresa', infoEmpresa);
+        this.declareFormularios();
+        this.declareFormConyuge();
         this.modalOpenSLC(modal);
-        this.userViewData = user;
-        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        this.casado = infoEmpresa.esatdo_civil ? true : false;
+        infoEmpresa?.familiares.forEach(item => this.agregarFamiliar());
+        this.formSolicitud.patchValue({...infoEmpresa});
     }
 
     verDocumentos(credito) {
@@ -278,4 +324,17 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             });
     }
 
+    agregarFamiliar() {
+        const cuentaForm = this._formBuilder.group({
+            nombreFamiliar: [''], //
+            apellidoFamiliar: [''], //
+            telefonoFamiliar: [''], //
+            direccionFamiliar: [''],
+        });
+        this.familiares.push(cuentaForm);
+    }
+
+    get familiares() {
+        return this.formSolicitud.controls['familiares'] as FormArray;
+    }
 }

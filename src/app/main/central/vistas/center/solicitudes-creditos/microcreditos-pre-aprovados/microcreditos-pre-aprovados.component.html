@@ -83,7 +83,7 @@
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
                         <td>
-                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)"
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.empresaInfo)"
                                     class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
@@ -129,255 +129,451 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div style="padding: 20px 20px 20px 20px;">
+    <div class="card-body text-left">
 
-        <div class="content-header">
-            <h5 class="mb-0">Datos Generales</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Fecha de creación de solicitud</label>
-                <input type="text" id="vertical-modern-username" class="form-control"
-                       value="{{userViewData.created_at}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label">Nombres</label>
-                <input
-                        type="email"
-                        value="{{userViewData.nombres}}"
-                        class="form-control"
-                        disabled
-                />
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label">Apellidos</label>
-                <input
-                        type="text"
-                        value="{{userViewData.apellidos}}"
-                        class="form-control"
-                        disabled
-                />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label class="form-label" for="vertical-modern-username">Nivel de instrucción</label>
-                <input type="text" class="form-control"
-                       value="{{userViewData.nivelInstruccion}}" disabled/>
-            </div>
-            <div class="form-group col-md-6">
-                <label class="form-label">Número de cargas</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        value="{{userViewData.numeroCargas}}"
-                        disabled
-                />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Tipo de vivienda</label>
-                <input type="text" class="form-control"
-                       value="{{userViewData.tipoVivienda}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label">Nombre del dueño</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        value="{{userViewData.nombreDueno}}"
-                        disabled
-                />
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label">Dirección del domicilio</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        value="{{userViewData.direccionDomicilio}}"
-                        disabled
-                />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Referencias del domicilio</label>
-                <input type="text" class="form-control"
-                       value="{{userViewData.referenciaDomicilio}}"
-                       disabled/>
-            </div>
+        <form class="auth-login-form mt-2" [formGroup]="formSolicitud">
+            <h3>
+                DATOS GENERALES DE TU EMPRESA:
+            </h3>
+            <div class="row">
 
-        </div>
-        <div class="content-header">
-            <h5 class="mb-0">Ocupación del solicitante</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Nombre del negocio o empresa en la que
-                    trabaja.</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.nombreNegocio}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Direccón del negocio o empresa en la que
-                    trabaja.</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.direccionNegocio}}" disabled/>
-            </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre del representante legal: value={{ this.empresa.reprsentante }}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               disabled
+                               [value]="empresa.reprsentante">
+                    </div>
 
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Tiempo de trabajo en el negocio o empresa
-                    en la que trabaja (años).</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.tiempoTrabajo}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Cargo que desempreña</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.cargoDesempeno}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Sueldo que percibe</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.sueldoPercibe}}" disabled/>
-            </div>
-
-        </div>
-        <div class="content-header">
-            <h5 class="mb-0">REFERENCIAS DEL SOLICITANTE</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Refencia familiar:</label>
-                <br>
-                Nombre:<input type="text" class="form-control"
-                              value="{{referenciasSolicitante.nombre}}{{referenciasSolicitante.apellidos}}"
-                              disabled/>
-                Dirección:<input type="text" class="form-control"
-                                 value="{{referenciasSolicitante.direccion}}" disabled/>
-                Teléfono:<input type="text" class="form-control"
-                                value="{{referenciasSolicitante.telefono}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-
-                <label class="form-label" for="vertical-modern-username">Refencia comercial o labolar:</label>
-                <br>
-                Nombre:<input type="text" class="form-control"
-                              value="" disabled/>
-                Dirección:<input type="text" class="form-control"
-                                 value="" disabled/>
-                Teléfono:<input type="text" class="form-control"
-                                value="" disabled/>
-
-            </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RUC de la empresa:
+                        </label>
+                        <input type="text" formControlName="rucEmpresa"
+                               class="form-control"
+                               value="{{this.empresa.rucEmpresa}}" disabled>
+                    </div>
 
 
-        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre comercial de la empresa:
+                        </label>
+                        <input type="text" formControlName="comercial"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.comercial.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.comercial.errors.required">Nombre comercial
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Actividad económica :
+                        </label>
+                        <input type="text" formControlName="actividadEconomica"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.actividadEconomica.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.actividadEconomica.errors.required">
+                            Actividad económica es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Dirección del domicilio del representante legal de la empresa :
+                        </label>
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">
+                            Dirección es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Dirección del negocio o empresa :
+                        </label>
+                        <input type="text" formControlName="direccionEmpresa"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.direccionEmpresa.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.direccionEmpresa.errors.required">Dirección
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Referencia del domicilio (en la descripción de la ventana
+                            escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
+                            Vecino):
+                        </label>
+                        <input type="text" formControlName="referenciaDomicilio"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.referenciaDomicilio.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.referenciaDomicilio.errors.required">
+                            Referencia es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Estado civil:
+                        </label>
+                        <select #teams
+                                class="form-control select2" formControlName="esatdo_civil" disabled
+                        >
+                            <option value="">- Seleccione -</option>
+                            <option value="Soltero">- Soltero -</option>
+                            <option value="Casado">- Casado -</option>
+                            <option value="Divorciado">- Divorciado -</option>
+                        </select>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.esatdo_civil.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.esatdo_civil.errors.required">Estado civil
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
 
-        <div class="content-header">
-            <h5 class="mb-0">INGRESOS DEL SOLICITANTE</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Sueldo Mensual</label>
-                <input type="text" class="form-control"
-                       value="{{ingresosSolicitante.sueldoMensual}}" disabled/>
             </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Sueldo cónyuge</label>
-                <input type="text" class="form-control"
-                       value="{{ingresosSolicitante.sueldoConyuge}}" disabled/>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono convencional:
+                        </label>
+                        <input type="text" formControlName="telefono"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.telefono.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.telefono.errors.required">Teléfono es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono celular:
+                        </label>
+                        <input type="text" formControlName="celular"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.celular.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.celular.errors.required">Teléfono celular
+                            es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Correo electrónico:
+                        </label>
+                        <input type="text" formControlName="correo"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.correo.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.correo.errors.required">Correo electrónico
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Otros Ingresos(valor)</label>
-                <input type="text" class="form-control"
-                       value="{{userViewData.otrosIngresos}}" disabled/>
+            <!--Conyuge-->
+            <div class="row">
+
+                <div *ngIf="casado">
+                    <h3>
+                        Datos cónyuge:
+                    </h3>
+                    <br>
+                    <form class="auth-login-form mt-2" [formGroup]="actualizarCreditoForm">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombres y apellidos:
+                                    </label>
+                                    <input type="text" formControlName="nombreConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Teléfono celular:
+                                    </label>
+                                    <input type="text" formControlName="telefonoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Correo electrónico:
+                                    </label>
+                                    <input type="text" formControlName="correoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
+            <div class="row">
+                <div class="col-4">
+                    <h3>
+                        REFERENCIAS FAMILAIRES:
+                    </h3>
+                </div>
+                <div class="col-4"></div>
+
 
             </div>
-            <div class="form-group col-md-4">
+            <ng-container formArrayName="familiares">
+                <ng-container
+                        *ngFor="let familiar of formSolicitud.get('familiares')['controls']; let i = index">
+                    <h5>
+                        Familair {{i + 1}}:
+                    </h5>
+                    <div [formGroup]="familiar">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombre
+                                    </label>
+                                    <input type="text" formControlName="nombreFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.nombreFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.nombreFamiliar.errors.required">-->
+                            <!--                                                                Nombre-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
 
-                <label class="form-label" for="vertical-modern-username">Especifique otros ingresos(ejemplo: vendo
-                    articulos de revista en mi tiempo libre, etc.):</label>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Apellido
+                                    </label>
+                                    <input type="text" formControlName="apellidoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.apellidoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.apellidoFamiliar.errors.required">-->
+                            <!--                                                                Apellido-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
 
-                <input
-                        type="text" class="form-control" disabled>
-            </div>
-            <div class="form-group col-md-4">
 
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Teléfono:
+                                    </label>
+                                    <input type="text" formControlName="telefonoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.telefonoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.telefonoFamiliar.errors.required">-->
+                            <!--                                                                Teléfono-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Dirección:
+                                    </label>
+                                    <input type="text" formControlName="direccionFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.direccionFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.direccionFamiliar.errors.required">-->
+                            <!--                                                                Dirección-->
+                            <!--                                                                del familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+                        </div>
+
+                    </div>
+                </ng-container>
+            </ng-container>
+            <h3>
+                INGRESOS Y GASTOS DEL NEGOCIO:
+            </h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Ingresos mensuales en ventas (valor):
+                        </label>
+                        <input type="text" formControlName="inresosMensualesVentas"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.inresosMensualesVentas.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.inresosMensualesVentas.errors.required">
+                            Ingresos mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Sueldo cónyuge (de ser casado) (VALOR):
+                        </label>
+                        <input type="text" formControlName="sueldoConyuge"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Otros ingresos (valor) :
+                        </label>
+                        <input type="text" formControlName="otrosIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos mensuales en compras para el negocio (valor) :
+                        </label>
+                        <input type="text" formControlName="gastosMensuales"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosMensuales.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosMensuales.errors.required">Gastos
+                            mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos familiares (valor)
+                        </label>
+                        <input type="text" formControlName="gastosFamilaires"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosFamilaires.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosFamilaires.errors.required">Gastos
+                            familiares es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Especifique otros ingresos (ejemplo: vendo artículos de revista
+                            en mi tiempo libre, etc.)
+                        </label>
+                        <input type="text" formControlName="especificaIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
             </div>
 
-        </div>
-        <div class="content-header">
-            <h5 class="mb-0">GASTOS DEL SOLICITANTE</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Alimentación</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.alimentacion}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Arriendo(Ingrese 0 si es propia):</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.arriendo}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Vestimenta</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.vestido}}" disabled/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Transporte</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.trasporte}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Servicios Básicos</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.serviciosBasicos}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Medicina</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.medicina}}" disabled/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label class="form-label" for="vertical-modern-username">Educación</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.educacion}}" disabled/>
-            </div>
-            <div class="form-group col-md-6">
-                <label class="form-label" for="vertical-modern-username">Otros préstamos(Ingrese el valor
-                    mensual)</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.otrosPrestamos}}" disabled/>
-            </div>
+        </form>
 
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label class="form-label" for="vertical-modern-username">Otros gastos</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.otrosGastos}}" disabled/>
-            </div>
-            <div class="form-group col-md-6">
-                <label class="form-label" for="vertical-modern-username">Especifique otros gastos(ejemplo:
-                    colegiaturas dividias,cuidado a terceras personas,etc.)</label>
-                <input type="text" class="form-control"
-                       value="{{gastosSolicitante.deccripcion}}" disabled/>
-            </div>
-        </div>
     </div>
 
 
@@ -387,6 +583,7 @@
         </button>
     </div>
 </ng-template>
+
 <!-- FIN MODAL USER-->
 
 <app-revision-documentos *ngIf="pantalla === 1" (pantalla)="cambiarEstado($event)"

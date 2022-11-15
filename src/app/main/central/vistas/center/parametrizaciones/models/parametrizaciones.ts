@@ -8,6 +8,7 @@ export class Parametrizacion {
     tipoVariable: string;
     valor: string;
     idPadre: string;
+    config: string;
     // minimo: string;
     // maximo: string;
 }

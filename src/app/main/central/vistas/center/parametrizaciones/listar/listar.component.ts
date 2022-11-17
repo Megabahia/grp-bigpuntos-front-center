@@ -92,7 +92,9 @@ export class ListarComponent implements OnInit {
         if (this.parametrizacionForm.invalid) {
             return;
         }
-        // this.parametrizacion.config = JSON.stringify(this.parametrizacion.config);
+        // console.log('va guardar configuracion ', this.parametrizacion.config.toString().split(','));
+        this.parametrizacion.config = this.parametrizacion.config.toString().split(',');
+        console.log('this', this.parametrizacion);
         if (this.idParametro == '') {
             this.paramService.crearParametro(this.parametrizacion).subscribe((info) => {
                     this.mensaje = 'Parámetro creado correctamente';
@@ -142,8 +144,7 @@ export class ListarComponent implements OnInit {
         if (this.idParametro) {
             this.paramService.obtenerParametro(this.idParametro).subscribe((info) => {
                     this.parametrizacion = info;
-                    this.parametrizacion.config = JSON.parse(this.parametrizacion.config);
-
+                    this.parametrizacion.config = this.parametrizacion.config;
                     if (info.idPadre && info.idPadre != 'None') {
                         this.paramService.obtenerParametro(info.idPadre).subscribe((data) => {
                             this.tipoPadre = data.tipo;
@@ -189,7 +190,7 @@ export class ListarComponent implements OnInit {
                 this.abrirModal(this.mensajeModal);
             },
             (error) => {
-                this.mensaje = 'Ha ocurrido un error al eliminar el rol';
+                this.mensaje = 'Ha ocurrido un error al eliminar';
                 this.abrirModal(this.mensajeModal);
             });
     }

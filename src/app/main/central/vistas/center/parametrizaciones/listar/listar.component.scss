@@ -1,0 +1,14 @@
+$ngx-datatableHeight: 30em;
+
+:host ::ng-deep .datatable-body-cell {
+  padding-top: 1px !important;
+  border-bottom: 1px solid #cce5ff;
+}
+
+:host ::ng-deep .datatable-header .datatable-header-cell {
+  padding-top: 2px !important;
+}
+
+:host ::ng-deep .ngx-datatable.material {
+  height: $ngx-datatableHeight;
+}

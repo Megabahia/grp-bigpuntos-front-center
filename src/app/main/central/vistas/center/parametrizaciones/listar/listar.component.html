@@ -77,51 +77,51 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-datatable table-responsive pt-0">
-                    <table class="user-list-table table">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck2"/>
-                                    <label class="custom-control-label" for="customCheck2"></label>
-                                </div>
-                            </th>
-                            <th>Parámetro</th>
-                            <th>Tipo</th>
-                            <th>Descripción</th>
-                            <th>Valor</th>
-                            <!-- <th>Minimo</th>
-                            <th>Máximo</th> -->
-                            <th>Tipo de dato</th>
-                            <th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let parametro of parametros">
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck2"/>
-                                    <label class="custom-control-label" for="customCheck2"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-left align-items-center">
-                                    <div class="d-flex flex-column">
-                                        <a class="user-name text-truncate mb-0">
-                                            <span class="font-weight-bold">{{parametro.nombre}}</span></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td> {{parametro.tipo}} </td>
-                            <td> {{parametro.descripcion}}</td>
-                            <td> {{parametro.valor}}</td>
-                            <!-- <td> {{parametro.maximo}}</td>
-                            <td> {{parametro.minimo}}</td> -->
-                            <td> {{parametro.tipoVariable}}</td>
-                            <td>
+
+
+                <div class="col-md-12 mb-3" style="margin-top: 10px;">
+                    <ngx-datatable
+
+                        class="material"
+                        style="min-height: 30em; max-height: 30em;"
+
+                        headerHeight="42"
+                        columnMode="force"
+                        footerHeight="50"
+                        [rowHeight]="24"
+                        [rows]="parametros"
+                        [scrollbarV]="true"
+                        [scrollbarH]="true"
+                    >
+                        <ngx-datatable-column name="#" [flexGrow]="0.5">
+                            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                                {{(rowIndex + 1)}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="PARÁMETRO" [flexGrow]="2">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                {{ row?.nombre | titlecase }}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="DESCRIPCIÓN" [flexGrow]="2">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                {{row?.descripcion}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="VALOR" [flexGrow]="2">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                {{row?.valor}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="TIPO DE DATO" [flexGrow]="2">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                {{row?.tipoVariable}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="ACCIONES" [flexGrow]="2">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
-                                   (click)="toggleSidebar('guardarParametrizacion',parametro._id)">
+                                   (click)="toggleSidebar('guardarParametrizacion',row._id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                          stroke-linejoin="round" class="mr-50">
@@ -130,7 +130,7 @@
                                         <line x1="10" y1="12" x2="14" y2="12"></line>
                                     </svg>
                                 </a>
-                                <a href="javascript:void(0);" (click)="eliminarParametroModal(parametro._id)">
+                                <a href="javascript:void(0);" (click)="eliminarParametroModal(row._id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                          stroke-linejoin="round" class="mr-50">
@@ -142,15 +142,11 @@
                                         <line x1="14" y1="11" x2="14" y2="17"></line>
                                     </svg>
                                 </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </ng-template>
+                        </ngx-datatable-column>
 
+                    </ngx-datatable>
                 </div>
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="pageSize"
-                                [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
-
             </div>
         </section>
         <!-- users list ends -->
@@ -240,10 +236,10 @@
                             <label class="form-label" for="basic-icon-default-email">Configuracion:</label>
                             <input type="text" id="basic-icon-default-email" class="form-control dt-email" name="config"
                                    formControlName="config" [(ngModel)]="parametrizacion.config"/>
-<!--                            <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback"-->
-<!--                                 style="display: block;">-->
-<!--                                <div *ngIf="paramForm.config.errors.required">  Config es requerido</div>-->
-<!--                            </div>-->
+                            <!--                            <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback"-->
+                            <!--                                 style="display: block;">-->
+                            <!--                                <div *ngIf="paramForm.config.errors.required">  Config es requerido</div>-->
+                            <!--                            </div>-->
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="">Padre:</label>

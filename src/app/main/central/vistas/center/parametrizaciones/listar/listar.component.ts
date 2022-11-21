@@ -6,6 +6,7 @@ import {Parametrizacion} from '../models/parametrizaciones';
 import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {ColumnMode} from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'app-listar',
@@ -15,6 +16,8 @@ import {CoreSidebarService} from '../../../../../../../@core/components/core-sid
 
 })
 export class ListarComponent implements OnInit {
+    title = 'table-tutorial';
+
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
     @ViewChild('mensajeModal') mensajeModal;
@@ -82,7 +85,7 @@ export class ListarComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.iniciarPaginador();
+
 
         this.obtenerListaParametros();
     }
@@ -169,14 +172,6 @@ export class ListarComponent implements OnInit {
         this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     }
 
-    iniciarPaginador() {
-        this.paramService.obtenerListaTipos().subscribe((result) => {
-            this.tipos = result;
-        });
-        this.paginator.pageChange.subscribe(() => {
-            this.obtenerListaParametros();
-        });
-    }
 
     eliminarParametroModal(id) {
         this.idParametro = id;

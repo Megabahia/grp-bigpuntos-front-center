@@ -49,6 +49,7 @@ import { EmpleadosPreaprovadosComponent } from './vistas/center/solicitudes-cred
 import { NegocioPropioPreaprovadosComponent } from './vistas/center/solicitudes-creditos/negocio-propio-preaprovados/negocio-propio-preaprovados.component';
 import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-creditos/microcreditos-normales/microcreditos-normales.component';
 import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-creditos/microcreditos-pre-aprovados/microcreditos-pre-aprovados.component';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -237,24 +238,25 @@ const routes = [
     MicrocreditosNormalesComponent,
     MicrocreditosPreAprovadosComponent,
   ],
-    imports: [
-        CoreCommonModule,
-        RouterModule.forChild(routes),
-        ContentHeaderModule,
-        TranslateModule,
-        SwiperModule,
-        FormsModule,
-        CoreTouchspinModule,
-        CoreSidebarModule,
-        NgbModule,
-        Ng2FlatpickrModule,
-        CardSnippetModule,
-        ShareIconsModule,
-        ShareButtonsModule,
-        QRCodeModule,
-        FlatpickrModule.forRoot(),
-        NgSelectModule
-    ],
+  imports: [
+    CoreCommonModule,
+    RouterModule.forChild(routes),
+    ContentHeaderModule,
+    TranslateModule,
+    SwiperModule,
+    FormsModule,
+    CoreTouchspinModule,
+    CoreSidebarModule,
+    NgbModule,
+    Ng2FlatpickrModule,
+    CardSnippetModule,
+    ShareIconsModule,
+    ShareButtonsModule,
+    QRCodeModule,
+    FlatpickrModule.forRoot(),
+    NgSelectModule,
+    NgxDatatableModule
+  ],
   exports: [
 
     PrincipalComponent,

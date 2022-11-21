@@ -24,6 +24,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { AuthGuard } from './auth/helpers/auth.guards';
 import { JwtInterceptor } from './auth/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './auth/helpers/error.interceptor';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 const appRoutes: Routes = [
   {
@@ -77,6 +78,8 @@ const appRoutes: Routes = [
     SampleModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // for firestore
+
+    NgxDatatableModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

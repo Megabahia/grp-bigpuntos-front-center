@@ -124,8 +124,10 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             identificacion: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
-            identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
-            papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            // identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
+            // papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            identificacionConyuge: ['', credito.identificacionConyuge ? [] : [Validators.required]],
+            papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
             mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required]],
             matriculaVehiculo: [''],
@@ -160,8 +162,11 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     subirDoc(event, key) {
         if (event.target.files && event.target.files[0]) {
             const doc = event.target.files[0];
+            const x = document.getElementById(key + 'lbl');
+            x.innerHTML = '' + Date.now() + '_' + doc.name;
             this.actualizarCreditoFormData.delete(`${key}`);
             this.actualizarCreditoFormData.append(`${key}`, doc, Date.now() + '_' + doc.name);
+            // this.actualizarCreditoFormData.set(`${key}`, doc, Date.now() + '_' + doc.name);
         }
     }
 

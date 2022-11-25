@@ -107,10 +107,11 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     viewDataUser(modal, user) {
         this.modalOpenSLC(modal);
         this.userViewData = user;
-        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        console.log('user', user);
+        this.ocupacionSolicitante = user.ocupacionSolicitante;
+        this.referenciasSolicitante = user.referenciasSolicitante;
+        this.ingresosSolicitante = user.ingresosSolicitante;
+        this.gastosSolicitante = user.gastosSolicitante;
     }
 
     verDocumentos(credito) {

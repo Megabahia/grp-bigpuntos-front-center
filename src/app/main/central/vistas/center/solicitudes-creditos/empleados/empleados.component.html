@@ -20,35 +20,38 @@
     <div class="content-body">
         <!-- users list start -->
         <section class="app-user-list">
-            <div class="card card-company-table">
-                <div class="profile-header-nav">
+
                     <!-- navbar -->
-                    <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
-                        <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <i data-feather="align-justify" class="font-medium-5"></i>
-                        </button>
+
+                        <div class="row">
+                            <div class="col-5 m-1">
+                                <button class="form-control ">
+                                    Actualizar
+                                </button>
+                            </div>
+
+                            <div  class="col-6  text-right"  >
+                                <label>Mostrar</label>
+                                <select class="form-control-sm" [(ngModel)]="page_size"
+                                        (change)="obtenerSolicitudesCreditos()">
+                                    <option value="4">4</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
+
 
                         <!--/ collapse  -->
-                        <div class="col-12" style="text-align: right">
-                            <label>Mostrar</label>
-                            <select class="form-control-sm" [(ngModel)]="page_size"
-                                    (change)="obtenerSolicitudesCreditos()">
-                                <option value="4">4</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                    </nav>
                     <!--/ navbar -->
 
-                </div>
 
-
-            </div>
             <!-- list section end -->
         </section>
         <section class="app-user-list">

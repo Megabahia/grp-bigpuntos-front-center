@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   hmr: false,
   apiUrl: 'https://api.bigpuntos.com',
+  urlBigPuntos: 'https://portal.bigpuntos.com/#/',
   firebaseConfig: {
     apiKey: 'AIzaSyBISFdku_C2M-rr4-bhpkeXtE4z8u07yRo',
     authDomain: 'grp-bigpuntos.firebaseapp.com',

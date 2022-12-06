@@ -84,6 +84,15 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'empresasCorp',
+        title: 'Empresas',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/center/empresas',
+      },
+      {
         id: 'usuariosCenter',
         title: 'Usuarios',
         // translate: 'MENU.HOME',

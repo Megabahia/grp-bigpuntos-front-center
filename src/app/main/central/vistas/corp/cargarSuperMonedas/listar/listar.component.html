@@ -59,7 +59,7 @@
                                 Exportar a Excel
                             </button> -->
                         <a (click)="toggleSidebar('factura-electronica')" class="btn btn-primary">
-                                Añadir Supermonedas
+                                Añadir Big Puntos
                             </a>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                 <th>Apellidos</th>
                                 <th>Ruc de Empresa</th>
                                 <th>Nombre de Empresa</th>
-                                <th>Monto de monedas</th>
+                                <th>Big Puntos asignados</th>
                                 <th>Fecha de Vigencia</th>
                                 <th>Concepto</th>
                             </tr>
@@ -126,11 +126,12 @@
                         ×
                     </button>
                     <div class="modal-header mb-1">
-                        <h5 class="modal-title" id="exampleModalLabel">Asignar Supermonedas</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Asignar Big Puntos</h5>
                     </div>
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
                             <label for="customFile1">Adjuntar archivos (Excel)</label>
+                            <a href="assets/anexos/documento%20cargar%20monedas.xlsx">ANEXO 1 BIG PUNTOS CENTER</a>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile1" required (change)="cargarFacturaElec($event)" accept=".xlsx,.xls" />
                                 <label class="custom-file-label" for="customFile1">{{nombreFacElec ? nombreFacElec:'Escojer'}}</label>

@@ -37,7 +37,7 @@ export class UploadComponent implements OnInit {
   public empresaIfi;
   public empresaCorp;
 
-  public cantidadMonedas;
+  public empresa_comercial = '';
   public usuario;
   public cargandoUsuario = false;
   public listaArchivosPreAprobados = [];
@@ -94,6 +94,7 @@ export class UploadComponent implements OnInit {
       maximaCreacion: '',
       user_id: '',
       campania: '',
+      empresa_comercial: this.empresa_comercial,
       tipoCredito: 'Empleado'
     }).subscribe((info) => {
       this.listaArchivosPreAprobados = info.info;

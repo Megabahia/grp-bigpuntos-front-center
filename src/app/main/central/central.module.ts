@@ -79,7 +79,7 @@ const routes = [
         path: 'roles', component: RolesCorpComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'cargarSuperMonedas', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
+        path: 'cargarBigPuntos', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
       },
       {
         path: 'cargarCreditosEmpleados', component: UploadComponent, canActivate: [AuthGuard]
@@ -116,7 +116,7 @@ const routes = [
         path: 'productos-mensaje-sm', component: ProductosMensajeListar, canActivate: [AuthGuard]
       },
       {
-        path: 'productos-nuestra-familia-sm', component: ProductosNuestraFamiliaListar, canActivate: [AuthGuard]
+        path: 'productos-big.puntos', component: ProductosNuestraFamiliaListar, canActivate: [AuthGuard]
       },
       {
         path: 'reporte-correos-landing', component: CorreosLandingListar, canActivate: [AuthGuard]

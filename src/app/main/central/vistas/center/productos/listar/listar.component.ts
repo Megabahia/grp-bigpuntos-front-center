@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { ProductosService } from '../productos.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Producto } from '../models/productos';
-import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
-import { CoreSidebarService } from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
-import { ParametrizacionesService } from '../../parametrizaciones/parametrizaciones.service';
-import { FlatpickrOptions } from 'ng2-flatpickr';
+import {Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy} from '@angular/core';
+import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {ProductosService} from '../productos.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Producto} from '../models/productos';
+import {DatePipe} from '@angular/common';
+import {Subject} from 'rxjs';
+import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {ParametrizacionesService} from '../../parametrizaciones/parametrizaciones.service';
+import {FlatpickrOptions} from 'ng2-flatpickr';
 import moment from 'moment';
 
 @Component({
@@ -17,7 +17,7 @@ import moment from 'moment';
   providers: [DatePipe]
 
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, OnDestroy {
   @ViewChild(NgbPagination) paginator: NgbPagination;
   @ViewChild('eliminarProductoMdl') eliminarProductoMdl;
   @ViewChild('mensajeModal') mensajeModal;
@@ -33,17 +33,17 @@ export class ListarComponent implements OnInit {
   public empresa_id;
   public imagen;
   public productosFormData = new FormData();
-  public tiposOpciones: string = "";
+  public tiposOpciones: string = '';
   public tipos;
   public tipoProductoOpciones;
   public producto: Producto;
   public nombreBuscar;
   public productos;
-  public tipoPadre = "";
-  public fecha = "";
+  public tipoPadre = '';
+  public fecha = '';
   public padres;
-  public mensaje = "";
-  public idPadre = "";
+  public mensaje = '';
+  public idPadre = '';
   public startDateOptions: FlatpickrOptions = {
     altInput: true,
     mode: 'single',
@@ -60,50 +60,54 @@ export class ListarComponent implements OnInit {
     private paramService: ParametrizacionesService,
     private datePipe: DatePipe,
     private changeDetector: ChangeDetectorRef,
-
   ) {
     this._unsubscribeAll = new Subject();
-    this.idProducto = "";
+    this.idProducto = '';
     this.producto = this.inicializarProducto();
   }
+
   get prodForm() {
     return this.productoForm.controls;
   }
+
   inicializarProducto(): Producto {
     return {
-      _id: "",
+      _id: '',
       cantidad: 0,
-      codigoQR: "",
+      codigoQR: '',
       efectivo: 0,
-      empresa_id: "",
-      marca: "",
-      nombre: "",
+      empresa_id: '',
+      marca: '',
+      nombre: '',
       precioNormal: 0,
       precioSupermonedas: 0,
-      vigencia: "",
-      tipo: "presentacion",
-      imagen: ""
-    }
+      vigencia: '',
+      tipo: 'presentacion',
+      imagen: ''
+    };
   }
+
   obtenerEmpresaId() {
     this.paramService.obtenerEmpresa({
-      nombreComercial: "Global Red Pyme"
+      nombreComercial: 'Global Red Pyme'
     }).subscribe((info) => {
       this.empresa_id = info._id;
     }, (error) => {
-      this.mensaje = "Ha ocurrido un error al actualizar su imagen";
+      this.mensaje = 'Ha ocurrido un error al actualizar su imagen';
       this.abrirModal(this.mensajeModal);
     });
   }
+
   obtenerFecha() {
     this.producto.vigencia = moment(this.prodForm.vigencia.value[0]).format('YYYY-MM-DD');
 
   }
+
   ngOnInit(): void {
     this.productoForm = this._formBuilder.group({
       // cantidad: [0, [Validators.required, Validators.min(1)]],
       efectivo: [0, [Validators.required, Validators.min(1)]],
-      marca: ['', [Validators.required]],
+      // marca: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       precioNormal: [0, [Validators.required, Validators.min(1)]],
       precioSupermonedas: [0, [Validators.required, Validators.min(1)]],
@@ -116,10 +120,12 @@ export class ListarComponent implements OnInit {
     this.changeDetector.detectChanges();
 
   }
+
   transformarFecha(fecha) {
     let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
     return nuevaFecha;
   }
+
   ngAfterViewInit() {
     this.iniciarPaginador();
 
@@ -154,26 +160,26 @@ export class ListarComponent implements OnInit {
       //   productoAct = this.productosFormData;
       // }
       this.productosService.actualizarProducto(this.productosFormData, this.producto._id).subscribe(() => {
-        this.obtenerListaProductos();
-        this.mensaje = "Producto actualizado con éxito";
-        this.abrirModal(this.mensajeModal);
-        this.loading = false;
-      },
+          this.obtenerListaProductos();
+          this.mensaje = 'Producto actualizado con éxito';
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+        },
         (error) => {
-          this.mensaje = "Ha ocurrido un error";
+          this.mensaje = 'Ha ocurrido un error';
           this.abrirModal(this.mensajeModal);
           this.loading = false;
         });
     } else {
 
       this.productosService.crearProducto(this.productosFormData).subscribe((info) => {
-        this.obtenerListaProductos();
-        this.mensaje = "Producto guardado con éxito";
-        this.abrirModal(this.mensajeModal);
-        this.loading = false;
-      },
+          this.obtenerListaProductos();
+          this.mensaje = 'Producto guardado con éxito';
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+        },
         (error) => {
-          this.mensaje = "Ha ocurrido un error";
+          this.mensaje = 'Ha ocurrido un error';
           this.abrirModal(this.mensajeModal);
           this.loading = false;
         });
@@ -181,20 +187,23 @@ export class ListarComponent implements OnInit {
 
 
   }
+
   async subirImagen(event) {
 
     if (event.target.files && event.target.files[0]) {
       let imagen = event.target.files[0];
       this.imagen = imagen.name;
       this.productosFormData.delete('imagen');
-      this.productosFormData.append('imagen', imagen, Date.now() + "_" + imagen.name);
+      this.productosFormData.append('imagen', imagen, Date.now() + '_' + imagen.name);
     }
   }
+
   opcionesTipoProductos() {
-    this.paramService.obtenerListaPadres("TIPO_PRODUCTO").subscribe((info) => {
+    this.paramService.obtenerListaPadres('TIPO_PRODUCTO').subscribe((info) => {
       this.tipoProductoOpciones = info;
     });
   }
+
   obtenerListaProductos() {
     this.productosService.obtenerListaProductos(
       {
@@ -208,8 +217,9 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
+
   toggleSidebar(name, id): void {
-    this.imagen = "";
+    this.imagen = '';
     if (id) {
       this.productosService.obtenerProducto(id).subscribe((info) => {
         this.producto = info;
@@ -224,34 +234,40 @@ export class ListarComponent implements OnInit {
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+
   iniciarPaginador() {
 
     this.paginator.pageChange.subscribe(() => {
       this.obtenerListaProductos();
     });
   }
+
   visualizarNombreArchivo(nombre) {
     let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
     return nombre.replace(stringArchivos, '');
   }
+
   eliminarProductoModal(id) {
     this.idProducto = id;
     this.abrirModal(this.eliminarProductoMdl);
   }
+
   eliminarProducto() {
     this.productosService.eliminarProducto(this.idProducto).subscribe((info) => {
-      this.obtenerListaProductos();
-      this.mensaje = "Producto eliminado con éxito";
-      this.abrirModal(this.mensajeModal);
-    },
+        this.obtenerListaProductos();
+        this.mensaje = 'Producto eliminado con éxito';
+        this.abrirModal(this.mensajeModal);
+      },
       (error) => {
-        this.mensaje = "Error al eliminar producto";
+        this.mensaje = 'Error al eliminar producto';
         this.abrirModal(this.mensajeModal);
       });
   }
+
   abrirModal(modal) {
-    this._modalService.open(modal)
+    this._modalService.open(modal);
   }
+
   cerrarModal() {
     this._modalService.dismissAll();
   }

@@ -191,7 +191,10 @@ export class ListarComponent implements OnInit {
         (error) => {
           this.loading = false;
 
-          this.mensaje = "Ha ocurrido un error al cargar su factura";
+          this.mensaje = `
+            ¡Lo sentimos!
+            Ha ocurrido un error al cargar el documento, por favor valide que los datos ingresados sean correctos y vuelva a intentar.
+          `;
           this.abrirModal(this.mensajeModal);
         });
     } else {

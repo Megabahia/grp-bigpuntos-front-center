@@ -62,7 +62,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'dollar-sign',
-        url: 'central/corp/cargarSuperMonedas',
+        url: 'central/corp/cargarBigPuntos',
       },
       {
         id: 'creditosEmpleados',
@@ -162,7 +162,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'package',
-        url: 'central/center/productos-nuestra-familia-sm',
+        url: 'central/center/productos-big.puntos',
       },
       {
         id: 'correosLanding',

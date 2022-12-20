@@ -94,8 +94,8 @@ export class ListarComponent implements OnInit {
             pais: ['', [Validators.required]],
             provincia: ['', [Validators.required]],
             ruc: ['', [Validators.required]],
-            telefono1: ['', [Validators.required]],
-            telefono2: ['', [Validators.required]],
+            telefono1: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(10)]],
+            telefono2: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(10)]],
             tipoCategoria: ['', [Validators.required]],
             tipoEmpresa: ['', [Validators.required]],
         });

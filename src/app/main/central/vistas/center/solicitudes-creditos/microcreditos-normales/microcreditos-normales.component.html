@@ -68,8 +68,8 @@
                     <tbody>
                     <tr *ngFor="let credito of listaCreditos">
                         <td>{{transformarFecha(credito.created_at)}}</td>
-                        <td>{{credito.razonSocial}}</td>
-                        <td>{{credito.rucEmpresa}}</td>
+                        <td>{{credito.empresaInfo.comercial}}</td>
+                        <td>{{credito.empresaInfo.rucEmpresa}}</td>
                         <td>
                             <button type="button" class="btn btn-outline-primary"
                                     rippleEffect

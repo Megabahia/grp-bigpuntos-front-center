@@ -156,7 +156,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     }
 
     viewDataUser(modal, empresa) {
-        const infoEmpresa = JSON.parse(empresa);
+        const infoEmpresa = empresa;
         this.empresa = infoEmpresa;
         console.log('infoEmpresa', infoEmpresa);
         this.declareFormularios();

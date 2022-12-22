@@ -3,7 +3,7 @@
         <div class="col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Solicitud de créditos empleados</h2>
+                    <h2 class="content-header-title float-left mb-0">SOLICITUD DE LÍNEAS DE CRÉDITO</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
@@ -59,12 +59,10 @@
                         <th>Fecha de creación</th>
                         <th>Razón social (pyme)</th>
                         <th>RUC pyme</th>
-                        <th>Monto ACTUAL pre-aprobado</th>
                         <th>Documentos</th>
                         <th>Estado</th>
                         <th>Solicitud de crédito</th>
                         <th>Observaciones</th>
-                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,7 +70,6 @@
                         <td>{{transformarFecha(credito.created_at)}}</td>
                         <td>{{credito.razonSocial}}</td>
                         <td>{{credito.rucEmpresa}}</td>
-                        <td>{{credito.monto}}</td>
                         <td>
                             <button type="button" class="btn btn-outline-primary"
                                     rippleEffect
@@ -90,24 +87,6 @@
                             </button>
                         </td>
                         <td>{{credito.observacion}}</td>
-
-
-                        <td class="d-flex">
-                            <!--                            <a *ngIf="credito.estado == 'Nuevo'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"-->
-                            <!--                               data-toggle="modal" (click)="toggleSidebar('actualizar-credito',credito._id)">-->
-                            <!--                                <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"-->
-                            <!--                                     title="" data-original-title="Aprobar/Rechazar">-->
-                            <!--                                    <i data-feather='check-circle'></i>-->
-                            <!--                                </div>-->
-                            <!--                            </a>-->
-                            <!--                            <a *ngIf="credito.estado == 'Datos completos'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"-->
-                            <!--                               data-toggle="modal" (click)="checks(checksCreditoMdl, credito._id)">-->
-                            <!--                                <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"-->
-                            <!--                                     title="" data-original-title="Aprobar/Rechazar">-->
-                            <!--                                    <i data-feather='check-circle'></i>-->
-                            <!--                                </div>-->
-                            <!--                            </a>-->
-                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -591,7 +570,7 @@
     <!-- Modal to add new user starts-->
     <form class="add-new-user modal-content pt-0" [formGroup]="actualizarCreditoForm">
         <div class="modal-header mb-1">
-            <h5 class="modal-title" id="exampleModalLabel">MICROCRÉDITO PREAPROBADO
+            <h5 class="modal-title" id="exampleModalLabel">LÍNEA DE CRÉDITO
             </h5>
         </div>
         <div class="modal-body flex-grow-1">
@@ -1057,7 +1036,7 @@
 
     <div class="mt-2">
         <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Enviado')"
-                [disabled]="cargando">Aprobado
+                [disabled]="cargando" style="color: black !important;">ENVIAR
         </button>
         <button class="btn btn-outline-secondary"
                 (click)="cancelar()"

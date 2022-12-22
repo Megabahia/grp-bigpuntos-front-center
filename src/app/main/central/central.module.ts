@@ -156,32 +156,16 @@ const routes = [
             canActivate: [AuthGuard]
           },
           {
-            path: 'microcreditPreAprovado',
+            path: 'microcreditpreaprobado',
             component: MicrocreditosPreAprovadosComponent,
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
           {
-            path: 'microcreditNormales',
+            path: 'microcreditsolicitud',
             component: MicrocreditosNormalesComponent,
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
-          },
-          {
-            id: 'microcreditPreAprovado',
-            title: 'PYMES pre-aprobados ',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditPreAprovado'
-          },
-          {
-            id: 'microcreditNormales',
-            title: 'PYMES Normales ',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditNormales'
           },
         ]
       },

@@ -214,20 +214,20 @@ export const menu: CoreMenu[] = [
             url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
           },
           {
-            id: 'microcreditPreAprovado',
+            id: 'microcreditpreaprobado',
             title: 'PYMES pre-aprobados ',
             // translate: 'MENU.APPS.EMAIL',
             type: 'item',
             icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditPreAprovado'
+            url: 'central/center/solicitudes-creditos/microcreditpreaprobado'
           },
           {
-            id: 'microcreditNormales',
+            id: 'microcreditsolicitud',
             title: 'PYMES Normales ',
             // translate: 'MENU.APPS.EMAIL',
             type: 'item',
             icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditNormales'
+            url: 'central/center/solicitudes-creditos/microcreditsolicitud'
           },
         ]
       },

@@ -57,6 +57,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>ANEXO</label>
+                                    <a href="assets/anexos/creditos_preaprobados_empleados_v.xlsx">ANEXO 1 BIG PUNTOS CENTER</a>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile02"
                                                accept=".xlsx,.xls"
@@ -146,8 +148,6 @@
                             <th>Entidad financiera responsable</th>
                             <th>Empresa</th>
                             <th>Nombre de archivo</th>
-                            <th>Tamaño de archivo</th>
-                            <th>Usuario que cargó el archivo</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -167,8 +167,6 @@
                             <td>{{archivo.empresa_financiera}}</td>
                             <td>{{archivo.empresa_comercial}}</td>
                             <td>{{archivo.linkArchivo.split('/')[5]}}</td>
-                            <td>{{archivo.tamanioArchivo}}MB</td>
-                            <td>{{archivo.usuarioCargo}}</td>
                             <td>{{archivo.estado}}</td>
                             <td class="d-flex">
                                 <a href="javascript:void(0);" class="avatar bg-danger mr-1" data-target="#eliminar" data-toggle="modal"

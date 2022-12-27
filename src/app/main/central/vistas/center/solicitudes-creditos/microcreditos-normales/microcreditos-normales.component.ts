@@ -50,6 +50,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': false},
         {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
         {'label': 'Buro credito', 'valor': false},
+        {'label': 'Calificacion buro', 'valor': false},
     ];
     public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion',
         'identificacionConyuge', 'mecanizadoIess', 'papeletaVotacionConyuge', 'planillaLuzNegocio',
@@ -207,6 +208,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 matriculaVehiculo: [''], //
                 impuestoPredial: [''], //
                 buroCredito: ['', [Validators.required]], //
+                calificacionBuro: [credito.calificacionBuro, [Validators.required]],
                 observacion: [this.credito.observacion ? this.credito.observacion : '', [Validators.required]], //
                 // checks
                 checkIdentificacion: ['', [Validators.requiredTrue]], //
@@ -222,8 +224,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkMatriculaVehiculo: [''], //
                 checkImpuestoPredial: [''], //
                 checkBuroCredito: ['', [Validators.requiredTrue]], //
+                checkCalificacionBuro: ['', [Validators.requiredTrue]], //
                 checkObservacion: ['', [Validators.requiredTrue]], //
             });
+      console.log(credito.checks);
         this.checks = JSON.parse(credito.checks);
     }
 
@@ -246,6 +250,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+          console.log(this.actualizarCreditoForm);
             return;
         }
         const {

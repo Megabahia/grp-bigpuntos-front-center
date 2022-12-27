@@ -85,7 +85,7 @@ export const menu: CoreMenu[] = [
     children: [
       {
         id: 'empresasCorp',
-        title: 'Empresas',
+        title: 'Landing Empresas',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',

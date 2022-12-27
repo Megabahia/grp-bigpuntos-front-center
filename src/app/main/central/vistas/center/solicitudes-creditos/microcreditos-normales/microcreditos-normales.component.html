@@ -102,7 +102,7 @@
 <!-- INICIO MODAL USER -->
 <ng-template #modalSLC let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <h4 class="modal-title" id="myModalLabel1">SOLICITUD DE LÍNEA DE CRÉDITO</h4>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -1005,6 +1005,31 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="calificacionBuro">Calificación del buró</label>
+                <div class="custom-file">
+                    <fieldset class="form-group">
+                                    <textarea class="form-control" formControlName="calificacionBuro" id="calificacionBuro"
+                                              rows="3"></textarea>
+                    </fieldset>
+                    <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Observación es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCalificacionBuro">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCalificacionBuro"
+                           formControlName="checkCalificacionBuro"/>
+                    <div *ngIf="submitted && controlsFrom.checkCalificacionBuro.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCalificacionBuro.errors.required">Observación es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="observacion">Observacion</label>
                 <div class="custom-file">
                     <fieldset class="form-group">
@@ -1036,7 +1061,7 @@
 
     <div class="mt-2">
         <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Enviado')"
-                [disabled]="cargando" style="color: black !important;">ENVIAR
+                [disabled]="cargando" style="color: black !important;">Procesar
         </button>
         <button class="btn btn-outline-secondary"
                 (click)="cancelar()"

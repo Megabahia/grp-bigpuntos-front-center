@@ -51,6 +51,8 @@ import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-cred
 import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-creditos/microcreditos-pre-aprovados/microcreditos-pre-aprovados.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { ListarComponent as EmpresasCenter } from './vistas/center/empresas/listar/listar.component';
+import { ListarComponent as EmpleadosCorp } from './vistas/corp/empleados/listar/listar.component';
+import { EmpleadosComponent } from './vistas/corp/empleados/empleados/empleados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -68,6 +70,12 @@ const routes = [
       },
       {
         path: 'empresas', component: EmpresasComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'empleados', component: EmpleadosCorp, canActivate: [AuthGuard]
+      },
+      {
+        path: 'empleados/:empresa', component: EmpleadosComponent, canActivate: [AuthGuard]
       },
       {
         path: 'empresas-qr', component: ListarQrComponent, canActivate: [AuthGuard]
@@ -226,6 +234,8 @@ const routes = [
     MicrocreditosNormalesComponent,
     MicrocreditosPreAprovadosComponent,
     EmpresasCenter,
+    EmpleadosCorp,
+    EmpleadosComponent,
   ],
   imports: [
     CoreCommonModule,

@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { NgbPagination, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { GanarSuperMoneda } from '../models/superMonedas';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RolesService } from '../roles.service';
-import { DatePipe } from '@angular/common';
-import { CoreSidebarService } from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { FlatpickrOptions } from 'ng2-flatpickr';
-import { MisFacturasService } from '../../../../../personas/vistas/supermonedas/mis-facturas/mis-facturas.service';
-import { CoreMenuService } from '../../../../../../../@core/components/core-menu/core-menu.service';
-import { ParametrizacionesService } from '../../../center/parametrizaciones/parametrizaciones.service';
-import { BienvenidoService } from '../../../../../personas/vistas/bienvenido/bienvenido.service';
+import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {NgbPagination, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subject} from 'rxjs';
+import {GanarSuperMoneda} from '../models/superMonedas';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {RolesService} from '../roles.service';
+import {DatePipe} from '@angular/common';
+import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {FlatpickrOptions} from 'ng2-flatpickr';
+import {MisFacturasService} from '../../../../../personas/vistas/supermonedas/mis-facturas/mis-facturas.service';
+import {CoreMenuService} from '../../../../../../../@core/components/core-menu/core-menu.service';
+import {ParametrizacionesService} from '../../../center/parametrizaciones/parametrizaciones.service';
+import {BienvenidoService} from '../../../../../personas/vistas/bienvenido/bienvenido.service';
 
 @Component({
   selector: 'app-listar',
@@ -30,13 +30,13 @@ export class ListarComponent implements OnInit {
   public usuario;
   public empresaId;
   public loading = false;
-  public mensaje = "";
+  public mensaje = '';
   public ganarMonedasFacElec;
   public ganarMonedasFacFisi;
   public submittedFactura = false;
   public superMonedasElec: GanarSuperMoneda;
-  public nombreFacElec = "";
-  public nombreFacFisi = "";
+  public nombreFacElec = '';
+  public nombreFacFisi = '';
   public categoriaEmpresaOpciones;
   public facFisiForm: FormGroup;
   public archivoFacElec = new FormData();
@@ -55,6 +55,7 @@ export class ListarComponent implements OnInit {
     altFormat: 'Y-n-j',
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
   };
+
   constructor(
     private _misFacturasService: MisFacturasService,
     private datePipe: DatePipe,
@@ -73,14 +74,15 @@ export class ListarComponent implements OnInit {
     this._unsubscribeAll = new Subject();
 
   }
+
   inicializarSuperMoneda(): GanarSuperMoneda {
     return {
       credito: 0,
-      descripcion: "",
-      tipo: "Credito",
+      descripcion: '',
+      tipo: 'Credito',
       user_id: this.usuario.id,
       empresa_id: this.empresaId
-    }
+    };
   }
 
   get FFForm() {
@@ -109,6 +111,7 @@ export class ListarComponent implements OnInit {
 
     this.cdRef.detectChanges();
   }
+
   obtenerListaSupermonedas() {
     this._misFacturasService.obtenerSupermonedas({
       page: this.page - 1, page_size: this.page_size,
@@ -117,16 +120,18 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
+
   obtenerEmpresaId() {
     this._bienvenidoService.obtenerEmpresa({
-      nombreComercial: "Global Red Pyme"
+      nombreComercial: 'Global Red Pyme'
     }).subscribe((info) => {
       this.superMonedasElec.empresa_id = info._id;
     }, (error) => {
-      this.mensaje = "Ha ocurrido un error al actualizar su imagen";
+      this.mensaje = 'Ha ocurrido un error al actualizar su imagen';
       this.abrirModal(this.mensajeModal);
     });
   }
+
   ngAfterViewInit() {
     this.iniciarPaginador();
     this.obtenerListaSupermonedas();
@@ -134,14 +139,15 @@ export class ListarComponent implements OnInit {
   }
 
   toggleSidebar(name): void {
-    if (name == "factura-electronica") {
-      this.nombreFacElec = "";
+    if (name == 'factura-electronica') {
+      this.nombreFacElec = '';
       this.archivoFacElec = new FormData();
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+
   obtenerCategoriaEmpresaOpciones() {
-    this.paramService.obtenerListaPadres("CATEGORIA_EMPRESA").subscribe((info) => {
+    this.paramService.obtenerListaPadres('CATEGORIA_EMPRESA').subscribe((info) => {
       this.categoriaEmpresaOpciones = info;
     });
   }
@@ -154,10 +160,12 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
+
   transformarFecha(fecha) {
     let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
     return nuevaFecha;
   }
+
   cargarFacturaElec(event: any) {
     if (event.target.files && event.target.files[0]) {
       let archivo = event.target.files[0];
@@ -165,9 +173,10 @@ export class ListarComponent implements OnInit {
 
       this.archivoFacElec = new FormData();
       this.archivoFacElec.delete('documento');
-      this.archivoFacElec.append('documento', archivo, Date.now() + "_" + archivo.name);
+      this.archivoFacElec.append('documento', archivo, Date.now() + '_' + archivo.name);
     }
   }
+
   visualizarNombreArchivo(nombre) {
     let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/archivosFacturas/';
     let stringImagenes = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgFacturas/';
@@ -177,17 +186,26 @@ export class ListarComponent implements OnInit {
       return nombre.replace('https://globalredpymes.s3.amazonaws.com/CENTRAL/imgFacturas/', '');
     }
   }
+
   subirFacturaElec() {
     if (this.nombreFacElec) {
       this.loading = true;
       this.archivoFacElec.append('user_id', this.usuario.id);
       this._misFacturasService.asignarSuperMonedas(this.archivoFacElec).subscribe((info) => {
-        this.loading = false;
-        this.obtenerListaSupermonedas();
-        this.toggleSidebar("factura-electronica");
-        this.mensaje = "Supermonedas asignadas correctamente";
-        this.abrirModal(this.mensajeModal);
-      },
+          this.loading = false;
+          this.obtenerListaSupermonedas();
+          this.toggleSidebar('factura-electronica');
+          console.log(info);
+          if (info.errores.length > 0) {
+            this.mensaje = '';
+            info.errores.map(item => {
+              this.mensaje += item.error + '\n';
+            });
+          } else {
+            this.mensaje = 'Supermonedas asignadas correctamente';
+          }
+          this.abrirModal(this.mensajeModal);
+        },
         (error) => {
           this.loading = false;
 
@@ -200,10 +218,11 @@ export class ListarComponent implements OnInit {
     } else {
       this.loading = false;
 
-      this.mensaje = "Es necesario cargar un archivo tipo PDF o XML";
+      this.mensaje = 'Es necesario cargar un archivo tipo PDF o XML';
       this.abrirModal(this.mensajeModal);
     }
   }
+
   iniciarPaginador() {
     this.paginator.pageChange.subscribe(() => {
       this.obtenerListaSupermonedas();
@@ -218,12 +237,15 @@ export class ListarComponent implements OnInit {
       this.facFisiFormData.append('documento', imagen, imagen.name);
     }
   }
+
   abrirModal(modal) {
     this.modalService.open(modal);
   }
+
   cerrarModal() {
     this.modalService.dismissAll();
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();

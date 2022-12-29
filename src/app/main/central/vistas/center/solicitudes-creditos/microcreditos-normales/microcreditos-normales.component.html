@@ -197,15 +197,15 @@
                     <div class="form-group">
                         <label>Dirección del negocio o empresa :
                         </label>
-                        <input type="text" formControlName="direccionEmpresa"
+                        <input type="text" formControlName="correo"
                                class="form-control"
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.direccionEmpresa.errors"
+                    <div *ngIf="submitted && controlsFrom.correo.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.direccionEmpresa.errors.required">Dirección
+                        <div *ngIf="controlsFrom.correo.errors.required">Dirección
                             es
                             requerido
                         </div>
@@ -220,14 +220,14 @@
                             escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
                             Vecino):
                         </label>
-                        <input type="text" formControlName="referenciaDomicilio"
+                        <input type="text" formControlName="refenciaNegocio"
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.referenciaDomicilio.errors"
+                    <div *ngIf="submitted && controlsFrom.refenciaNegocio.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.referenciaDomicilio.errors.required">
+                        <div *ngIf="controlsFrom.refenciaNegocio.errors.required">
                             Referencia es
                             requerido
                         </div>
@@ -242,7 +242,7 @@
                                 class="form-control select2" formControlName="esatdo_civil" disabled
                         >
                             <option value="">- Seleccione -</option>
-                            <option value="Soltero">- Soltero -</option>
+                            <option value="Solter@">- Soltero -</option>
                             <option value="Casado">- Casado -</option>
                             <option value="Divorciado">- Divorciado -</option>
                         </select>

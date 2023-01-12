@@ -55,7 +55,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion',
         'identificacionConyuge', 'mecanizadoIess', 'papeletaVotacionConyuge', 'planillaLuzNegocio',
         'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
-        'solicitudCredito', 'buroCreditoIfis', 'facturasVentas2meses', 'facturasVentasCertificado', 'facturasPendiente'];
+        'solicitudCredito', 'buroCreditoIfis', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentas2meses3', 'facturasVentasCertificado', 'facturasPendiente'];
     // Formulario
     public soltero = false;
     public actualizarCreditoForm: FormGroup;
@@ -87,6 +87,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 direccionEmpresa: ['', [Validators.required]], //
                 referenciaDomicilio: ['', [Validators.required]], //
                 esatdo_civil: ['', [Validators.required]], //
+                refenciaNegocio: ['', [Validators.required]], //
                 correo: ['', [Validators.required]], //
                 telefono: ['', [Validators.required]], //
                 celular: ['', [Validators.required]], //
@@ -163,7 +164,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.declareFormularios();
         this.declareFormConyuge();
         this.modalOpenSLC(modal);
-        this.casado = infoEmpresa.esatdo_civil ? true : false;
+        this.casado = infoEmpresa.esatdo_civil === 'Casado' ? true : false;
         infoEmpresa?.familiares.forEach(item => this.agregarFamiliar());
         this.formSolicitud.patchValue({...infoEmpresa});
         // this.formConyuge.patchValue({...infoEmpresa.conyuge});
@@ -182,6 +183,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
             apellidoFamiliar: [''], //
             telefonoFamiliar: [''], //
             direccionFamiliar: [''],
+            tipoPariente: [''],
         });
         this.familiares.push(cuentaForm);
     }
@@ -203,6 +205,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 planillaLuzDomicilio: ['', [Validators.required]], //
                 planillaLuzNegocio: ['', [Validators.required]], //
                 facturasVentas2meses: ['', [Validators.required]], //
+                facturasVentas2meses2: ['', [Validators.required]], //
+                facturasVentas2meses3: ['', [Validators.required]], //
                 facturasVentasCertificado: ['', [Validators.required]], //
                 facturasPendiente: ['', [Validators.required]], //
                 matriculaVehiculo: [''], //
@@ -219,6 +223,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
                 checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
                 checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
+                checkfacturasVentas2meses2: ['', [Validators.requiredTrue]], //
+                checkfacturasVentas2meses3: ['', [Validators.requiredTrue]], //
                 checkfacturasVentasCertificado: ['', [Validators.requiredTrue]], //
                 checkFacturasPendiente: ['', [Validators.requiredTrue]], //
                 checkMatriculaVehiculo: [''], //
@@ -287,6 +293,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
             {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
             {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses},
+            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses2},
+            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses3},
             {
                 'label': '3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación',
                 'valor': resto.checkfacturasVentasCertificado

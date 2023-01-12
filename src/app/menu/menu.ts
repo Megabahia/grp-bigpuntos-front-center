@@ -191,52 +191,68 @@ export const menu: CoreMenu[] = [
         icon: 'credit-card',
         children: [
           {
-            id: 'empleados',
-            title: 'Créditos empleados',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/empleados'
+            id: 'creditoComsumo',
+            title: 'Créditos de consumo',
+            type: 'collapsible',
+            icon: 'credit-card',
+            children: [
+              {
+                id: 'empleados',
+                title: 'Créditos empleados',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/empleados'
+              },
+              {
+                id: 'negocios',
+                title: 'Créditos negocios',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/negocios-propio'
+              },
+              {
+                id: 'propios-pre-aprovados',
+                title: 'Pre aprobados negocios propios',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/negocios-propios-pre-aprobados'
+              },
+              {
+                id: 'empelados-pre-aprovados',
+                title: 'Pre aprobados empelados',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
+              },
+            ]
           },
           {
-            id: 'negocios',
-            title: 'Créditos negocios',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/negocios-propio'
-          },
-          {
-            id: 'propios-pre-aprovados',
-            title: 'Pre aprobados negocios propios',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/negocios-propios-pre-aprobados'
-          },
-          {
-            id: 'empelados-pre-aprovados',
-            title: 'Pre aprobados empelados',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
-          },
-          {
-            id: 'microcreditpreaprobado',
-            title: 'PYMES pre-aprobados ',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditpreaprobado'
-          },
-          {
-            id: 'microcreditsolicitud',
-            title: 'PYMES Normales ',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/microcreditsolicitud'
+            id: 'lineasCredito',
+            title: 'Líneas de crédito',
+            type: 'collapsible',
+            icon: 'credit-card',
+            children: [
+              {
+                id: 'microcreditpreaprobado',
+                title: 'PYMES pre-aprobados ',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/microcreditpreaprobado'
+              },
+              {
+                id: 'microcreditsolicitud',
+                title: 'PYMES Normales ',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/microcreditsolicitud'
+              },
+            ]
           },
         ]
       },

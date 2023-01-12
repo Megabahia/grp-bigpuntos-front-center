@@ -71,7 +71,7 @@
                         <td>{{credito.empresaInfo.comercial}}</td>
                         <td>{{credito.empresaInfo.rucEmpresa}}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Enviado'" type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -368,7 +368,7 @@
                 <ng-container
                         *ngFor="let familiar of formSolicitud.get('familiares')['controls']; let i = index">
                     <h5>
-                        Familair {{i + 1}}:
+                        Familair {{i + 1}} {{familiar['controls']?.tipoPariente.value}}:
                     </h5>
                     <div [formGroup]="familiar">
                         <div class="row">
@@ -810,7 +810,7 @@
             </div>
             <div class="form-group">
                 <label>
-                    3 Copias de Facturas de Ventas del negocio de los últimos 2 meses
+                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses"
@@ -842,6 +842,74 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses2"
+                           formControlName="facturasVentas2meses2"
+                           (change)="subirDoc( $event,'facturasVentas2meses2')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentas2meses2">{{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">Copias de Facturas de Ventas
+                            últimos 2 meses es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses2"
+                           formControlName="checkfacturasVentas2meses2"/>
+                    <a *ngIf="credito.facturasVentas2meses2" href="{{credito.facturasVentas2meses2}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">Facturas de Ventas últimos 2
+                            meses es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses3"
+                           formControlName="facturasVentas2meses3"
+                           (change)="subirDoc( $event,'facturasVentas2meses3')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentas2meses3">{{actualizarCreditoForm.get('facturasVentas2meses3').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">Copias de Facturas de Ventas
+                            últimos 2 meses es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses3">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses3"
+                           formControlName="checkfacturasVentas2meses3"/>
+                    <a *ngIf="credito.facturasVentas2meses3" href="{{credito.facturasVentas2meses3}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">Facturas de Ventas últimos 2
+                            meses es
+                            requerido
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>

@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
     enableTime: true
   };
+  public captcha: boolean;
+  public siteKey: string;
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _authenticationService: AuthenticationService
   ) {
+    this.siteKey = '6LcQ7PYjAAAAAKoUJb5ConF8tqk8SsS3FSk8VUKZ';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.loginForm.invalid || !this.captcha) {
       return;
     }
 
@@ -130,6 +133,10 @@ export class LoginComponent implements OnInit {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  captchaValidado(evento) {
+    this.captcha = true;
   }
 
 }

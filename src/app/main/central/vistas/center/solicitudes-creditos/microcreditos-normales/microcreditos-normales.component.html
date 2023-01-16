@@ -24,14 +24,14 @@
                 <div class="profile-header-nav">
                     <!-- navbar -->
                     <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
-                        <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <i data-feather="align-justify" class="font-medium-5"></i>
-                        </button>
+                        <div class="col-2">
+                            <button class="form-control ">
+                                Actualizar
+                            </button>
+                        </div>
 
                         <!--/ collapse  -->
-                        <div class="col-12" style="text-align: right">
+                        <div class="col-10" style="text-align: right">
                             <label>Mostrar</label>
                             <select class="form-control-sm" [(ngModel)]="page_size"
                                     (change)="obtenerSolicitudesCreditos()">
@@ -810,7 +810,7 @@
             </div>
             <div class="form-group">
                 <label>
-                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
+                    Copia de venta del último mes
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses"
@@ -821,8 +821,8 @@
                            for="facturasVentas2meses">{{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">Copias de Facturas de Ventas
-                            últimos 2 meses es requerido
+                        <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">
+                            Copia de venta del último mes es requerido
                         </div>
                     </div>
                 </div>
@@ -845,7 +845,7 @@
             </div>
             <div class="form-group">
                 <label>
-                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
+                    Copia de Factura de venta del penúltimo mes (factura de hace 2 meses)
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses2"
@@ -856,8 +856,8 @@
                            for="facturasVentas2meses2">{{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">Copias de Facturas de Ventas
-                            últimos 2 meses es requerido
+                        <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">
+                            Copia de Factura de venta del penúltimo mes es requerido
                         </div>
                     </div>
                 </div>
@@ -879,7 +879,7 @@
             </div>
             <div class="form-group">
                 <label>
-                    Copia de Facturas de Ventas del negocio de los últimos 2 meses
+                    Copia del antepenúltimo mes (factura de hace 3 meses)
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses3"
@@ -890,8 +890,8 @@
                            for="facturasVentas2meses3">{{actualizarCreditoForm.get('facturasVentas2meses3').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses3.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">Copias de Facturas de Ventas
-                            últimos 2 meses es requerido
+                        <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">
+                            Copia del antepenúltimo mes es requerido
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { CoreConfigService } from '../../../../@core/services/config.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RecuperarPassService } from '../recuperar-pass/recuperar-pass.service';
-import { Subject } from 'rxjs';
-import { ReseteoPasswordService } from './reseteo-password.service';
+import {Component, OnInit} from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {CoreConfigService} from '../../../../@core/services/config.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {RecuperarPassService} from '../recuperar-pass/recuperar-pass.service';
+import {Subject} from 'rxjs';
+import {ReseteoPasswordService} from './reseteo-password.service';
 
 @Component({
   selector: 'app-reseteo-password',
@@ -27,6 +27,8 @@ export class ReseteoPasswordComponent implements OnInit {
   public email;
   // Private
   private _unsubscribeAll: Subject<any>;
+  public captcha: boolean;
+  public siteKey: string;
 
   /**
    * Constructor
@@ -42,6 +44,7 @@ export class ReseteoPasswordComponent implements OnInit {
     private _reseteoPasswordService: ReseteoPasswordService,
     private _activatedRoute: ActivatedRoute
   ) {
+    this.siteKey = '6LcQ7PYjAAAAAKoUJb5ConF8tqk8SsS3FSk8VUKZ';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -66,6 +69,7 @@ export class ReseteoPasswordComponent implements OnInit {
   get f() {
     return this.forgotPasswordForm.controls;
   }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -93,6 +97,7 @@ export class ReseteoPasswordComponent implements OnInit {
   togglePasswordTextType() {
     this.passwordTextType = !this.passwordTextType;
   }
+
   toggleConfirmPasswordTextType() {
     this.confirmPasswordTextType = !this.confirmPasswordTextType;
   }
@@ -105,7 +110,7 @@ export class ReseteoPasswordComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.forgotPasswordForm.invalid || !this.passwordSimilar) {
+    if (this.forgotPasswordForm.invalid || !this.passwordSimilar || !this.captcha) {
       return;
     }
     this._reseteoPasswordService.resetearPassword(
@@ -115,16 +120,17 @@ export class ReseteoPasswordComponent implements OnInit {
         email: this.email
       }
     ).subscribe((info) => {
-      this.error = null;
-      if (info.status) {
-        this._router.navigate(['/']);
-      }
-    },
+        this.error = null;
+        if (info.status) {
+          this._router.navigate(['/']);
+        }
+      },
       (error) => {
         console.log(error);
         this.error = error.error.password;
       });
   }
+
   compararPassword() {
     if (this.f.password.value == this.f.confirmPassword.value) {
       this.passwordSimilar = true;
@@ -132,9 +138,14 @@ export class ReseteoPasswordComponent implements OnInit {
       this.passwordSimilar = false;
     }
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  captchaValidado(evento) {
+    this.captcha = true;
   }
 }

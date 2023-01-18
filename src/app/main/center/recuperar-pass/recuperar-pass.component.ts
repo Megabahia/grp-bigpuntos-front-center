@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoreConfigService } from '@core/services/config.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { RecuperarPassService } from './recuperar-pass.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CoreConfigService} from '@core/services/config.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {RecuperarPassService} from './recuperar-pass.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -21,6 +21,8 @@ export class RecuperarPassComponent implements OnInit {
   public error;
   // Private
   private _unsubscribeAll: Subject<any>;
+  public captcha: boolean;
+  public siteKey: string;
 
   /**
    * Constructor
@@ -34,6 +36,7 @@ export class RecuperarPassComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _recuperarPassService: RecuperarPassService) {
+    this.siteKey = '6LcQ7PYjAAAAAKoUJb5ConF8tqk8SsS3FSk8VUKZ';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -58,6 +61,7 @@ export class RecuperarPassComponent implements OnInit {
   get f() {
     return this.forgotPasswordForm.controls;
   }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -83,18 +87,18 @@ export class RecuperarPassComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.forgotPasswordForm.invalid) {
+    if (this.forgotPasswordForm.invalid || !this.captcha) {
       return;
     }
     this._recuperarPassService.recuperarPassword(this.f.email.value).subscribe((info) => {
-      this.error = null;
-      if(info.status){
-        this._router.navigate(['/grp/login']);
-      }
-    },
-    (error)=>{
-      this.error = "Ocurrió un error al enviar su correo";
-    });
+        this.error = null;
+        if (info.status) {
+          this._router.navigate(['/grp/login']);
+        }
+      },
+      (error) => {
+        this.error = 'Ocurrió un error al enviar su correo';
+      });
   }
 
   ngOnDestroy(): void {
@@ -103,4 +107,7 @@ export class RecuperarPassComponent implements OnInit {
     this._unsubscribeAll.complete();
   }
 
+  captchaValidado(evento) {
+    this.captcha = true;
+  }
 }

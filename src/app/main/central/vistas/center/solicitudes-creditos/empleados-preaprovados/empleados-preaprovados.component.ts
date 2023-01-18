@@ -230,4 +230,10 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             });
     }
 
+    consumirAWS() {
+        this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+            console.log(info);
+            this.obtenerSolicitudesCreditos();
+        });
+    }
 }

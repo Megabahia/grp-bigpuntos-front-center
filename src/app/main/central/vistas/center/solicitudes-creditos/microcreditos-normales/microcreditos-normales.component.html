@@ -25,7 +25,7 @@
                     <!-- navbar -->
                     <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
                         <div class="col-2">
-                            <button class="form-control ">
+                            <button class="form-control " (click)="consumirAWS()">
                                 Actualizar
                             </button>
                         </div>
@@ -810,7 +810,7 @@
             </div>
             <div class="form-group">
                 <label>
-                    Copia de venta del último mes
+                    Copia de la Factura de venta del último mes
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses"
@@ -822,7 +822,7 @@
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">
-                            Copia de venta del último mes es requerido
+                            Copia de la Factura de venta del último mes es requerido
                         </div>
                     </div>
                 </div>
@@ -835,17 +835,15 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">Facturas de Ventas últimos 2
-                            meses es
-                            requerido
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">
+                            Copia de la Factura de venta del último mes es requerido
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="form-group">
                 <label>
-                    Copia de Factura de venta del penúltimo mes (factura de hace 2 meses)
+                    Copia de la Factura de venta del penúltimo mes (hace 2 meses)
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses2"
@@ -857,7 +855,7 @@
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">
-                            Copia de Factura de venta del penúltimo mes es requerido
+                            Copia de la Factura de venta del penúltimo mes (hace 2 meses) es requerido
                         </div>
                     </div>
                 </div>
@@ -870,16 +868,15 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">Facturas de Ventas últimos 2
-                            meses es
-                            requerido
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">
+                            Copia de la Factura de venta del penúltimo mes (hace 2 meses) es requerido
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>
-                    Copia del antepenúltimo mes (factura de hace 3 meses)
+                    Copia de la Factura de venta del antepenúltimo mes (hace 3 meses)
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentas2meses3"
@@ -891,7 +888,7 @@
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses3.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">
-                            Copia del antepenúltimo mes es requerido
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
                         </div>
                     </div>
                 </div>
@@ -904,16 +901,15 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses3.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">Facturas de Ventas últimos 2
-                            meses es
-                            requerido
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>
-                    3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación
+                    Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
                 </label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="facturasVentasCertificado"
@@ -924,7 +920,8 @@
                            for="facturasVentasCertificado">{{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentasCertificado.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">Copias de Facturas de Ventas
+                        <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">
+                            Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
                             es requerido
                         </div>
                     </div>
@@ -940,8 +937,9 @@
                     <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">Facturas de Ventas es
-                            requerido
+                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">
+                            Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
+                            es requerido
                         </div>
                     </div>
                 </div>
@@ -991,12 +989,6 @@
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
                            for="matriculaVehiculo">{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.matriculaVehiculo.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.matriculaVehiculo.errors.required">Copias de Facturas de Ventas es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>

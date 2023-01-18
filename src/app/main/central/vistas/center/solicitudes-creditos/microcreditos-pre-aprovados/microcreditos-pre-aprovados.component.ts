@@ -337,4 +337,11 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     get familiares() {
         return this.formSolicitud.controls['familiares'] as FormArray;
     }
+
+    consumirAWS() {
+        this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+            console.log(info);
+            this.obtenerSolicitudesCreditos();
+        });
+    }
 }

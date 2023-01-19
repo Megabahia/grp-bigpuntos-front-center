@@ -576,7 +576,7 @@
         <div class="modal-body flex-grow-1">
 
             <div class="form-group">
-                <label>Copia de cédula y Ruc</label>
+                <label>Copia de cédula</label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="identificacion"
                            formControlName="identificacion"
@@ -586,8 +586,7 @@
                            for="identificacion">{{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad o
-                            Ruc es requerido
+                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad es requerido
                         </div>
                     </div>
                 </div>
@@ -601,7 +600,37 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdentificacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkIdentificacion.errors.required">Copia de cédula y Ruc es
+                        <div *ngIf="controlsFrom.checkIdentificacion.errors.required">Copia de cédula es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de Ruc</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="ruc"
+                           formControlName="ruc"
+                           (change)="subirDoc( $event, 'ruc')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="ruc">{{actualizarCreditoForm.get('ruc').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.ruc.errors.required">Ruc es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">Copia de cédula y Ruc es
                             requerido
                         </div>
                     </div>

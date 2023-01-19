@@ -52,7 +52,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         {'label': 'Buro credito', 'valor': false},
         {'label': 'Calificacion buro', 'valor': false},
     ];
-    public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion',
+    public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion',
         'identificacionConyuge', 'mecanizadoIess', 'papeletaVotacionConyuge', 'planillaLuzNegocio',
         'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
         'solicitudCredito', 'buroCreditoIfis', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentas2meses3', 'facturasVentasCertificado', 'facturasPendiente'];
@@ -197,43 +197,46 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
-                identificacion: ['', [Validators.required]], //
-                fotoCarnet: ['', [Validators.required]], //
-                papeletaVotacion: ['', [Validators.required]], //
-                identificacionConyuge: ['', [Validators.required]], //
-                papeletaVotacionConyuge: ['', [Validators.required]], //
-                planillaLuzDomicilio: ['', [Validators.required]], //
-                planillaLuzNegocio: ['', [Validators.required]], //
-                facturasVentas2meses: ['', [Validators.required]], //
-                facturasVentas2meses2: ['', [Validators.required]], //
-                facturasVentas2meses3: ['', [Validators.required]], //
-                facturasVentasCertificado: ['', [Validators.required]], //
-                facturasPendiente: ['', [Validators.required]], //
-                matriculaVehiculo: [''], //
-                impuestoPredial: [''], //
-                buroCredito: ['', [Validators.required]], //
+                identificacion: ['', [Validators.required]],
+                ruc: ['', [Validators.required]],
+                fotoCarnet: ['', [Validators.required]],
+                papeletaVotacion: ['', [Validators.required]],
+                identificacionConyuge: ['', [Validators.required]],
+                papeletaVotacionConyuge: ['', [Validators.required]],
+                planillaLuzDomicilio: ['', [Validators.required]],
+                planillaLuzNegocio: ['', [Validators.required]],
+                facturasVentas2meses: ['', [Validators.required]],
+                facturasVentas2meses2: ['', [Validators.required]],
+                facturasVentas2meses3: ['', [Validators.required]],
+                facturasVentasCertificado: ['', [Validators.required]],
+                facturasPendiente: ['', [Validators.required]],
+                matriculaVehiculo: [''],
+                impuestoPredial: [''],
+                buroCredito: ['', [Validators.required]],
                 calificacionBuro: [credito.calificacionBuro, [Validators.required]],
-                observacion: [this.credito.observacion ? this.credito.observacion : '', [Validators.required]], //
+                observacion: [this.credito.observacion ? this.credito.observacion : '', [Validators.required]],
+                estado: [''],
                 // checks
-                checkIdentificacion: ['', [Validators.requiredTrue]], //
-                checkFotoCarnet: ['', [Validators.requiredTrue]], //
-                checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
-                checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-                checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-                checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
-                checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
-                checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
-                checkfacturasVentas2meses2: ['', [Validators.requiredTrue]], //
-                checkfacturasVentas2meses3: ['', [Validators.requiredTrue]], //
-                checkfacturasVentasCertificado: ['', [Validators.requiredTrue]], //
-                checkFacturasPendiente: ['', [Validators.requiredTrue]], //
-                checkMatriculaVehiculo: [''], //
-                checkImpuestoPredial: [''], //
-                checkBuroCredito: ['', [Validators.requiredTrue]], //
-                checkCalificacionBuro: ['', [Validators.requiredTrue]], //
-                checkObservacion: ['', [Validators.requiredTrue]], //
+                checkIdentificacion: ['', [Validators.requiredTrue]],
+                checkRuc: ['', [Validators.requiredTrue]],
+                checkFotoCarnet: ['', [Validators.requiredTrue]],
+                checkPapeletaVotacion: ['', [Validators.requiredTrue]],
+                checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+                checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+                checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
+                checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
+                checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+                checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+                checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
+                checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
+                checkFacturasPendiente: ['', [Validators.requiredTrue]],
+                checkMatriculaVehiculo: [''],
+                checkImpuestoPredial: [''],
+                checkBuroCredito: ['', [Validators.requiredTrue]],
+                checkCalificacionBuro: ['', [Validators.requiredTrue]],
+                checkObservacion: ['', [Validators.requiredTrue]],
             });
-      console.log(credito.checks);
+        console.log(credito.checks);
         this.checks = JSON.parse(credito.checks);
     }
 
@@ -256,12 +259,13 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-          console.log(this.actualizarCreditoForm);
+            console.log(this.actualizarCreditoForm);
             return;
         }
         const {
             id,
             identificacion,
+            ruc,
             fotoCarnet,
             papeletaVotacion,
             identificacionConyuge,
@@ -286,7 +290,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.checks = [
             {'label': 'identificacion', 'valor': resto.checkIdentificacion},
             {'label': 'Foto Carnet', 'valor': resto.checkFotoCarnet},
-            {'label': 'Ruc', 'valor': resto.checkIdentificacion},
+            {'label': 'Ruc', 'valor': resto?.checkRuc},
             {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
             {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
@@ -357,9 +361,9 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     }
 
     consumirAWS() {
-      this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
-        console.log(info);
-        this.obtenerSolicitudesCreditos();
-      });
+        this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+            console.log(info);
+            this.obtenerSolicitudesCreditos();
+        });
     }
 }

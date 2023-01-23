@@ -193,7 +193,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
@@ -201,8 +201,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 ruc: ['', [Validators.required]],
                 fotoCarnet: ['', [Validators.required]],
                 papeletaVotacion: ['', [Validators.required]],
-                identificacionConyuge: ['', [Validators.required]],
-                papeletaVotacionConyuge: ['', [Validators.required]],
+                identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+                papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
                 planillaLuzDomicilio: ['', [Validators.required]],
                 planillaLuzNegocio: ['', [Validators.required]],
                 facturasVentas2meses: ['', [Validators.required]],
@@ -258,6 +258,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
 
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
+        console.log('Credito', this.actualizarCreditoForm);
         if (this.actualizarCreditoForm.invalid) {
             console.log(this.actualizarCreditoForm);
             return;

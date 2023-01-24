@@ -45,10 +45,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': false},
         {'label': '3 facturas de Compra del negocio de los últimos 2 meses', 'valor': false},
         {'label': 'Facturas pendiente de pago', 'valor': false},
-        {'label': 'Justificación otros inresos mensuales ', 'valor': false},
+        // {'label': 'Justificación otros inresos mensuales ', 'valor': false},
         {'label': 'Matricula vehiculo', 'valor': false},
         {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': false},
-        {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
+        // {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
         {'label': 'Buro credito', 'valor': false},
         {'label': 'Calificacion buro', 'valor': false},
     ];
@@ -305,10 +305,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 'valor': resto.checkfacturasVentasCertificado
             },
             {'label': 'Facturas pendiente de pago', 'valor': resto.checkFacturasPendiente},
-            {'label': 'Justificación otros ingresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
+            // {'label': 'Justificación otros ingresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
             {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': resto.checkImpuestoPredial},
-            {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
+            // {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
         ];
         if (this.soltero) {

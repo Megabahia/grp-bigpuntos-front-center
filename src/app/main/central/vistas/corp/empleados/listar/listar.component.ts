@@ -55,7 +55,7 @@ export class ListarComponent implements OnInit {
 
   obtenerListaEmpresas() {
     this._empresasService.obtenerListaEmpresas({
-      page: this.page - 1, page_size: this.page_size
+      page: this.page - 1, page_size: this.page_size, estado: 'Activo'
     }).subscribe(info => {
       this.empresas = info.info;
       this.collectionSize = info.cont;

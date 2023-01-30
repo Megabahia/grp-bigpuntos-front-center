@@ -193,7 +193,10 @@ export class UploadComponent implements OnInit {
     this._cargarCreditosEmpleados.subirArchivosPreAprobados(id).subscribe(info => {
         this.obtenerListaArchivosPreAprobados();
         this.mensaje = `${info.mensaje} <br> correctos: ${info.correctos} <br>
-                        incorrectos: ${info.incorrectos} <br> errores: ${info.errores}`;
+                        incorrectos: ${info.incorrectos} <br> errores: `;
+        info.errores.map((item) => {
+          this.mensaje += item.error + '<br>';
+        });
         this.abrirModal(this.mensajeModal);
     });
   }

@@ -53,6 +53,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { ListarComponent as EmpresasCenter } from './vistas/center/empresas/listar/listar.component';
 import { ListarComponent as EmpleadosCorp } from './vistas/corp/empleados/listar/listar.component';
 import { EmpleadosComponent } from './vistas/corp/empleados/empleados/empleados.component';
+import {RoleDirective} from '../../auth/directivas/role.directive';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -236,6 +237,7 @@ const routes = [
     EmpresasCenter,
     EmpleadosCorp,
     EmpleadosComponent,
+    RoleDirective,
   ],
   imports: [
     CoreCommonModule,

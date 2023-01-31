@@ -103,7 +103,7 @@
                                     {{empresa.ruc}}
                                 </td>
                                 <td>
-                                    <div class="badge {{empresa.estado == 'Activo' ? 'badge-success':'badge-warning'}}">
+                                    <div *appRole="['Big Puntos']" class="badge {{empresa.estado == 'Activo' ? 'badge-success':'badge-warning'}}">
                                         {{empresa.estado}}
                                     </div>
                                 </td>

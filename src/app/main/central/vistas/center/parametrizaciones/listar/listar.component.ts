@@ -7,6 +7,7 @@ import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {ColumnMode} from '@swimlane/ngx-datatable';
+import {ExportService} from '../../../../../../services/export/export.service';
 
 @Component({
     selector: 'app-listar',
@@ -42,12 +43,14 @@ export class ListarComponent implements OnInit {
     private _unsubscribeAll: Subject<any>;
     public searchValueDescripcion = '';
     public searchValueNombre = '';
+    public infoExportar;
 
     constructor(
         private paramService: ParametrizacionesService,
         private _modalService: NgbModal,
         private _formBuilder: FormBuilder,
         private _coreSidebarService: CoreSidebarService,
+        private exportFile: ExportService,
     ) {
         this._unsubscribeAll = new Subject();
         this.idParametro = '';
@@ -227,5 +230,25 @@ export class ListarComponent implements OnInit {
         // this.parametros = temp;
         // Whenever the filter changes, always go back to the first page
         // this.table.offset = 0;
+    }
+
+    exportarExcel() {
+        this.infoExportar = [];
+        const headers = ['Parametro', 'Descripción', 'Valor', 'Tipo de dato'];
+        this.parametros.forEach((row: any) => {
+
+            const values = [];
+            values.push(row['nombre']);
+            values.push(row['descripcion']);
+            values.push(row['valor']);
+            values.push(row['tipoVariable']);
+            this.infoExportar.push(values);
+        });
+        const reportData = {
+            title: 'Reporte de las parametrizaciones',
+            data: this.infoExportar,
+            headers
+        };
+        this.exportFile.exportExcel(reportData);
     }
 }

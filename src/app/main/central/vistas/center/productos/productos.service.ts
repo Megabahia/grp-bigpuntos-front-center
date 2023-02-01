@@ -8,6 +8,9 @@ import { environment } from 'environments/environment';
 export class ProductosService {
 
   constructor(private _httpClient: HttpClient) { }
+  obtenerListaEmpresasComerciales(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/comercial`, datos);
+  }
   obtenerListaProductos(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/list/`, datos);
   }

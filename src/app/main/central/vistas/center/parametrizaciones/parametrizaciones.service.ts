@@ -47,6 +47,7 @@ export class ParametrizacionesService {
     );
   }
   actualizarParametro(datos) {
+    console.log(datos);
     return this._httpClient.post<any>(
       `${environment.apiUrl}/central/param/update/${datos._id}`,
       datos

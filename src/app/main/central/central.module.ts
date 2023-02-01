@@ -54,6 +54,7 @@ import { ListarComponent as EmpresasCenter } from './vistas/center/empresas/list
 import { ListarComponent as EmpleadosCorp } from './vistas/corp/empleados/listar/listar.component';
 import { EmpleadosComponent } from './vistas/corp/empleados/empleados/empleados.component';
 import {RoleDirective} from '../../auth/directivas/role.directive';
+import {ListarLandingComponent} from './vistas/center/productosLanding/listar/listarLanding.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -114,6 +115,9 @@ const routes = [
       },
       {
         path: 'productos', component: ProductosCenterComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'productosLanding', component: ListarLandingComponent, canActivate: [AuthGuard]
       },
       {
         path: 'productos-premios', component: ProductosPremios, canActivate: [AuthGuard]
@@ -213,6 +217,7 @@ const routes = [
     RolesCenterComponent,
     ParametrizacionesCenterComponent,
     ProductosCenterComponent,
+    ListarLandingComponent,
     CargarSuperMonedasCorpComponent,
     SolicitudesCreditosComponent,
     PublicacionesListar,

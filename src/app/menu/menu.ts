@@ -138,6 +138,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/productos',
       },
       {
+        id: 'productos',
+        title: 'Productos Landing',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/productosLanding',
+      },
+      {
         id: 'productosPremios',
         title: 'Productos premios por establecimientos',
         // translate: 'MENU.HOME',

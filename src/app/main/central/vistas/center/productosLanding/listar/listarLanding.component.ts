@@ -127,7 +127,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
             nombre: ['', [Validators.required]],
             precioNormal: [0, [Validators.required, Validators.min(1)]],
             precioSupermonedas: [0, [Validators.required, Validators.min(1)]],
-            vigencia: ['', [Validators.required]],
+            // vigencia: ['', [Validators.required]],
             tipo: ['', [Validators.required]],
         });
         this.fecha = this.transformarFecha(new Date());
@@ -172,7 +172,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
             // } else {
             //   productoAct = this.productosFormData;
             // }
-            this.productosService.actualizarProducto(this.productosFormData, this.producto._id).subscribe(() => {
+            this.productosService.actualizarProductoLanding(this.productosFormData, this.producto._id).subscribe(() => {
                     this.obtenerListaProductos(this.selectedRow);
                     this.mensaje = 'Producto actualizado con éxito';
                     this.abrirModal(this.mensajeModal);
@@ -185,7 +185,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
                 });
         } else {
 
-            this.productosService.crearProducto(this.productosFormData).subscribe((info) => {
+            this.productosService.crearProductoLanding(this.productosFormData).subscribe((info) => {
                     this.obtenerListaProductos(this.selectedRow);
                     this.mensaje = 'Producto guardado con éxito';
                     this.abrirModal(this.mensajeModal);
@@ -223,7 +223,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     obtenerListaProductos(tipo) {
-        this.productosService.obtenerListaProductos(
+        this.productosService.obtenerListaProductosLanding(
             {
                 page: this.page - 1,
                 page_size: this.pageSize,
@@ -240,7 +240,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
     toggleSidebar(name, id): void {
         this.imagen = '';
         if (id) {
-            this.productosService.obtenerProducto(id).subscribe((info) => {
+            this.productosService.obtenerProductoLanding(id).subscribe((info) => {
                 this.producto = info;
                 this.fecha = info.vigencia;
                 this.imagen = this.visualizarNombreArchivo(info.imagen);
@@ -272,7 +272,7 @@ export class ListarLandingComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     eliminarProducto() {
-        this.productosService.eliminarProducto(this.idProducto).subscribe((info) => {
+        this.productosService.eliminarProductoLanding(this.idProducto).subscribe((info) => {
                 this.obtenerListaProductos(this.selectedRow);
                 this.mensaje = 'Producto eliminado con éxito';
                 this.abrirModal(this.mensajeModal);

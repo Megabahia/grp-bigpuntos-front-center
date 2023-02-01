@@ -22,6 +22,26 @@ export class ProductosService {
         return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/list/`, datos);
     }
 
+    obtenerListaProductosLanding(datos) {
+        return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/list-free-landing/`, datos);
+    }
+
+    obtenerProductoLanding(id) {
+        return this._httpClient.get<any>(`${environment.apiUrl}/central/productos/listOne-landing/${id}`);
+    }
+
+    crearProductoLanding(datos) {
+        return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/create-landing/`, datos);
+    }
+
+    actualizarProductoLanding(datos, id) {
+        return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/update-landing/${id}`, datos);
+    }
+
+    eliminarProductoLanding(id) {
+        return this._httpClient.delete<any>(`${environment.apiUrl}/central/productos/delete-landing/${id}`);
+    }
+
     crearProducto(datos) {
         return this._httpClient.post<any>(`${environment.apiUrl}/central/productos/create/`, datos);
     }

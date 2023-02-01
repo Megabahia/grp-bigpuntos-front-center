@@ -74,8 +74,6 @@
                             <th>Máximo</th> -->
                             <th>Efectivo</th>
                             <th>Imagen</th>
-                            <th>Código Qr</th>
-                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -101,11 +99,6 @@
                             <td> {{producto.efectivo}}</td>
                             <td><a class="text-primary" target="_blank" href="{{producto.imagen}}">Ver Imagen</a>
                             </td>
-                            <td>
-                                <qrcode [qrdata]="producto.imagen" [width]="150" [errorCorrectionLevel]="'M'">
-                                </qrcode>
-                            </td>
-                            <td> {{producto.tipo}}</td>
                             <td>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
                                    (click)="toggleSidebar('guardarProducto',producto._id)">
@@ -246,15 +239,6 @@
                             <div *ngIf="productosSubmitted && prodForm.tipo.errors" class="invalid-feedback"
                                  style="display: block;">
                                 <div *ngIf="prodForm.tipo.errors.required">Tipo es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="basic-icon-default-fullname">Vigencia:</label>
-                            <ng2-flatpickr [setDate]="fecha" formControlName="vigencia" [config]="startDateOptions"
-                                           (input)="obtenerFecha()"></ng2-flatpickr>
-                            <div *ngIf="productosSubmitted && prodForm.vigencia.errors" class="invalid-feedback"
-                                 style="display: block;">
-                                <div *ngIf="prodForm.vigencia.errors.required">Vigencia es requerida</div>
                             </div>
                         </div>
                         <button class="btn btn-primary mr-1" (click)="guardarProducto()" [disabled]="loading"> <span

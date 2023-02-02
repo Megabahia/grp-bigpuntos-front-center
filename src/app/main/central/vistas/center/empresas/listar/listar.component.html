@@ -100,7 +100,10 @@
                                 {{empresa.bigPuntos}}
                             </td>
 
-                            <td>
+                            <td *ngIf="selectedRow === 1">
+                                {{empresa.urlClientes}}
+                            </td>
+                            <td *ngIf="selectedRow === 2">
                                 {{empresa.url}}
                             </td>
                             <td>

@@ -106,10 +106,10 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     viewDataUser(modal, user) {
         this.modalOpenSLC(modal);
         this.userViewData = user;
-        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        this.ocupacionSolicitante = user.ocupacionSolicitante;
+        this.referenciasSolicitante = user.referenciasSolicitante;
+        this.ingresosSolicitante = user.ingresosSolicitante;
+        this.gastosSolicitante = user.gastosSolicitante;
     }
 
     verDocumentos(credito) {
@@ -118,32 +118,39 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+            credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+        credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+        console.log(this.soltero, 'this.soltero');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
             identificacion: ['', credito.identificacion ? [] : [Validators.required]],
+            ruc: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
-            identificacionConyuge: ['', credito.identificacionConyuge ? [] : [Validators.required]],
-            papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : [Validators.required]],
-            // identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
-            // papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
             planillaLuzNegocio: ['', credito.planillaLuzNegocio ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-            facturas: ['', credito.facturas ? [] : [Validators.required]],
+            facturasVentas2meses: ['', [Validators.required]],
+            facturasVentas2meses2: ['', [Validators.required]],
+            facturasVentasCertificado: ['', [Validators.required]],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
+            checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
             checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
             checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
             checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-            checkFacturas: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+            checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
             checkMatriculaVehiculo: [''],
             checkImpuestoPredial: [''],
             checkBuroCredito: ['', [Validators.requiredTrue]],
@@ -175,6 +182,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         console.log('entra');
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+            console.log('form', this.actualizarCreditoForm);
             console.log('if');
             return;
         }
@@ -197,8 +205,9 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         } = this.actualizarCreditoForm.value;
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
-        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
+        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado',
+            'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);

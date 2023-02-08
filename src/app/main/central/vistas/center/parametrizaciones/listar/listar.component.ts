@@ -8,6 +8,7 @@ import {Subject} from 'rxjs';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {ColumnMode} from '@swimlane/ngx-datatable';
 import {ExportService} from '../../../../../../services/export/export.service';
+import {log} from 'util';
 
 @Component({
     selector: 'app-listar',
@@ -233,22 +234,12 @@ export class ListarComponent implements OnInit {
     }
 
     exportarExcel() {
-        this.infoExportar = [];
-        const headers = ['Parametro', 'Descripción', 'Valor', 'Tipo de dato'];
-        this.parametros.forEach((row: any) => {
-
-            const values = [];
-            values.push(row['nombre']);
-            values.push(row['descripcion']);
-            values.push(row['valor']);
-            values.push(row['tipoVariable']);
-            this.infoExportar.push(values);
+        this.paramService.exportar().subscribe((data) => {
+            const downloadURL = window.URL.createObjectURL(data);
+            const link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = 'parametrizaciones.xls';
+            link.click();
         });
-        const reportData = {
-            title: 'Reporte de las parametrizaciones',
-            data: this.infoExportar,
-            headers
-        };
-        this.exportFile.exportExcel(reportData);
     }
 }

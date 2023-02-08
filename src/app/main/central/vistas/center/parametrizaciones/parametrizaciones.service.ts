@@ -71,4 +71,11 @@ export class ParametrizacionesService {
       { nombre, tipo }
     );
   }
+  exportar() {
+    const httpOptions = {
+      responseType: 'blob' as 'json'
+    };
+    return this._httpClient.get<any>(
+      `${environment.apiUrl}/central/param/exportar/`, httpOptions);
+  }
 }

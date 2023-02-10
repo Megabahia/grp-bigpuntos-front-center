@@ -123,7 +123,7 @@ export class ListarComponent implements OnInit {
 
   obtenerEmpresaId() {
     this._bienvenidoService.obtenerEmpresa({
-      nombreComercial: 'Global Red Pyme'
+      nombreComercial: 'Global RedPyme'
     }).subscribe((info) => {
       this.superMonedasElec.empresa_id = info._id;
     }, (error) => {

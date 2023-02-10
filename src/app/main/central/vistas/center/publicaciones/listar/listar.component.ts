@@ -75,7 +75,7 @@ export class ListarComponent implements OnInit {
 
     obtenerEmpresaId() {
         this.paramService.obtenerEmpresa({
-            nombreComercial: 'Global Red Pyme'
+            nombreComercial: 'Global RedPyme'
         }).subscribe((info) => {
             this.empresa_id = info._id;
         }, (error) => {

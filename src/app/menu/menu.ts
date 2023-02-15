@@ -157,12 +157,12 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'productosBienvenida',
-        title: 'Configurar Productos SM Bienvenido',
+        title: 'Productos landing nuevos',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'package',
-        url: 'central/center/productos-bienvenido-sm',
+        url: 'central/center/productos-landing-nuevos',
       },
       // {
       //   id: 'productosMensajeSM',

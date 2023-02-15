@@ -123,7 +123,7 @@ const routes = [
         path: 'productos-premios', component: ProductosPremios, canActivate: [AuthGuard]
       },
       {
-        path: 'productos-bienvenido-sm', component: ProductosBienvenidaListar, canActivate: [AuthGuard]
+        path: 'productos-landing-nuevos', component: ProductosBienvenidaListar, canActivate: [AuthGuard]
       },
       {
         path: 'productos-mensaje-sm', component: ProductosMensajeListar, canActivate: [AuthGuard]

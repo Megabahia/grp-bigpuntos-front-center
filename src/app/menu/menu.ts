@@ -94,12 +94,21 @@ export const menu: CoreMenu[] = [
     children: [
       {
         id: 'empresasCorp',
-        title: 'Landing Empresas/Clientes',
+        title: 'LANDING EMPRESAS',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'briefcase',
         url: 'central/center/empresas',
+      },
+      {
+        id: 'empresasClientesCorp',
+        title: 'LANDING CLIENTES',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/center/empresas-clientes',
       },
       {
         id: 'usuariosCenter',

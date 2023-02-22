@@ -73,6 +73,7 @@ export class ListarClientesComponent implements OnInit, AfterViewInit, OnDestroy
             bigPuntos: ['', [Validators.required]],
             url: ['', [Validators.required]],
             estado: ['', [Validators.required]],
+            type: ['cliente'],
         });
     }
 

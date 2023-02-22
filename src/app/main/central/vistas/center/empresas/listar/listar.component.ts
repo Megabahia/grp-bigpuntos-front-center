@@ -33,7 +33,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     public empresaFormData = new FormData();
     private mensaje: string;
     public url;
-    selectedRow = 1;
+    selectedRow = 2;
     cars = [
         {id: 1, name: 'Cliente'},
         {id: 2, name: 'Empleado'},
@@ -73,6 +73,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
             bigPuntos: ['', [Validators.required]],
             url: ['', [Validators.required]],
             estado: ['', [Validators.required]],
+            type: ['empleado'],
         });
     }
 

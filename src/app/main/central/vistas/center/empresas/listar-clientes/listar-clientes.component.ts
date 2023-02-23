@@ -50,7 +50,7 @@ export class ListarClientesComponent implements OnInit, AfterViewInit, OnDestroy
         private _modalService: NgbModal,
     ) {
         this._unsubscribeAll = new Subject();
-        this.url = environment.urlBigPuntos + 'pages/socios-empleados/';
+        this.url = environment.urlBigPuntos + 'pages/clientes/';
     }
 
     get empForm() {
@@ -71,7 +71,7 @@ export class ListarClientesComponent implements OnInit, AfterViewInit, OnDestroy
             logo: ['', [Validators.required]],
             nombre: ['', [Validators.required]],
             bigPuntos: ['', [Validators.required]],
-            url: ['', [Validators.required]],
+            urlClientes: ['', [Validators.required]],
             estado: ['', [Validators.required]],
             type: ['cliente'],
         });
@@ -135,7 +135,7 @@ export class ListarClientesComponent implements OnInit, AfterViewInit, OnDestroy
         if (this.idEmpresa) {
             this._empresasService.obtenerEmpresa(this.idEmpresa).subscribe((info) => {
                     delete info.logo;
-                    info.url = info.url.replace(this.url, '');
+                    info.urlClientes = info.urlClientes.replace(this.url, '');
                     this.empresaForm.patchValue({...info});
                     // this.imagen = this.visualizarNombreArchivo(info.imagen);
                 },

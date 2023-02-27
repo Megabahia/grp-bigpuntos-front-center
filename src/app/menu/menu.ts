@@ -157,7 +157,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'productosPremios',
-        title: 'Productos premios por establecimientos',
+        title: 'Premios Big Puntos',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',
@@ -184,7 +184,7 @@ export const menu: CoreMenu[] = [
       // },
       {
         id: 'productosNuestraFamiliaSM',
-        title: 'Configurar Productos SM Nuestra Familia',
+        title: 'Productos familia',
         // translate: 'MENU.HOME',
         // role: [Role.BigPuntos],
         type: 'item',

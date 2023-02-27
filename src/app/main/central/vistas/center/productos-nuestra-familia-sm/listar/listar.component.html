@@ -191,7 +191,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label" for="basic-icon-default-fullname">Código de Super Monedas:</label>
+              <label class="form-label" for="basic-icon-default-fullname">Código Big Puntos:</label>
               <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
                 name="codigoDescuento" formControlName="codigoDescuento" [(ngModel)]="producto.codigoDescuento" />
               <div *ngIf="productosSubmitted && prodForm.codigoDescuento.errors" class="invalid-feedback"
@@ -199,19 +199,19 @@
                 <div *ngIf="prodForm.codigoDescuento.errors.required">Código de Super Monedas es requerido</div>
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="basic-icon-default-fullname">Aplica en:</label>
-              <select class="form-control select2" formControlName="empresaAplica_id"
-                [(ngModel)]="producto.empresaAplica_id">
-                <option value="">- Seleccione -</option>
-                <option *ngFor="let tipoProductoOp of tipoProductoOpciones" value="{{tipoProductoOp._id}}">
-                  {{tipoProductoOp.nombreEmpresa}}</option>
-              </select>
-              <div *ngIf="productosSubmitted && prodForm.empresaAplica_id.errors" class="invalid-feedback"
-                style="display: block;">
-                <div *ngIf="prodForm.empresaAplica_id.errors.required">Empresa en la que aplica es requerido</div>
-              </div>
-            </div>
+<!--            <div class="form-group">-->
+<!--              <label class="form-label" for="basic-icon-default-fullname">Aplica en:</label>-->
+<!--              <select class="form-control select2" formControlName="empresaAplica_id"-->
+<!--                [(ngModel)]="producto.empresaAplica_id">-->
+<!--                <option value="">- Seleccione -</option>-->
+<!--                <option *ngFor="let tipoProductoOp of tipoProductoOpciones" value="{{tipoProductoOp._id}}">-->
+<!--                  {{tipoProductoOp.nombreEmpresa}}</option>-->
+<!--              </select>-->
+<!--              <div *ngIf="productosSubmitted && prodForm.empresaAplica_id.errors" class="invalid-feedback"-->
+<!--                style="display: block;">-->
+<!--                <div *ngIf="prodForm.empresaAplica_id.errors.required">Empresa en la que aplica es requerido</div>-->
+<!--              </div>-->
+<!--            </div>-->
             <button class="btn btn-primary mr-1" (click)="guardarProducto()" [disabled]="loading"> <span *ngIf="loading"
                 class="spinner-border spinner-border-sm mr-1"></span>Guardar
             </button>

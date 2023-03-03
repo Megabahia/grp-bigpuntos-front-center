@@ -140,7 +140,7 @@
             <div class="form-group col-md-4">
                 <label class="form-label" for="vertical-modern-username">Fecha de creación de solicitud</label>
                 <input type="text" id="vertical-modern-username" class="form-control"
-                       value="{{userViewData.created_at}}" disabled/>
+                       value="{{credito.created_at}}" disabled/>
             </div>
             <div class="form-group col-md-4">
                 <label class="form-label">Nombres</label>
@@ -167,15 +167,15 @@
                 <input type="text" class="form-control"
                        value="{{userViewData.nivelInstruccion}}" disabled/>
             </div>
-            <div class="form-group col-md-6">
-                <label class="form-label">Número de cargas</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        value="{{userViewData.numeroCargas}}"
-                        disabled
-                />
-            </div>
+<!--            <div class="form-group col-md-6">-->
+<!--                <label class="form-label">Número de cargas</label>-->
+<!--                <input-->
+<!--                        type="text"-->
+<!--                        class="form-control"-->
+<!--                        value="{{userViewData.numeroCargas}}"-->
+<!--                        disabled-->
+<!--                />-->
+<!--            </div>-->
         </div>
         <div class="row">
             <div class="form-group col-md-4">
@@ -241,11 +241,11 @@
                 <input type="text" class="form-control"
                        value="{{ocupacionSolicitante.cargoDesempeno}}" disabled/>
             </div>
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Sueldo que percibe</label>
-                <input type="text" class="form-control"
-                       value="{{ocupacionSolicitante.sueldoPercibe}}" disabled/>
-            </div>
+<!--            <div class="form-group col-md-4">-->
+<!--                <label class="form-label" for="vertical-modern-username">Sueldo que percibe</label>-->
+<!--                <input type="text" class="form-control"-->
+<!--                       value="{{ocupacionSolicitante.sueldoPercibe}}" disabled/>-->
+<!--            </div>-->
 
         </div>
         <div class="content-header">
@@ -316,7 +316,7 @@
             <div class="form-group col-md-4">
                 <label class="form-label" for="vertical-modern-username">Otros Ingresos(valor)</label>
                 <input type="text" class="form-control"
-                       value="{{userViewData.otrosIngresos}}" disabled/>
+                       value="{{userViewData.ingresosSolicitante.otrosIngresos}}" disabled/>
             </div>
         </div>
         <div class="row">
@@ -328,7 +328,7 @@
                 <label class="form-label" for="vertical-modern-username">Especifique otros ingresos(ejemplo: vendo
                     articulos de revista en mi tiempo libre, etc.):</label>
 
-                <input
+                <input value="{{userViewData.ingresosSolicitante.descripcion}}"
                         type="text" class="form-control" disabled>
 
 

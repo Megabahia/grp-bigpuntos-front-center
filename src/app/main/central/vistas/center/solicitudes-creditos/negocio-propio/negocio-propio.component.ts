@@ -52,6 +52,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public casaPropia = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -104,6 +105,9 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     }
 
     viewDataUser(modal, user) {
+        this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+            user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+        this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;
         this.ocupacionSolicitante = user.ocupacionSolicitante;
@@ -222,7 +226,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
             {'label': 'Planilla luz negocio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Facturas', 'valor': resto.checkFacturas},
+            {'label': 'Facturas', 'valor': resto.facturasVentas2meses},
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
             {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},

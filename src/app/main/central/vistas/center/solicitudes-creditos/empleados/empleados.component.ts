@@ -53,6 +53,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public casaPropia = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -105,6 +106,9 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     viewDataUser(modal, user) {
+        this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+            user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+        this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;
         console.log('user', user);

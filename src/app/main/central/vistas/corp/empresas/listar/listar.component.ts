@@ -7,6 +7,7 @@ import {EmpresasService} from '../empresas.service';
 import {Empresa} from '../models/empresas';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {ParametrizacionesService} from '../../../center/parametrizaciones/parametrizaciones.service';
+import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
 @Component({
     selector: 'app-listar',
@@ -93,7 +94,7 @@ export class ListarComponent implements OnInit {
             nombreEmpresa: ['', [Validators.required]],
             pais: ['', [Validators.required]],
             provincia: ['', [Validators.required]],
-            ruc: ['', [Validators.required]],
+            ruc: ['', [Validators.required, Validators.pattern('^[0-9]*$'), ValidacionesPropias.rucValido]],
             telefono1: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(10)]],
             telefono2: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(10)]],
             tipoCategoria: ['', [Validators.required]],

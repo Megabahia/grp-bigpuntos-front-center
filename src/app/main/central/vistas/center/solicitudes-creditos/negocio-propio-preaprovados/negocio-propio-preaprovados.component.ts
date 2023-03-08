@@ -52,6 +52,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
     public cargando = false;
     public actualizarCreditoFormData;
     private credito;
+    public casaPropia = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -103,13 +104,18 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         });
     }
 
-    viewDataUser(modal, user) {
+    viewDataUser(modal, credito) {
+        this.credito = credito;
+        const user = credito.user;
+        this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+            user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+        this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;
-        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        this.ocupacionSolicitante = user.ocupacionSolicitante;
+        this.referenciasSolicitante = user.referenciasSolicitante;
+        this.ingresosSolicitante = user.ingresosSolicitante;
+        this.gastosSolicitante = user.gastosSolicitante;
     }
 
     verDocumentos(credito) {
@@ -117,37 +123,48 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+            credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+            credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+        console.log(this.soltero, 'this.soltero');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
             identificacion: ['', credito.identificacion ? [] : [Validators.required]],
+            ruc: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
             identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
             papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
             planillaLuzNegocio: ['', credito.planillaLuzNegocio ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-            facturas: ['', credito.facturas ? [] : [Validators.required]],
+            facturasVentas2meses: ['', [Validators.required]],
+            facturasVentas2meses2: ['', [Validators.required]],
+            facturasVentas2meses3: ['', [Validators.required]],
+            facturasVentasCertificado: ['', [Validators.required]],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
+            checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
             checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
             checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
             checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-            checkFacturas: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
+            checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
             checkMatriculaVehiculo: [''],
             checkImpuestoPredial: [''],
             checkBuroCredito: ['', [Validators.requiredTrue]],
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = JSON.parse(credito.checks);
+        this.checks = credito.checks;
     }
 
     cambiarEstado($event) {
@@ -189,8 +206,9 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         } = this.actualizarCreditoForm.value;
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
-        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
+        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentas2meses3', 'facturasVentasCertificado',
+            'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);
@@ -205,7 +223,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
             {'label': 'Planilla luz negocio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Facturas', 'valor': resto.checkFacturas},
+            {'label': 'Facturas', 'valor': resto.facturasVentas2meses},
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
             {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
@@ -219,7 +237,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', 'Enviado');
         this.actualizarCreditoFormData.delete('checks');
-        this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        this.actualizarCreditoFormData.append('checks', this.checks);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 // this.mensaje = 'Crédito actualizado con éxito';

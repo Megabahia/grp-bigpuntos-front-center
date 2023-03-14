@@ -132,7 +132,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
             identificacion: ['', credito.identificacion ? [] : [Validators.required]],
-            ruc: ['', credito.identificacion ? [] : [Validators.required]],
+            // ruc: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
             identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
@@ -147,7 +147,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
-            checkRuc: ['', [Validators.requiredTrue]],
+            // checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
@@ -185,6 +185,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {

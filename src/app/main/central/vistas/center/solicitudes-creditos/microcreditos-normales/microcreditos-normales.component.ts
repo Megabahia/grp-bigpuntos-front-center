@@ -236,8 +236,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkCalificacionBuro: ['', [Validators.requiredTrue]],
                 checkObservacion: ['', [Validators.requiredTrue]],
             });
-        console.log(credito.checks);
-        this.checks = JSON.parse(credito.checks);
+        console.log(credito);
+        this.checks = credito.checks;
     }
 
     cambiarEstado($event) {

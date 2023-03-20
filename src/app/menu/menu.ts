@@ -82,6 +82,15 @@ export const menu: CoreMenu[] = [
         icon: 'dollar-sign',
         url: 'central/corp/cargarCreditosEmpleados',
       },
+      {
+        id: 'cargarLineasCredito',
+        title: 'Cargar Líneas de Crédito',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'dollar-sign',
+        url: 'central/corp/cargarCreditosNegocios',
+      },
     ]
   },
   {

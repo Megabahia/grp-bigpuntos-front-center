@@ -31,6 +31,7 @@ import { ListarComponent as CargarSuperMonedasCorpComponent } from './vistas/cor
 import { SolicitudesCreditosComponent } from './vistas/center/solicitudes-creditos/solicitudes-creditos.component';
 import { ListarComponent as PublicacionesListar} from './vistas/center/publicaciones/listar/listar.component';
 import { UploadComponent } from './vistas/corp/cargarCreditosEmpleados/vistas/upload/upload.component';
+import { UploadLineasCreditos } from './vistas/corp/cargarLineasCreditos/vistas/upload/upload-lineas-creditos.component';
 import { ListarComponent as ProductosBienvenidaListar } from './vistas/center/productos-bienvenida-sm/listar/listar.component';
 import { ListarComponent as ProductosMensajeListar } from './vistas/center/productos-mensaje-sm/listar/listar.component';
 import { ListarComponent as ProductosNuestraFamiliaListar } from './vistas/center/productos-nuestra-familia-sm/listar/listar.component';
@@ -56,6 +57,7 @@ import { ListarComponent as EmpleadosCorp } from './vistas/corp/empleados/listar
 import { EmpleadosComponent } from './vistas/corp/empleados/empleados/empleados.component';
 import {RoleDirective} from '../../auth/directivas/role.directive';
 import {ListarLandingComponent} from './vistas/center/productosLanding/listar/listarLanding.component';
+import { ViewFileComponent } from './vistas/corp/cargarLineasCreditos/vistas/view-file/view-file.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -94,6 +96,12 @@ const routes = [
       },
       {
         path: 'cargarCreditosEmpleados', component: UploadComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarCreditosNegocios', component: UploadLineasCreditos, canActivate: [AuthGuard]
+      },
+      {
+        path: 'archivo/:archivoId', component: ViewFileComponent, canActivate: [AuthGuard]
       },
     ],
   },
@@ -248,6 +256,8 @@ const routes = [
     EmpleadosComponent,
     RoleDirective,
     EmpresasClientesCenter,
+    UploadLineasCreditos,
+    ViewFileComponent,
   ],
   imports: [
     CoreCommonModule,

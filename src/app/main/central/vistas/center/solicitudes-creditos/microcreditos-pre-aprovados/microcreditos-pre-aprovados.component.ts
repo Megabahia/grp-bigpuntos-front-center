@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
+import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
 @Component({
     selector: 'app-microcreditos-pre-aprovados',
@@ -60,6 +61,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public ingresoNegocioSuperior = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -149,9 +151,17 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         });
     }
 
+    get controlsContuge() {
+        return this.formSolicitud.controls['conyuge'] as FormGroup;
+    }
+
+    isObjectEmpty(obj) {
+        return !!Object.keys(obj).length;
+    }
+
     viewDataUser(modal, empresa) {
         console.log('this.empresa', empresa);
-        const infoEmpresa = JSON.parse(empresa);
+        const infoEmpresa = empresa;
         this.empresa = infoEmpresa;
         console.log('infoEmpresa', infoEmpresa);
         this.declareFormularios();
@@ -167,38 +177,75 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+            credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+            credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+        this.ingresoNegocioSuperior = (credito.monto >= 8000);
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
-            identificacion: ['', [Validators.required]], //
-            fotoCarnet: ['', [Validators.required]], //
-            papeletaVotacion: ['', [Validators.required]], //
-            identificacionConyuge: ['', [Validators.required]], //
-            papeletaVotacionConyuge: ['', [Validators.required]], //
-            planillaLuzDomicilio: ['', [Validators.required]], //
-            planillaLuzNegocio: ['', [Validators.required]], //
-            facturasVentas2meses: ['', [Validators.required]], //
-            facturasVentasCertificado: ['', [Validators.required]], //
-            facturasPendiente: ['', [Validators.required]], //
-            matriculaVehiculo: [''], //
-            impuestoPredial: [''], //
-            buroCredito: ['', [Validators.required]], //
+            identificacion: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+            ruc: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+            fotoCarnet: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            papeletaVotacion: ['', [Validators.required, ValidacionesPropias.pdfValido]], //
+            identificacionConyuge: ['', !this.soltero ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            papeletaVotacionConyuge: ['', !this.soltero ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            planillaLuzDomicilio: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            planillaLuzNegocio: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            facturasVentas2meses: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            facturasVentas2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            facturasCompras2meses: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            facturasCompras2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            facturasPendiente: ['', !this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+
+            nombramientoRepresentante: ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            certificadoSuperintendencia:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            certificadoPatronales:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            nominaSocios:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            actaJuntaGeneral:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            certificadoBancario:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            referenciasComerciales:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            balancePerdidasGanancias:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            balanceResultados:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            declaracionIva:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+            estadoCuentaTarjeta:  ['', this.ingresoNegocioSuperior ? [Validators.required, ValidacionesPropias.pdfValido] : []],
+
+            matriculaVehiculo: ['', !this.ingresoNegocioSuperior ? [ValidacionesPropias.pdfValido] : []],
+            impuestoPredial: ['', !this.ingresoNegocioSuperior ? [ValidacionesPropias.pdfValido] : []],
+            buroCredito: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+            calificacionBuro: ['', []],
             observacion: ['', [Validators.required]], //
             // checks
             checkIdentificacion: ['', [Validators.requiredTrue]], //
-            checkFotoCarnet: ['', [Validators.requiredTrue]], //
+            checkRuc: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFotoCarnet: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
-            checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-            checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-            checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
-            checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
-            checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
-            checkfacturasVentasCertificado: ['', [Validators.requiredTrue]], //
-            checkFacturasPendiente: ['', [Validators.requiredTrue]], //
-            checkMatriculaVehiculo: [''], //
-            checkImpuestoPredial: [''], //
-            checkBuroCredito: ['', [Validators.requiredTrue]], //
-            checkObservacion: ['', [Validators.requiredTrue]], //
+            checkIdentificacionConyuge: ['', !this.soltero ? [Validators.requiredTrue] : []],
+            checkPapeletaVotacionConyuge: ['', !this.soltero ? [Validators.requiredTrue] : []],
+            checkPlanillaLuzDomicilio: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkPlanillaLuzNegocio: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFacturasVentas2meses: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFacturasVentas2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFacturasCompras2meses: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFacturasCompras2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkFacturasPendiente: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+
+            checkNombramientoRepresentante: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkCertificadoSuperintendencia: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkCertificadoPatronales: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkNominaSocios: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkActaJuntaGeneral: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkCertificadoBancario: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkReferenciasComerciales: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkBalancePerdidasGanancias: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkBalanceResultados: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkDeclaracionIva: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkEstadoCuentaTarjeta: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+
+            checkMatriculaVehiculo: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkImpuestoPredial: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+            checkBuroCredito: ['', [Validators.requiredTrue]],
+            checkCalificacionBuro: ['', [Validators.requiredTrue]],
+            checkObservacion: ['', [Validators.requiredTrue]],
         });
         this.checks = JSON.parse(credito.checks);
     }
@@ -222,6 +269,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {
@@ -243,7 +291,11 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
         const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
             'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
-            'solicitudCredito', 'buroCreditoIfis', 'facturasVentas2meses', 'facturasVentasCertificado', 'facturasPendiente'];
+            'ruc', 'solicitudCredito', 'buroCreditoIfis', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado', 'facturasPendiente',
+            'facturasCompras2meses', 'facturasCompras2meses2', 'nombramientoRepresentante', 'certificadoSuperintendencia',
+            'certificadoPatronales', 'nominaSocios', 'actaJuntaGeneral', 'certificadoBancario', 'referenciasComerciales',
+            'balancePerdidasGanancias', 'balanceResultados', 'declaracionIva', 'estadoCuentaTarjeta'
+        ];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);

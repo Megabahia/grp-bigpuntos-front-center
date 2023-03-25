@@ -100,10 +100,10 @@ export class ValidacionesPropias {
         }
     }
 
-    static firmaElectronicaValido(control: AbstractControl) {
+    static pdfValido(control: AbstractControl) {
         const archivo = control.value.split('.');
         let errors = control['errors'] || {};
-        if (archivo[1] === 'p12') {
+        if (archivo[1] === 'pdf') {
             delete errors?.['extensionInvalida'];
             return null;
         } else {

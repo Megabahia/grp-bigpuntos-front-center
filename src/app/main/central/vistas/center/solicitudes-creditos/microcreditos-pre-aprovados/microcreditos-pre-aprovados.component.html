@@ -74,7 +74,7 @@
                         <td>{{credito.rucEmpresa}}</td>
                         <td>{{credito.monto}}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Enviado'" type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -193,9 +193,19 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Dirección del negocio o empresa :
+                        <label>Calle principal de la empresa/negocio:
                         </label>
-                        <input type="text" formControlName="direccionEmpresa"
+                        <input type="text" formControlName="callePrincipal"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Calle secundaria de la empresa/negocio:
+                        </label>
+                        <input type="text" formControlName="calleSecundaria"
                                class="form-control"
                                value=""
                                disabled>
@@ -210,7 +220,7 @@
                             escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
                             Vecino):
                         </label>
-                        <input type="text" formControlName="referenciaDomicilio"
+                        <input type="text" formControlName="refenciaNegocio"
                                class="form-control"
                                value="" disabled>
                     </div>
@@ -294,9 +304,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Correo electrónico:
+                                    <label>Cédula:
                                     </label>
-                                    <input type="text" formControlName="correoConyuge"
+                                    <input type="text" formControlName="cedulaConyuge"
                                            class="form-control"
                                            value="" disabled>
                                 </div>
@@ -324,6 +334,16 @@
                     </h5>
                     <div [formGroup]="familiar">
                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Referencia Familiar
+                                    </label>
+                                    <input type="text" formControlName="tipoPariente"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>
@@ -409,6 +429,59 @@
 
                 </div>
             </div>
+            <h3>REFERENCIAS COMERCIALES</h3>
+            <ng-container formArrayName="comerciales">
+                <ng-container
+                        *ngFor="let comercial of formSolicitud.get('comerciales')['controls']; let i = index">
+                    <h5>
+                        REFERENCIAS COMERCIALES {{i + 1}}:
+                    </h5>
+                    <div [formGroup]="comercial">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombres y apellidos
+                                    </label>
+                                    <input type="text" formControlName="nombresDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombre del negocio
+                                    </label>
+                                    <input type="text" formControlName="negocioDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Teléfono:
+                                    </label>
+                                    <input type="text" formControlName="telefonoDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Dirección:
+                                    </label>
+                                    <input type="text" formControlName="direccionDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </ng-container>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

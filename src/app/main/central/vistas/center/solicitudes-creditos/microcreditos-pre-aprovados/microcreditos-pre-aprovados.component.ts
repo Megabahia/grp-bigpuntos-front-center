@@ -122,8 +122,9 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 comercial: ['', [Validators.required]], //
                 actividadEconomica: ['', [Validators.required]], //
                 direccionDomiciolRepresentante: ['', [Validators.required]], //
-                direccionEmpresa: ['', [Validators.required]], //
-                referenciaDomicilio: ['', [Validators.required]], //
+                callePrincipal: ['', [Validators.required]],
+                calleSecundaria: ['', [Validators.required]],
+                refenciaNegocio: ['', [Validators.required]],
                 esatdo_civil: ['', [Validators.required]], //
                 correo: ['', [Validators.required]], //
                 telefono: ['', [Validators.required]], //
@@ -131,9 +132,29 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 conyuge: this._formBuilder.group({
                     nombreConyuge: [''], //
                     telefonoConyuge: [''], //
-                    correoConyuge: [''],
+                    cedulaConyuge: [''],
                 }),
                 familiares: this._formBuilder.array([]),
+                comerciales: this._formBuilder.array([
+                    this._formBuilder.group({
+                        nombresDuenoComercial: [''],
+                        negocioDuenoComercial: [''],
+                        telefonoDuenoComercial: [''],
+                        direccionDuenoComercial: [''],
+                    }),
+                    this._formBuilder.group({
+                        nombresDuenoComercial: [''],
+                        negocioDuenoComercial: [''],
+                        telefonoDuenoComercial: [''],
+                        direccionDuenoComercial: [''],
+                    }),
+                    this._formBuilder.group({
+                        nombresDuenoComercial: [''],
+                        negocioDuenoComercial: [''],
+                        telefonoDuenoComercial: [''],
+                        direccionDuenoComercial: [''],
+                    }),
+                ]),
                 inresosMensualesVentas: ['', [Validators.required]], //
                 sueldoConyuge: [''], //
                 otrosIngresos: [''], //
@@ -247,7 +268,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = JSON.parse(credito.checks);
+        this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {
@@ -302,28 +323,9 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 this.actualizarCreditoFormData.append(llaves, creditoValores[index]);
             }
         });
-        this.checks = [
-            {'label': 'Identificacion', 'valor': resto.checkIdenficicacion},
-            {'label': 'Foto Carnet', 'valor': resto.checkFotoCarnet},
-            {'label': 'Ruc', 'valor': resto.checkIdenficicacion},
-            {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
-            {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
-            {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
-            {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
-            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses},
-            {
-                'label': '3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación',
-                'valor': resto.checkfacturasVentasCertificado
-            },
-            {'label': 'Facturas pendiente de pago', 'valor': resto.checkFacturasPendiente},
-            {'label': 'Justificación otros ingresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
-            {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
-            {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': resto.checkImpuestoPredial},
-            {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
-            {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
-        ]
-        ;
+        this.checks.map((item) => {
+           item.valor = true;
+        });
         if (this.soltero) {
             this.checks.splice(3, 2);
         }
@@ -378,9 +380,10 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
 
     agregarFamiliar() {
         const cuentaForm = this._formBuilder.group({
-            nombreFamiliar: [''], //
-            apellidoFamiliar: [''], //
-            telefonoFamiliar: [''], //
+            tipoPariente: [''],
+            nombreFamiliar: [''],
+            apellidoFamiliar: [''],
+            telefonoFamiliar: [''],
             direccionFamiliar: [''],
         });
         this.familiares.push(cuentaForm);

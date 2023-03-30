@@ -334,29 +334,9 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 this.actualizarCreditoFormData.append(llaves, creditoValores[index]);
             }
         });
-        this.checks = [
-            {'label': 'identificacion', 'valor': resto.checkIdentificacion},
-            {'label': 'Foto Carnet', 'valor': resto.checkFotoCarnet},
-            {'label': 'Ruc', 'valor': resto?.checkRuc},
-            {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
-            {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
-            {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
-            {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
-            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses},
-            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses2},
-            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkfacturasVentas2meses3},
-            {
-                'label': '3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación',
-                'valor': resto.checkfacturasVentasCertificado
-            },
-            {'label': 'Facturas pendiente de pago', 'valor': resto.checkFacturasPendiente},
-            // {'label': 'Justificación otros ingresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
-            {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
-            {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': resto.checkImpuestoPredial},
-            // {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
-            {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
-        ];
+        this.checks.map((item) => {
+            item.valor = true;
+        });
         if (this.soltero) {
             this.checks.splice(3, 2);
         }

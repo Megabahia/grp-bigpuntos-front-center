@@ -52,6 +52,11 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         {'label': 'Buro credito', 'valor': false},
         {'label': 'Calificacion buro', 'valor': false},
     ];
+    public checksSolteroInferior: any = [];
+    public checksSolteroSuperior: any = [];
+    public checksCasadoInferior: any = [];
+    public checksCasadoSuperior: any = [];
+    public montoLimite: any = 8000;
     public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion',
         'identificacionConyuge', 'mecanizadoIess', 'papeletaVotacionConyuge', 'planillaLuzNegocio',
         'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
@@ -62,6 +67,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public ingresoNegocioSuperior = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -70,6 +76,37 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         private _formBuilder: FormBuilder,
         private datePipe: DatePipe,
     ) {
+        this._solicitudCreditosService.obtenerRequisitosCreditoPreAprobado({tipo: 'MICROCREDITO_CASADO_UNION_LIBRE'}).subscribe((item) => {
+            item.map((fila) => {
+                if (fila.valor === 'INFERIOR') {
+                    this.checksCasadoInferior = fila.config.map((index) => {
+                        return {'label': index, 'valor': false};
+                    });
+                }
+                if (fila.valor === 'SUPERIOR') {
+                    this.checksCasadoSuperior = fila.config.map((index) => {
+                        return {'label': index, 'valor': false};
+                    });
+                }
+            });
+        });
+        this._solicitudCreditosService.obtenerRequisitosCreditoPreAprobado({tipo: 'MICROCREDITO_SOLTERO_DIVORCIADO'}).subscribe((item) => {
+            item.map((fila) => {
+                if (fila.valor === 'INFERIOR') {
+                    this.checksSolteroInferior = fila.config.map((index) => {
+                        return {'label': index, 'valor': false};
+                    });
+                }
+                if (fila.valor === 'SUPERIOR') {
+                    this.checksSolteroSuperior = fila.config.map((index) => {
+                        return {'label': index, 'valor': false};
+                    });
+                }
+            });
+        });
+        this._solicitudCreditosService.obtenerParametroNombreTipo('MONTO', 'REQUISITOS_MICROCREDIOS').subscribe((item) => {
+            this.montoLimite = item.valor;
+        });
     }
 
     ngOnInit(): void {
@@ -194,6 +231,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
         this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.ingresoNegocioSuperior = (credito.monto >= this.montoLimite);
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
@@ -237,7 +275,15 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkObservacion: ['', [Validators.requiredTrue]],
             });
         console.log(credito);
-        this.checks = credito.checks;
+        if (typeof credito.checks === 'object') {
+            if (this.soltero) {
+                this.checks = this.ingresoNegocioSuperior ? this.checksSolteroSuperior : this.checksSolteroInferior;
+            } else {
+                this.checks = this.ingresoNegocioSuperior ? this.checksCasadoSuperior : this.checksCasadoInferior;
+            }
+        } else {
+            this.checks = JSON.parse(credito.checks);
+        }
     }
 
     cambiarEstado($event) {

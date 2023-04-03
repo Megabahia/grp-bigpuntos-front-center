@@ -58,6 +58,15 @@ import { EmpleadosComponent } from './vistas/corp/empleados/empleados/empleados.
 import {RoleDirective} from '../../auth/directivas/role.directive';
 import {ListarLandingComponent} from './vistas/center/productosLanding/listar/listarLanding.component';
 import { ViewFileComponent } from './vistas/corp/cargarLineasCreditos/vistas/view-file/view-file.component';
+import {
+  IfisNegocioPropioPreaprovadosComponent
+} from './vistas/center/solicitudes-creditos/ifis/negocio-propio-preaprovados/ifis-negocio-propio-preaprovados.component';
+import {
+  IfisEmpleadosPreaprovadosComponent
+} from './vistas/center/solicitudes-creditos/ifis/empleados-preaprovados/ifis-empleados-preaprovados.component';
+import {
+  IfisMicrocreditosPreAprovadosComponent
+} from './vistas/center/solicitudes-creditos/ifis/microcreditos-pre-aprovados/ifis-microcreditos-pre-aprovados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -192,6 +201,24 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'ifis/negocios-propios-pre-aprobados',
+            component: IfisNegocioPropioPreaprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ifis/empelados-pre-aprobados',
+            component: IfisEmpleadosPreaprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ifis/microcreditpreaprobado',
+            component: IfisMicrocreditosPreAprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -258,6 +285,9 @@ const routes = [
     EmpresasClientesCenter,
     UploadLineasCreditos,
     ViewFileComponent,
+    IfisEmpleadosPreaprovadosComponent,
+    IfisNegocioPropioPreaprovadosComponent,
+    IfisMicrocreditosPreAprovadosComponent,
   ],
   imports: [
     CoreCommonModule,

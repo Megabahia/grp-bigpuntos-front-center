@@ -3,18 +3,18 @@ import {DatePipe} from '@angular/common';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {ValidacionesPropias} from '../../../../../../../../utils/customer.validators';
 
 @Component({
     selector: 'app-microcreditos-pre-aprovados',
-    templateUrl: './microcreditos-pre-aprovados.component.html',
-    styleUrls: ['./microcreditos-pre-aprovados.component.scss'],
+    templateUrl: './ifis-microcreditos-pre-aprovados.component.html',
+    styleUrls: ['./ifis-microcreditos-pre-aprovados.component.scss'],
     providers: [DatePipe],
 
 })
-export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit {
+export class IfisMicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -127,7 +127,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             page_size: this.page_size,
             page: this.page - 1,
             tipoCredito: 'Pymes-PreAprobado',
-            cargarOrigen: 'BIGPUNTOS'
+            cargarOrigen: 'IFIS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;

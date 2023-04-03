@@ -98,6 +98,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             page_size: this.page_size,
             page: this.page - 1,
             tipoCredito: 'Negocio propio',
+            cargarOrigen: 'BIGPUNTOS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;

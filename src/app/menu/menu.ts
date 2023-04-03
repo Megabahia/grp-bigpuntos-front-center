@@ -255,6 +255,30 @@ export const menu: CoreMenu[] = [
                 icon: 'circle',
                 url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
               },
+              {
+                id: 'ifisPreaprobados',
+                title: 'IFIS Preaprobados',
+                type: 'collapsible',
+                icon: 'credit-card',
+                children: [
+                  {
+                    id: 'propios-pre-aprovados',
+                    title: 'Pre aprobados negocios propios',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/negocios-propios-pre-aprobados'
+                  },
+                  {
+                    id: 'empelados-pre-aprovados',
+                    title: 'Pre aprobados empelados',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/empelados-pre-aprobados'
+                  },
+                ],
+              },
             ]
           },
           {
@@ -279,6 +303,22 @@ export const menu: CoreMenu[] = [
                 icon: 'circle',
                 url: 'central/center/solicitudes-creditos/microcreditsolicitud'
               },
+              {
+                id: 'pymesIfis',
+                title: 'Pymes Ifis',
+                type: 'collapsible',
+                icon: 'credit-card',
+                children: [
+                  {
+                    id: 'microcreditpreaprobado',
+                    title: 'PYMES pre-aprobados ',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/microcreditpreaprobado'
+                  },
+                ]
+              }
             ]
           },
         ]

@@ -1,18 +1,18 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
     selector: 'app-negocio-propio-preaprovados',
-    templateUrl: './negocio-propio-preaprovados.component.html',
-    styleUrls: ['./negocio-propio-preaprovados.component.scss'],
+    templateUrl: './ifis-negocio-propio-preaprovados.component.html',
+    styleUrls: ['./ifis-negocio-propio-preaprovados.component.scss'],
     providers: [DatePipe],
 })
-export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit {
+export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -98,7 +98,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             page_size: this.page_size,
             page: this.page - 1,
             tipoCredito: 'Negocio-PreAprobado',
-            cargarOrigen: 'BIGPUNTOS'
+            cargarOrigen: 'IFIS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;

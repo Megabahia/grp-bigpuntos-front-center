@@ -197,8 +197,9 @@ export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit
         } = this.actualizarCreditoForm.value;
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
-        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
+        const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado',
+            'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);

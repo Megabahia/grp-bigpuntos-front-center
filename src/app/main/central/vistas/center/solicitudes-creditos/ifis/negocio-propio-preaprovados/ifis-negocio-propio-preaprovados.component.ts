@@ -141,7 +141,7 @@ export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterView
             facturasVentas2meses: ['', [Validators.required]],
             facturasVentas2meses2: ['', [Validators.required]],
             facturasVentas2meses3: ['', [Validators.required]],
-            facturasVentasCertificado: ['', [Validators.required]],
+            facturasVentasCertificado: ['', []],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
@@ -165,7 +165,7 @@ export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterView
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {
@@ -187,6 +187,7 @@ export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterView
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {

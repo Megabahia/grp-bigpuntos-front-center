@@ -789,15 +789,15 @@
                     <input type="file" class="custom-file-input" id="facturasVentasCertificado"
                            formControlName="facturasVentasCertificado"
                            (change)="subirDoc( $event,'facturasVentasCertificado')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentasCertificadolbl"
                            for="facturasVentasCertificado">{{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentasCertificado.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">
-                            Certificado de la Asociación (es opcional y aplica si usted es transportista: Bus o Taxi) es requerido
-                        </div>
+<!--                        <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">-->
+<!--                            Certificado de la Asociación (es opcional y aplica si usted es transportista: Bus o Taxi) es requerido-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="custom-file">

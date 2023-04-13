@@ -238,7 +238,7 @@ export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterView
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', 'Enviado');
         this.actualizarCreditoFormData.delete('checks');
-        this.actualizarCreditoFormData.append('checks', this.checks);
+        this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 // this.mensaje = 'Crédito actualizado con éxito';

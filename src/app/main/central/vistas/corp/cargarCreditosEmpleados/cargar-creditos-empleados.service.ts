@@ -15,6 +15,9 @@ export class CargarCreditosEmpleadosService {
   obtenerListaEmpresasCorps(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/comercial`, datos);
   }
+  obtenerListaEmpresasAll(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/all`, datos);
+  }
   obtenerListaEmpresasIfis(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/list/ifis`, datos);
   }

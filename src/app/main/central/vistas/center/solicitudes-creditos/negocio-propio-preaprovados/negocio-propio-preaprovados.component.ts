@@ -141,7 +141,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             facturasVentas2meses: ['', [Validators.required]],
             facturasVentas2meses2: ['', [Validators.required]],
             facturasVentas2meses3: ['', [Validators.required]],
-            facturasVentasCertificado: ['', [Validators.required]],
+            facturasVentasCertificado: ['', []],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
@@ -165,7 +165,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {
@@ -225,6 +225,10 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             {'label': 'Planilla luz negocio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
             {'label': 'Facturas', 'valor': resto.facturasVentas2meses},
+            {
+                'label': 'Certificado de la Asociación (este campo aplica si usted es transportista: Bus o Taxi)',
+                'valor': resto.checkfacturasVentasCertificado
+            },
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
             {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
@@ -238,7 +242,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', 'Enviado');
         this.actualizarCreditoFormData.delete('checks');
-        this.actualizarCreditoFormData.append('checks', this.checks);
+        this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 // this.mensaje = 'Crédito actualizado con éxito';

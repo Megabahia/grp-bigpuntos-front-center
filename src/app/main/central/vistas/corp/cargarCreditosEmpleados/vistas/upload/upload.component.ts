@@ -69,7 +69,7 @@ export class UploadComponent implements OnInit {
     );
   }
   obtenerListaEmpresasCorp() {
-    this._cargarCreditosEmpleados.obtenerListaEmpresasCorps({}).subscribe((info) => {
+    this._cargarCreditosEmpleados.obtenerListaEmpresasAll({}).subscribe((info) => {
       this.listaEmpresasCorps = info.info;
     },
     (error) => {

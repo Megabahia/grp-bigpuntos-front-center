@@ -67,13 +67,13 @@ import {
 import {
   IfisMicrocreditosPreAprovadosComponent
 } from './vistas/center/solicitudes-creditos/ifis/microcreditos-pre-aprovados/ifis-microcreditos-pre-aprovados.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
     path: 'inicio',
     component: PrincipalComponent,
-    data: { roles: [Role.BigPuntos] },
     canActivate: [AuthGuard]
     // data: { animation: 'auth' }
   },
@@ -306,7 +306,8 @@ const routes = [
     QRCodeModule,
     FlatpickrModule.forRoot(),
     NgSelectModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    MatTreeModule
   ],
   exports: [
 

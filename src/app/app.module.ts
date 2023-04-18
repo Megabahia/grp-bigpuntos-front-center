@@ -25,6 +25,7 @@ import { AuthGuard } from './auth/helpers/auth.guards';
 import { JwtInterceptor } from './auth/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './auth/helpers/error.interceptor';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {MatTreeModule} from '@angular/material/tree';
 
 const appRoutes: Routes = [
   {
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
     AngularFirestoreModule, // for firestore
 
     NgxDatatableModule,
+    MatTreeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

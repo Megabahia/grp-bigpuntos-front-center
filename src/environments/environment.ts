@@ -7,6 +7,7 @@ export const environment = {
     hmr: false,
     apiUrl: 'http://209.145.61.41:8000',
     urlBigPuntos: 'http://localhost:4201/#/',
+    setKey: '6LdIKaglAAAAAEqIg6P6A6hqKndiISYXGGzpfTs-',
     firebaseConfig: {
         apiKey: 'AIzaSyBISFdku_C2M-rr4-bhpkeXtE4z8u07yRo',
         authDomain: 'grp-bigpuntos.firebaseapp.com',

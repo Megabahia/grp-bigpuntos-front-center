@@ -9,7 +9,7 @@
                             <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
                             </li>
                             <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">Solicitud de
-                                créditos empleados</a>
+                                créditos negocios</a>
                             </li>
                         </ol>
                     </div>
@@ -126,7 +126,7 @@
 <!-- INICIO MODAL USER -->
 <ng-template #modalSLC let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <h4 class="modal-title" id="myModalLabel1">Solicitud de Crédito</h4>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -160,6 +160,60 @@
                         disabled
                 />
             </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de identificación</label>
+                <input
+                        type="text"
+                        value="{{userViewData.documento}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Correo electronico</label>
+                <input
+                        type="text"
+                        value="{{userViewData.email}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Estado civil</label>
+                <input
+                        type="text"
+                        value="{{userViewData.estadoCivil}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número WhatsApp</label>
+                <input
+                        type="text"
+                        value="{{userViewData.whatsapp}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de celular</label>
+                <input
+                        type="text"
+                        value="{{userViewData.celular}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Tipo de persona</label>
+                <input
+                        type="text"
+                        value="{{userViewData.tipoPersona}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
@@ -189,6 +243,15 @@
                         type="text"
                         class="form-control"
                         value="{{userViewData.nombreDueno}}"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4" *ngIf="!casaPropia">
+                <label class="form-label">Whatsapp del dueño</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.whatsappDueno}}"
                         disabled
                 />
             </div>
@@ -253,7 +316,18 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12" *ngFor="let referencia of referenciasSolicitante; let i = index">
-                <label class="form-label" for="vertical-modern-username" >Familiar {{referencia.referenciaSolicitante}}: {{i+1}}</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>
+                                PARENTEZCO
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   value="{{referencia.referenciaSolicitante}}" disabled>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -758,7 +832,7 @@
                     <input type="file" class="custom-file-input" id="facturasVentasCertificado"
                            formControlName="facturasVentasCertificado"
                            (change)="subirDoc( $event,'facturasVentasCertificado')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentasCertificadolbl"
                            for="facturasVentasCertificado">{{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>

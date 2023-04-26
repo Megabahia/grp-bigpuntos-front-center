@@ -141,7 +141,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
             facturasVentas2meses: ['', [Validators.required]],
             facturasVentas2meses2: ['', [Validators.required]],
-            facturasVentasCertificado: ['', [Validators.required]],
+            facturasVentasCertificado: ['', ],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
@@ -164,7 +164,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {

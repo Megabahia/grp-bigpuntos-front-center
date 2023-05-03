@@ -158,7 +158,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
             checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
             checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
-            checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
+            checkfacturasVentasCertificado: ['', []],
             checkMatriculaVehiculo: [''],
             checkImpuestoPredial: [''],
             checkBuroCredito: ['', [Validators.requiredTrue]],

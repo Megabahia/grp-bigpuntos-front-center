@@ -166,6 +166,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
         this.mensaje = `Empresa Corp: ${this.empresaIfi.nombreComercial}<br>Ruc: ${this.empresaIfi.ruc}
                             <br>Registros: ${this.numeroRegistros}`;
         this.abrirModal(this.confirmarModal);
+
     }
 
     guardar() {
@@ -187,6 +188,18 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
             this.mensaje = `Se subio el excel correctamente.`;
             this.abrirModal(this.mensajeModal);
             this.obtenerListaArchivosPreAprobados();
+            //reset inputs
+
+            this.usuarioForm.reset();
+            this.nombreArchivo = "";
+            this.archivo = true;
+            const inputGroupFile02 = document.getElementById('inputGroupFile02') as HTMLInputElement;
+            inputGroupFile02.value = null;
+
+            if (!this.archivo) {
+                return;
+            }
+
         });
     }
 
@@ -236,10 +249,18 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
 
     cerrarModal() {
         this.modalService.dismissAll();
+
+        this.usuarioForm.reset();
+        this.nombreArchivo = "";
+        this.archivo = true;
+        const inputGroupFile02 = document.getElementById('inputGroupFile02') as HTMLInputElement;
+        inputGroupFile02.value = null;
     }
 
     ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
+
+
 }

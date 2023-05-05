@@ -590,7 +590,7 @@
                         <div *ngIf="controlsFrom.ruc.errors.required">
                             Ruc es requerido
                         </div>
-                        <div *ngIf="controlsFrom.ruc.errors.extensionInvalida">
+                        <div *ngIf="controlsFrom.ruc.errors.pdfValido">
                             La extension del documento no es pdf
                         </div>
                     </div>
@@ -624,7 +624,7 @@
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
-                        <div *ngIf="controlsFrom.ruc.errors.extensionInvalida">
+                        <div *ngIf="controlsFrom.ruc.errors.pdfValido">
                             La extension del documento no es pdf
                         </div>
                     </div>
@@ -659,7 +659,7 @@
                         <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
                             requerido
                         </div>
-                        <div *ngIf="controlsFrom.ruc.errors.extensionInvalida">
+                        <div *ngIf="controlsFrom.ruc.errors.pdfValido">
                             La extension del documento no es pdf
                         </div>
                     </div>

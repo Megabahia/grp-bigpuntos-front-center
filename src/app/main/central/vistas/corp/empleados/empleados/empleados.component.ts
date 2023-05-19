@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {EmpresasService} from '../../empresas/empresas.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
@@ -7,11 +7,13 @@ import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-empleados',
+  selector: 'app-empleados-empresas',
   templateUrl: './empleados.component.html',
   styleUrls: ['./empleados.component.scss']
 })
 export class EmpleadosComponent implements OnInit {
+  @Input() empresaId: string;
+  @Output() pantalla = new EventEmitter<any>();
   @ViewChild(NgbPagination) paginator: NgbPagination;
   @ViewChild('mensajeModal') mensajeModal;
   @ViewChild('eliminarEmpresaMdl') eliminarEmpresaMdl;
@@ -36,11 +38,12 @@ export class EmpleadosComponent implements OnInit {
     private _modalService: NgbModal,
     private _formBuilder: FormBuilder,
   ) {
-    this.route.params.subscribe((params) => {
-        this.empresa = params.empresa;
-        console.log(params);
-      }
-    );
+    // this.route.params.subscribe((params) => {
+    //     this.empresa = params.empresa;
+    //     console.log(params);
+    //   }
+    // );
+    this.empresa = this.empresaId;
   }
 
   get emplForm() {
@@ -48,6 +51,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.empresa = this.empresaId;
     this.obtenerListaEmpleados();
     this.obtenerTipoIdentificacionesOpciones();
     this.empleadoForm = this._formBuilder.group({
@@ -63,6 +67,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   obtenerListaEmpleados() {
+    console.log('entro al metodo');
     this._empresasService.obtenerListaEmpleados({
       page: this.page - 1, page_size: this.page_size,
       empresa: this.empresa
@@ -142,4 +147,7 @@ export class EmpleadosComponent implements OnInit {
     this._modalService.dismissAll();
   }
 
+  volver() {
+    this.pantalla.emit(1);
+  }
 }

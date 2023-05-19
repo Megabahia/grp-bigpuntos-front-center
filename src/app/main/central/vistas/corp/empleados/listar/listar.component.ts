@@ -24,6 +24,8 @@ export class ListarComponent implements OnInit {
     public empleadosForm: FormGroup;
     private empleadosFormData: FormData;
     public mensaje = '';
+    public pantalla = 1;
+    public empresaId = '';
 
     constructor(
         private _empresasService: EmpresasService,
@@ -113,6 +115,15 @@ export class ListarComponent implements OnInit {
 
     cerrarModal() {
         this._modalService.dismissAll();
+    }
+
+    cambiarPantalla(empresaId: any) {
+        this.empresaId = empresaId;
+        this.pantalla = 2;
+    }
+
+    listarEmpresas($event) {
+        this.pantalla = $event;
     }
 
 }

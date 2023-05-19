@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div class="content-wrapper" *ngIf="pantalla==1">
     <!-- <div class="content-header row">
         <div class="col-12 mb-2">
             <div class="row breadcrumbs-top">
@@ -102,10 +102,12 @@
                                 {{empresa.ruc}}
                             </td>
                             <td>
-                                <a href="#/central/corp/empleados/{{empresa._id}}" container="body"
-                                   placement="top" ngbTooltip="Editar">
+                                <button (click)="cambiarPantalla(empresa._id)" container="body"
+                                   placement="top" ngbTooltip="Editar"
+                                        class="btn btn-primary"
+                                >
                                     Ver empleados
-                                </a>
+                                </button>
                                 <!--                                <a href="javascript:void(0);" container="body" placement="top" ngbTooltip="Eliminar" (click)="eliminarEmpresaModal(empresa._id)"><i class="mr-1" size="18" data-feather="trash"></i-->
                                 <!--                                ></a>-->
                             </td>
@@ -197,3 +199,5 @@
         <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cerrar</button>
     </div>
 </ng-template>
+
+<app-empleados-empresas *ngIf="pantalla==2" [empresaId]="empresaId" (pantalla)="listarEmpresas($event)"></app-empleados-empresas>

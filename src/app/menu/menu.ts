@@ -38,6 +38,15 @@ export const menu: CoreMenu[] = [
         url: 'central/corp/empleados',
       },
       {
+        id: 'empleadosEmpresas2',
+        title: 'VER EMPLEADOS DE EMPRESAS2',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/corp/empleados/',
+      },
+      {
         id: 'empresasQR',
         title: 'Generar QR Establecimiento',
         // translate: 'MENU.HOME',

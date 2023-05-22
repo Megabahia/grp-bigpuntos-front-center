@@ -946,7 +946,7 @@
             <div class="form-group">
                 <label for="calificacionBuro">Calificación de Buró de Crédito</label>
                 <div class="custom-file">
-                    <input type="number" class="form-control" id="calificacionBuro"
+                    <input type="text" class="form-control" id="calificacionBuro"
                            formControlName="calificacionBuro"
                            value="{{actualizarCreditoForm.get('calificacionBuro').value}}"
                     />
@@ -956,6 +956,15 @@
                          style="display: block;">
                         <div *ngIf="controlsFrom.calificacionBuro.errors.required">Verificar calificación de Buró es
                             requerido
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.pattern">Solo se aceptan
+                            números
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.minlength">
+                            MÍNIMO 3 dígitos numéricos
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.maxlength">
+                            MÁXIMO 4 dígitos numéricos
                         </div>
                     </div>
                 </div>

@@ -252,7 +252,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 matriculaVehiculo: [''],
                 impuestoPredial: [''],
                 buroCredito: ['', [Validators.required]],
-                calificacionBuro: [credito.calificacionBuro, [Validators.required]],
+                calificacionBuro: [credito.calificacionBuro, [Validators.required,
+                    Validators.maxLength(4),
+                    Validators.minLength(3),
+                    Validators.pattern('^[0-9]*$')]],
                 observacion: [this.credito.observacion ? this.credito.observacion : '', [Validators.required]],
                 estado: [''],
                 // checks

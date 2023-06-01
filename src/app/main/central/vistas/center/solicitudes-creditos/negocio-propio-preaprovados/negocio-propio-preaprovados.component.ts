@@ -111,6 +111,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
         this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
             user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
         this.casaPropia = (user.tipoVivienda === 'Propia');
+        console.log('casapropria', this.casaPropia);
         this.modalOpenSLC(modal);
         this.userViewData = user;
         this.ocupacionSolicitante = user.ocupacionSolicitante;
@@ -237,6 +238,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
             {'label': 'Calificacion buro', 'valor': resto.checkCalificacionBuro},
             {'label': 'Observación', 'valor': resto.checkObservacion},
+            {'label': 'Autorización y validación de información', 'valor': true},
         ];
         if (this.soltero) {
             this.checks.splice(3, 2);

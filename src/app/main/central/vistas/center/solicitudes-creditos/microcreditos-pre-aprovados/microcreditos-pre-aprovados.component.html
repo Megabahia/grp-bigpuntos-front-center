@@ -549,7 +549,7 @@
                            (change)="subirDoc( $event, 'identificacion')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="identificacion">{{actualizarCreditoForm.get('identificacion').value}}</label>
+                           for="identificacion">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad o
@@ -584,7 +584,7 @@
                            (change)="subirDoc( $event, 'ruc')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="ruc">{{actualizarCreditoForm.get('ruc').value}}</label>
+                           for="ruc">{{credito?.identificacion}} {{actualizarCreditoForm.get('ruc').value}}</label>
                     <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.ruc.errors.required">
@@ -620,7 +620,7 @@
                            (change)="subirDoc( $event, 'fotoCarnet')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="fotoCarnet">{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
+                           for="fotoCarnet">{{credito?.fotoCarnet}} {{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
@@ -653,7 +653,7 @@
                            (change)="subirDoc( $event,'papeletaVotacion')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="papeletaVotacion">{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
+                           for="papeletaVotacion">{{credito?.papeletaVotacion}} {{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
@@ -688,7 +688,7 @@
                            (change)="subirDoc( $event,'identificacionConyuge')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="identificacionConyuge">{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
+                           for="identificacionConyuge">{{credito?.identificacionConyuge}} {{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de
@@ -721,7 +721,7 @@
                            (change)="subirDoc( $event,'papeletaVotacionConyuge')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="papeletaVotacionConyuge">{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
+                           for="papeletaVotacionConyuge">{{credito?.papeletaVotacionConyuge}} {{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
                          class="invalid-feedback"
                          style="display: block;">
@@ -758,7 +758,7 @@
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="planillaLuzDomicilio">{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
+                           for="planillaLuzDomicilio">{{credito?.planillaLuzDomicilio}} {{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
@@ -794,7 +794,7 @@
                            (change)="subirDoc( $event,'planillaLuzNegocio')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="planillaLuzNegocio">{{actualizarCreditoForm.get('planillaLuzNegocio').value}}</label>
+                           for="planillaLuzNegocio">{{credito?.planillaLuzNegocio}} {{actualizarCreditoForm.get('planillaLuzNegocio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzNegocio.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.planillaLuzNegocio.errors.required">Planilla de luz del
@@ -828,7 +828,7 @@
                            (change)="subirDoc( $event,'facturasVentas2meses')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="facturasVentas2meses">{{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
+                           for="facturasVentas2meses">{{credito?.facturasVentas2meses}} {{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">Copias de Facturas de Ventas
@@ -863,7 +863,7 @@
                            (change)="subirDoc( $event,'facturasVentas2meses2')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="facturasVentas2meses2">{{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
+                           for="facturasVentas2meses2">{{credito?.facturasVentas2meses2}} {{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">Copias de Facturas de Ventas
@@ -897,7 +897,7 @@
                            (change)="subirDoc( $event,'facturasCompras2meses')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="facturasCompras2meses">{{actualizarCreditoForm.get('facturasCompras2meses').value}}</label>
+                           for="facturasCompras2meses">{{credito?.facturasCompras2meses}} {{actualizarCreditoForm.get('facturasCompras2meses').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasCompras2meses.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasCompras2meses.errors.required">
@@ -932,7 +932,7 @@
                            (change)="subirDoc( $event,'facturasCompras2meses2')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="facturasCompras2meses2">{{actualizarCreditoForm.get('facturasCompras2meses2').value}}</label>
+                           for="facturasCompras2meses2">{{credito?.facturasCompras2meses2}} {{actualizarCreditoForm.get('facturasCompras2meses2').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasCompras2meses2.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasCompras2meses2.errors.required">Copias de Facturas de Ventas es
@@ -966,7 +966,7 @@
                            (change)="subirDoc( $event,'facturasPendiente')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="facturasPendiente">{{actualizarCreditoForm.get('facturasPendiente').value}}</label>
+                           for="facturasPendiente">{{credito?.facturasPendiente}} {{actualizarCreditoForm.get('facturasPendiente').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasPendiente.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasPendiente.errors.required">Copias de Facturas de Ventas es
@@ -1000,7 +1000,7 @@
                            (change)="subirDoc( $event,'matriculaVehiculo')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="matriculaVehiculo">{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
+                           for="matriculaVehiculo">{{credito?.matriculaVehiculo}} {{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                     <div *ngIf="submitted && controlsFrom.matriculaVehiculo.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.matriculaVehiculo.errors.required">Copias de Facturas de Ventas es
@@ -1034,7 +1034,7 @@
                            (change)="subirDoc( $event,'impuestoPredial')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="impuestoPredial">{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
+                           for="impuestoPredial">{{credito?.impuestoPredial}} {{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
@@ -1061,7 +1061,7 @@
                            (change)="subirDoc( $event,'nombramientoRepresentante')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="nombramientoRepresentante">{{actualizarCreditoForm.get('nombramientoRepresentante').value}}</label>
+                           for="nombramientoRepresentante">{{credito?.nombramientoRepresentante}} {{actualizarCreditoForm.get('nombramientoRepresentante').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkNombramientoRepresentante">Valido</label>
@@ -1088,7 +1088,7 @@
                            (change)="subirDoc( $event,'certificadoSuperintendencia')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="certificadoSuperintendencia">{{actualizarCreditoForm.get('certificadoSuperintendencia').value}}</label>
+                           for="certificadoSuperintendencia">{{credito?.certificadoSuperintendencia}} {{actualizarCreditoForm.get('certificadoSuperintendencia').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoSuperintendencia">Valido</label>
@@ -1116,7 +1116,7 @@
                            (change)="subirDoc( $event,'certificadoPatronales')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="certificadoPatronales">{{actualizarCreditoForm.get('certificadoPatronales').value}}</label>
+                           for="certificadoPatronales">{{credito?.certificadoPatronales}} {{actualizarCreditoForm.get('certificadoPatronales').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoPatronales">Valido</label>
@@ -1143,7 +1143,7 @@
                            (change)="subirDoc( $event,'nominaSocios')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="nominaSocios">{{actualizarCreditoForm.get('nominaSocios').value}}</label>
+                           for="nominaSocios">{{credito?.nominaSocios}} {{actualizarCreditoForm.get('nominaSocios').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkNominaSocios">Valido</label>
@@ -1170,7 +1170,7 @@
                            (change)="subirDoc( $event,'actaJuntaGeneral')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="actaJuntaGeneral">{{actualizarCreditoForm.get('actaJuntaGeneral').value}}</label>
+                           for="actaJuntaGeneral">{{credito?.actaJuntaGeneral}} {{actualizarCreditoForm.get('actaJuntaGeneral').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkActaJuntaGeneral">Valido</label>
@@ -1197,7 +1197,7 @@
                            (change)="subirDoc( $event,'certificadoBancario')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="certificadoBancario">{{actualizarCreditoForm.get('certificadoBancario').value}}</label>
+                           for="certificadoBancario">{{credito?.certificadoBancario}} {{actualizarCreditoForm.get('certificadoBancario').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoBancario">Valido</label>
@@ -1224,7 +1224,7 @@
                            (change)="subirDoc( $event,'referenciasComerciales')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="referenciasComerciales">{{actualizarCreditoForm.get('referenciasComerciales').value}}</label>
+                           for="referenciasComerciales">{{credito?.referenciasComerciales}} {{actualizarCreditoForm.get('referenciasComerciales').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkReferenciasComerciales">Valido</label>
@@ -1251,7 +1251,7 @@
                            (change)="subirDoc( $event,'balancePerdidasGanancias')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="balancePerdidasGanancias">{{actualizarCreditoForm.get('balancePerdidasGanancias').value}}</label>
+                           for="balancePerdidasGanancias">{{credito?.balancePerdidasGanancias}} {{actualizarCreditoForm.get('balancePerdidasGanancias').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkBalancePerdidasGanancias">Valido</label>
@@ -1278,7 +1278,7 @@
                            (change)="subirDoc( $event,'balanceResultados')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="balanceResultados">{{actualizarCreditoForm.get('balanceResultados').value}}</label>
+                           for="balanceResultados">{{credito?.balanceResultados}} {{actualizarCreditoForm.get('balanceResultados').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkBalanceResultados">Valido</label>
@@ -1305,7 +1305,7 @@
                            (change)="subirDoc( $event,'declaracionIva')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="declaracionIva">{{actualizarCreditoForm.get('declaracionIva').value}}</label>
+                           for="declaracionIva">{{credito?.declaracionIva}} {{actualizarCreditoForm.get('declaracionIva').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkDeclaracionIva">Valido</label>
@@ -1332,7 +1332,7 @@
                            (change)="subirDoc( $event,'estadoCuentaTarjeta')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="estadoCuentaTarjeta">{{actualizarCreditoForm.get('estadoCuentaTarjeta').value}}</label>
+                           for="estadoCuentaTarjeta">{{credito?.estadoCuentaTarjeta}} {{actualizarCreditoForm.get('estadoCuentaTarjeta').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkEstadoCuentaTarjeta">Valido</label>
@@ -1360,7 +1360,7 @@
                            (change)="subirDoc( $event,'buroCredito')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="buroCredito">{{actualizarCreditoForm.get('buroCredito').value}}</label>
+                           for="buroCredito">{{credito?.buroCredito}} {{actualizarCreditoForm.get('buroCredito').value}}</label>
                     <div *ngIf="submitted && controlsFrom.buroCredito.errors"
                          class="invalid-feedback"
                          style="display: block;">

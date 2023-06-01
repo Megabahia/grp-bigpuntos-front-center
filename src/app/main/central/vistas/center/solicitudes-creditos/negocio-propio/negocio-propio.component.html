@@ -538,7 +538,7 @@
                            (change)="subirDoc( $event, 'ruc')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           id="ruclbl" for="ruc">{{actualizarCreditoForm.get('ruc').value}}</label>
+                           id="ruclbl" for="ruc">{{credito?.ruc}} {{actualizarCreditoForm.get('ruc').value}}</label>
                     <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.ruc.errors.required">Ruc es requerido
@@ -767,7 +767,7 @@
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentas2meseslbl"
-                           for="facturasVentas2meses">{{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
+                           for="facturasVentas2meses">{{credito?.facturasVentas2meses}} {{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">
@@ -801,7 +801,7 @@
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentas2meses2lbl"
-                           for="facturasVentas2meses2">{{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
+                           for="facturasVentas2meses2">{{credito?.facturasVentas2meses2}} {{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">
@@ -835,7 +835,7 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentasCertificadolbl"
-                           for="facturasVentasCertificado">{{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
+                           for="facturasVentasCertificado">{{credito?.facturasVentasCertificado}} {{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
                     <div *ngIf="submitted && controlsFrom.facturasVentasCertificado.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">

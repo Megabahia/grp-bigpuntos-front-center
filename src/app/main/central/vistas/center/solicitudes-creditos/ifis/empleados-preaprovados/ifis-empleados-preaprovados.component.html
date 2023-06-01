@@ -478,7 +478,7 @@
                            (change)="subirDoc( $event, 'identificacion')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="identificacion">{{actualizarCreditoForm.get('identificacion').value}}</label>
+                           for="identificacion">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.identificacion.errors.required">Copia de cédula es requerido
@@ -509,7 +509,7 @@
                            (change)="subirDoc( $event, 'ruc')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           id="ruclbl" for="ruc">{{actualizarCreditoForm.get('ruc').value}}</label>
+                           id="ruclbl" for="ruc">{{credito?.ruc}} {{actualizarCreditoForm.get('ruc').value}}</label>
                     <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.ruc.errors.required">Ruc es requerido
@@ -540,7 +540,7 @@
                            (change)="subirDoc( $event, 'fotoCarnet')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="fotoCarnet">{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
+                           for="fotoCarnet">{{credito?.fotoCarnet}} {{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
@@ -570,7 +570,7 @@
                            (change)="subirDoc( $event,'papeletaVotacion')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="papeletaVotacion">{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
+                           for="papeletaVotacion">{{credito?.papeletaVotacion}} {{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
@@ -602,7 +602,7 @@
                            (change)="subirDoc( $event,'identificacionConyuge')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="identificacionConyuge">{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
+                           for="identificacionConyuge">{{credito?.identificacionConyuge}} {{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de
@@ -636,7 +636,7 @@
                            (change)="subirDoc( $event,'papeletaVotacionConyuge')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="papeletaVotacionConyuge">{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
+                           for="papeletaVotacionConyuge">{{credito?.papeletaVotacionConyuge}} {{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
                          class="invalid-feedback"
                          style="display: block;">
@@ -671,7 +671,7 @@
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="planillaLuzDomicilio">{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
+                           for="planillaLuzDomicilio">{{credito?.planillaLuzDomicilio}} {{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
@@ -704,7 +704,7 @@
                            (change)="subirDoc( $event,'mecanizadoIess')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="mecanizadoIess">{{actualizarCreditoForm.get('mecanizadoIess').value}}</label>
+                           for="mecanizadoIess">{{credito?.mecanizadoIess}} {{actualizarCreditoForm.get('mecanizadoIess').value}}</label>
                     <div *ngIf="submitted && controlsFrom.mecanizadoIess.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.mecanizadoIess.errors.required">Mecanizado del IESS es requerido</div>
@@ -735,7 +735,7 @@
                            (change)="subirDoc( $event,'matriculaVehiculo')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="matriculaVehiculo">{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
+                           for="matriculaVehiculo">{{credito?.matriculaVehiculo}} {{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>
@@ -761,7 +761,7 @@
                            (change)="subirDoc( $event,'impuestoPredial')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="impuestoPredial">{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
+                           for="impuestoPredial">{{credito?.impuestoPredial}} {{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
@@ -787,7 +787,7 @@
                            (change)="subirDoc( $event,'buroCredito')"
                            accept="application/pdf"/>
                     <label class="custom-file-label"
-                           for="buroCredito">{{actualizarCreditoForm.get('buroCredito').value}}</label>
+                           for="buroCredito">{{credito?.buroCredito}} {{actualizarCreditoForm.get('buroCredito').value}}</label>
                     <div *ngIf="submitted && controlsFrom.buroCredito.errors"
                          class="invalid-feedback"
                          style="display: block;">

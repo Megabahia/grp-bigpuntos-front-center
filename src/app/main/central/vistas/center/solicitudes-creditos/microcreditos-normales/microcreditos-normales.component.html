@@ -1096,14 +1096,25 @@
             <div class="form-group">
                 <label for="calificacionBuro">Calificación del buró</label>
                 <div class="custom-file">
-                    <fieldset class="form-group">
-                                    <textarea class="form-control" formControlName="calificacionBuro" id="calificacionBuro"
-                                              rows="3"></textarea>
-                    </fieldset>
+                    <input type="text" class="form-control" id="calificacionBuro"
+                           formControlName="calificacionBuro"
+                           value="{{actualizarCreditoForm.get('calificacionBuro').value}}"
+                    />
+
                     <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Observación es requerido
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Verificar calificación de Buró es
+                            requerido
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.pattern">Solo se aceptan
+                            números
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.minlength">
+                            MÍNIMO 3 dígitos numéricos
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.maxlength">
+                            MÁXIMO 4 dígitos numéricos
                         </div>
                     </div>
                 </div>

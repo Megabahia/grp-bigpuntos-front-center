@@ -330,6 +330,22 @@ export const menu: CoreMenu[] = [
               }
             ]
           },
+          {
+            id: 'creditoComsumo',
+            title: 'Créditos Alfa',
+            type: 'collapsible',
+            icon: 'credit-card',
+            children: [
+              {
+                id: 'alfa',
+                title: 'Créditos alfa',
+                // translate: 'MENU.APPS.EMAIL',
+                type: 'item',
+                icon: 'circle',
+                url: 'central/center/solicitudes-creditos/alfa'
+              },
+            ]
+          }
         ]
       },
       {

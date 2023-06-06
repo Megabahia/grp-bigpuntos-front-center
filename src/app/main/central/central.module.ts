@@ -68,6 +68,7 @@ import {
   IfisMicrocreditosPreAprovadosComponent
 } from './vistas/center/solicitudes-creditos/ifis/microcreditos-pre-aprovados/ifis-microcreditos-pre-aprovados.component';
 import {MatTreeModule} from '@angular/material/tree';
+import { AlfaComponent } from './vistas/center/solicitudes-creditos/alfa/alfa.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -219,6 +220,12 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'alfa',
+            component: AlfaComponent,
+            // data: {roles: [Role.BigPuntos]},
+            // canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -288,6 +295,7 @@ const routes = [
     IfisEmpleadosPreaprovadosComponent,
     IfisNegocioPropioPreaprovadosComponent,
     IfisMicrocreditosPreAprovadosComponent,
+    AlfaComponent,
   ],
     imports: [
         CoreCommonModule,

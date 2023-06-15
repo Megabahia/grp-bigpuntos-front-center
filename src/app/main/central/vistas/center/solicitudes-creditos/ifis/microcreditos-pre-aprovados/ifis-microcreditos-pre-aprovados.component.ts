@@ -412,6 +412,9 @@ export class IfisMicrocreditosPreAprovadosComponent implements OnInit, AfterView
             nombreFamiliar: [''],
             apellidoFamiliar: [''],
             telefonoFamiliar: [''],
+            pais: [''],
+            provincia: [''],
+            ciudad: [''],
             direccionFamiliar: [''],
         });
         this.familiares.push(cuentaForm);

@@ -162,6 +162,7 @@ export class AlfaComponent implements OnInit {
       checkObservacion: ['', [Validators.requiredTrue]],
     });
     this.checks = credito.checks;
+    this.checks[this.checks.length - 1].valor = true;
   }
 
   cambiarEstado($event) {

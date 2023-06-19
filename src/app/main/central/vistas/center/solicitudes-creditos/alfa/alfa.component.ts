@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {DatePipe} from '@angular/common';
+import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
 @Component({
   selector: 'app-alfa',
@@ -133,17 +134,19 @@ export class AlfaComponent implements OnInit {
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       identificacion: ['', this.credito?.identificacion ? [] : (credito.identificacion ? [] : [Validators.required])],
-      // ruc: ['', credito.identificacion ? [] : [Validators.required]],
       fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
       papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
-      identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
-      papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
       // identificacionConyuge: ['', credito.identificacionConyuge ? [] : [Validators.required]],
       // papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : [Validators.required]],
       planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-      mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required]],
       matriculaVehiculo: [''],
       impuestoPredial: [''],
+      cedulaGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      papeletaVotacionGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      fotoGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      impuestoPredialGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      matriculaVehiculoGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      planillaDomicilioGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
       buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
       calificacionBuro: [credito.calificacionBuro, [Validators.required]],
       observacion: [credito.observacion, [Validators.required]],
@@ -151,12 +154,18 @@ export class AlfaComponent implements OnInit {
       // checkRuc: ['', [Validators.requiredTrue]],
       checkFotoCarnet: ['', [Validators.requiredTrue]],
       checkPapeletaVotacion: ['', [Validators.requiredTrue]],
-      checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
-      checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+      // checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+      // checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-      checkMecanizadoIess: ['', [Validators.requiredTrue]],
+      // checkMecanizadoIess: ['', [Validators.requiredTrue]],
       checkMatriculaVehiculo: [''],
       checkImpuestoPredial: [''],
+      checkCedulaGarante: ['', [Validators.requiredTrue]],
+      checkPapeletaVotacionGarante: ['', [Validators.requiredTrue]],
+      checkFotoGarante: ['', [Validators.requiredTrue]],
+      checkImpuestoPredialGarante: ['', [Validators.requiredTrue]],
+      checkMatriculaVehiculoGarante: ['', [Validators.requiredTrue]],
+      checkPlanillaDomicilioGarante: ['', [Validators.requiredTrue]],
       checkBuroCredito: ['', [Validators.requiredTrue]],
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
@@ -209,7 +218,9 @@ export class AlfaComponent implements OnInit {
     const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
     const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
       'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado',
-      'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
+      'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet', 'cedulaGarante', 'papeletaVotacionGarante', 'fotoGarante',
+      'impuestoPredialGarante', 'matriculaVehiculoGarante', 'planillaDomicilioGarante',
+    ];
     creditoLlaves.map((llaves, index) => {
       if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
         this.actualizarCreditoFormData.delete(llaves);
@@ -223,7 +234,6 @@ export class AlfaComponent implements OnInit {
       {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
       {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
       {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-      {'label': 'Mecanizado Iess', 'valor': resto.checkMecanizadoIess},
       {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
       {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
       {'label': 'Buro credito', 'valor': resto.checkBuroCredito},

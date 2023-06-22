@@ -135,6 +135,142 @@
         </button>
     </div>
     <div style="padding: 20px 20px 20px 20px;">
+        <div class="content-header">
+            <h5 class="mb-0">Datos de la Madrina o Padrino:</h5>
+        </div>
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Tipo de identificación</label>
+                    <input type="text" class="form-control" [value]="userViewData.garante.tipoIdentificacion" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Número de identificación</label>
+                    <input [value]="userViewData.garante.identificacion" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Nombres de la Madrina o Padrino</label>
+                    <input type="text" class="form-control" disabled
+                           [value]="userViewData.garante.nombres">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Apellidos de la Madrina o Padrino</label>
+                    <input type="text" class="form-control"
+                           [value]="userViewData.garante.apellidos" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Correo Madrina/Padrino</label>
+                    <input [value]="userViewData.garante.correoGarante" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>País de residencia</label>
+                    <input [value]="userViewData.garante.pais" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Provincia de residencia
+                    </label>
+                    <input [value]="userViewData.garante.provincia" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Ciudad de residencia</label>
+                    <input [value]="userViewData.garante.ciudad" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        Dirección del Domicilio de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.direccion" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        Madrina o Padrino tiene:
+                    </label>
+                    <input [value]="userViewData.garante.tipoPersona" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        País de Trabajo de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.paisTipoPersona" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        Provincia de Trabajo de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.provinciaTipoPersona" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        Ciudad de Trabajo de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.ciudadTipoPersona" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>
+                        Dirección de Trabajo de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.direccionTipoPersona" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngIf="userViewData.garante.rucGarante">
+                <div class="form-group">
+                    <label>
+                        RUC del Negocio de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.rucGarante" type="text" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngIf="userViewData.garante.nombreNegocioGarante">
+                <div class="form-group">
+                    <label>
+                        Nombre del Negocio de la Madrina o Padrino:
+                    </label>
+                    <input [value]="userViewData.garante.nombreNegocioGarante" type="text" class="form-control" disabled>
+                </div>
+            </div>
+        </div>
 
         <div class="content-header">
             <h5 class="mb-0">Datos Generales</h5>

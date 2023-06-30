@@ -294,7 +294,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
                 checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
                 checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
-                checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
+                checkfacturasVentasCertificado: ['', []],
                 checkFacturasPendiente: ['', [Validators.requiredTrue]],
                 checkMatriculaVehiculo: [''],
                 checkImpuestoPredial: [''],

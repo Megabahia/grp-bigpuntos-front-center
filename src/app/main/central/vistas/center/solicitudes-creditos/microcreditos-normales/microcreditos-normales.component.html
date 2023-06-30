@@ -117,7 +117,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Nombre del representante legal: value={{ this.empresa.reprsentante }}
+                        <label>Nombre del representante legal:
                         </label>
                         <input type="text"
                                class="form-control"
@@ -181,8 +181,7 @@
                         </label>
                         <input type="text" formControlName="direccionDomiciolRepresentante"
                                class="form-control"
-                               value=""
-                               disabled>
+                               value="" disabled>
                     </div>
                     <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
                          class="invalid-feedback"
@@ -197,19 +196,11 @@
                     <div class="form-group">
                         <label>Dirección del negocio o empresa :
                         </label>
-                        <input type="text" formControlName="correo"
+                        <input type="text" formControlName="direccionEmpresa"
                                class="form-control"
-                               value=""
-                               disabled>
+                               value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.correo.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.correo.errors.required">Dirección
-                            es
-                            requerido
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="row">
@@ -1030,13 +1021,6 @@
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
                            for="facturasVentasCertificado">{{credito?.facturasVentasCertificado}} {{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.facturasVentasCertificado.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.facturasVentasCertificado.errors.required">
-                            Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
-                            es requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkfacturasVentasCertificado">Valido</label>
@@ -1046,14 +1030,6 @@
                        target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">
-                            Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
-                            es requerido
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="form-group">

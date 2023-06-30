@@ -51,6 +51,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         // {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
         {'label': 'Buro credito', 'valor': false},
         {'label': 'Calificacion buro', 'valor': false},
+
     ];
     public checksSolteroInferior: any = [];
     public checksSolteroSuperior: any = [];
@@ -263,14 +264,14 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 ruc: ['', this.credito?.ruc ? [] : [Validators.required]],
                 fotoCarnet: ['', this.credito?.fotoCarnet ? [] : [Validators.required]],
                 papeletaVotacion: ['', this.credito?.papeletaVotacion ? [] : [Validators.required]],
-                identificacionConyuge: ['', this.credito?.identificacionConyuge && this.soltero ? [] : [Validators.required]],
-                papeletaVotacionConyuge: ['', this.credito?.papeletaVotacionConyuge && this.soltero ? [] : [Validators.required]],
+                identificacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+                papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
                 planillaLuzDomicilio: ['', this.credito?.planillaLuzDomicilio ? [] : [Validators.required]],
                 planillaLuzNegocio: ['', this.credito?.planillaLuzNegocio ? [] : [Validators.required]],
                 facturasVentas2meses: ['', this.credito?.facturasVentas2meses ? [] : [Validators.required]],
                 facturasVentas2meses2: ['', this.credito?.facturasVentas2meses2 ? [] : [Validators.required]],
                 facturasVentas2meses3: ['', this.credito?.facturasVentas2meses3 ? [] : [Validators.required]],
-                facturasVentasCertificado: ['', this.credito?.facturasVentasCertificado ? [] : [Validators.required]],
+                facturasVentasCertificado: [''],
                 facturasPendiente: ['', this.credito?.facturasPendiente ? [] : [Validators.required]],
                 matriculaVehiculo: [''],
                 impuestoPredial: [''],
@@ -308,6 +309,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
             } else {
                 this.checks = this.ingresoNegocioSuperior ? this.checksCasadoSuperior : this.checksCasadoInferior;
             }
+            this.checks.push({'label': 'Autorización y validación de información', 'valor': true});
         } else {
             this.checks = JSON.parse(credito.checks);
         }

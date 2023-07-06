@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgbPagination, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {DatePipe} from '@angular/common';
@@ -16,7 +16,7 @@ import {ValidacionesPropias} from '../../../../../../../utils/customer.validator
     providers: [DatePipe]
 
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, AfterViewInit {
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('mensajeModal') mensajeModal;
     @ViewChild('eliminarEmpresaMdl') eliminarEmpresaMdl;
@@ -70,7 +70,11 @@ export class ListarComponent implements OnInit {
             telefono1: '',
             telefono2: '',
             tipoCategoria: '',
-            tipoEmpresa: ''
+            tipoEmpresa: '',
+            numeroCuenta: '',
+            titularCuenta: '',
+            correoTitular: '',
+            bancoDestino: '',
         };
     }
 
@@ -99,6 +103,10 @@ export class ListarComponent implements OnInit {
             telefono2: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(10)]],
             tipoCategoria: ['', [Validators.required]],
             tipoEmpresa: ['', [Validators.required]],
+            numeroCuenta: ['', [Validators.required]],
+            titularCuenta: ['', [Validators.required]],
+            correoTitular: ['', [Validators.required, Validators.email]],
+            bancoDestino: ['', [Validators.required]],
         });
     }
 

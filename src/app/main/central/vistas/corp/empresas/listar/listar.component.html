@@ -140,6 +140,45 @@
                     </div>
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
+                            <label>Número de cuenta del local comercial</label>
+                            <input class="form-control" name="numeroCuenta" formControlName="numeroCuenta" type="text" [(ngModel)]="empresa.numeroCuenta">
+                            <div *ngIf="empresaSubmitted && empForm.numeroCuenta.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.numeroCuenta.errors.required">
+                                    Número de cuenta del local comercial es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre del titular de cuenta</label>
+                            <input class="form-control" name="titularCuenta" formControlName="titularCuenta" type="text" [(ngModel)]="empresa.titularCuenta">
+                            <div *ngIf="empresaSubmitted && empForm.titularCuenta.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.titularCuenta.errors.required">
+                                    Nombre del titular de cuenta es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo del titular</label>
+                            <input class="form-control" name="correoTitular" formControlName="correoTitular" type="text" [(ngModel)]="empresa.correoTitular">
+                            <div *ngIf="empresaSubmitted && empForm.correoTitular.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.correoTitular.errors.required">
+                                    Correo del titular es requerido
+                                </div>
+                                <div *ngIf="empForm.correoTitular.errors.email">
+                                    Correo del titular no es valido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Banco destino</label>
+                            <input class="form-control" name="bancoDestino" formControlName="bancoDestino" type="text" [(ngModel)]="empresa.bancoDestino">
+                            <div *ngIf="empresaSubmitted && empForm.bancoDestino.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="empForm.bancoDestino.errors.required">
+                                    Banco destino es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>Ruc</label>
                             <input class="form-control" name="ruc" formControlName="ruc" type="text" [(ngModel)]="empresa.ruc">
                             <div *ngIf="empresaSubmitted && empForm.ruc.errors" class="invalid-feedback" style="display: block;">

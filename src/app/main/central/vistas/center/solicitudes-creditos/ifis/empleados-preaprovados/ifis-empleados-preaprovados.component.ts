@@ -52,6 +52,7 @@ export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit
     public actualizarCreditoFormData;
     private credito;
     public casaPropia = false;
+    public empresaUsuario;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -157,6 +158,9 @@ export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit
             checkObservacion: ['', [Validators.requiredTrue]],
         });
         this.checks = credito.checks;
+        this._solicitudCreditosService.obtenerEmpresaEmpleado({identificacion: credito.numeroIdentificacion}).subscribe((data) => {
+            this.empresaUsuario = data;
+        });
     }
 
     cambiarEstado($event) {
@@ -228,6 +232,8 @@ export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit
         this.actualizarCreditoFormData.append('estado', 'Enviado');
         this.actualizarCreditoFormData.delete('checks');
         this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        this.actualizarCreditoFormData.delete('empresaEmpleado');
+        this.actualizarCreditoFormData.append('empresaEmpleado', JSON.stringify(this.empresaUsuario));
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 // this.mensaje = 'Crédito actualizado con éxito';

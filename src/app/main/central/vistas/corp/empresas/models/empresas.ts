@@ -2,8 +2,8 @@ export class Empresa {
     id: string;
     nombreComercial: string;
     nombreEmpresa: string;
-    tipoEmpresa:string;
-    tipoCategoria:string;
+    tipoEmpresa: string;
+    tipoCategoria: string;
     pais: string;
     provincia: string;
     ciudad: string;
@@ -13,4 +13,8 @@ export class Empresa {
     estado: string;
     telefono1: string;
     telefono2: string;
+    numeroCuenta?: string;
+    titularCuenta?: string;
+    correoTitular?: string;
+    bancoDestino?: string;
 }

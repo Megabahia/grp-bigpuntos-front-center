@@ -47,4 +47,7 @@ export class SolicitudesCreditosService {
         { nombre, tipo }
     );
   }
+  obtenerEmpresaEmpleado(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/empresas/listOne/empresa/empleado/`, datos);
+  }
 }

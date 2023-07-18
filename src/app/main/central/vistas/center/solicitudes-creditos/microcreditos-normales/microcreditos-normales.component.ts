@@ -255,7 +255,9 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.empresaInfo.esatdo_civil === 'Solter@' ||
+            credito.empresaInfo.esatdo_civil === 'Soltero' || credito.empresaInfo.esatdo_civil === 'Divorciado'
+        );
         this.ingresoNegocioSuperior = (credito.monto >= this.montoLimite);
         this.actualizarCreditoForm = this._formBuilder.group(
             {

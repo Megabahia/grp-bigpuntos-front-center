@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'https://api-coop-test.bigpuntos.com',
+    apiUrl: 'https://api-bp-test.bigpuntos.com',
     urlBigPuntos: 'https://credicompra-personas.netlify.app/#/',
     setKey: '6LdIKaglAAAAAEqIg6P6A6hqKndiISYXGGzpfTs-',
     firebaseConfig: {

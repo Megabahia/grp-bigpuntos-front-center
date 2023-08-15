@@ -221,15 +221,11 @@
                 <input type="text" class="form-control"
                        value="{{userViewData.nivelInstruccion}}" disabled/>
             </div>
-<!--            <div class="form-group col-md-6">-->
-<!--                <label class="form-label">Número de cargas</label>-->
-<!--                <input-->
-<!--                        type="text"-->
-<!--                        class="form-control"-->
-<!--                        value="{{userViewData.numeroCargas}}"-->
-<!--                        disabled-->
-<!--                />-->
-<!--            </div>-->
+            <div class="form-group">
+                <label class="form-label" for="vertical-modern-username">Edad</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.edad}}" disabled/>
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
@@ -456,9 +452,10 @@
 
             </div>
             <div class="form-group col-md-4">
-
+                <label class="form-label" for="vertical-modern-username">Total Ingresos</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.ingresosSolicitante.totalIngresos}}" disabled/>
             </div>
-
         </div>
         <div class="content-header">
             <h5 class="mb-0">GASTOS DEL SOLICITANTE</h5>
@@ -522,6 +519,11 @@
                     colegiaturas dividias,cuidado a terceras personas,etc.)</label>
                 <input type="text" class="form-control"
                        value="{{gastosSolicitante.deccripcion}}" disabled/>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Total gastos</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.totalGastos}}" disabled/>
             </div>
         </div>
     </div>

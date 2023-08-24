@@ -155,7 +155,7 @@ export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
         this._solicitudCreditosService.obtenerEmpresaEmpleado({identificacion: credito.numeroIdentificacion}).subscribe((data) => {
             this.empresaUsuario = data;
         });

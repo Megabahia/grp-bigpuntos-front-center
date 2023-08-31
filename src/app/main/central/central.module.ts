@@ -70,6 +70,18 @@ import {
 import {MatTreeModule} from '@angular/material/tree';
 import { AlfaComponent } from './vistas/center/solicitudes-creditos/alfa/alfa.component';
 
+import {EmpleadosComponent as AutomotrizEmpleadosComponent} from './vistas/center/solicitudes-creditos-automotriz/empleados/empleados.component';
+import {NegocioPropioComponent as AutomotrizNegocioPropioComponent} from './vistas/center/solicitudes-creditos-automotriz/negocio-propio/negocio-propio.component';
+import {NegocioPropioPreaprovadosComponent as AutomotrizNegocioPropioPreaprovadosComponent} from './vistas/center/solicitudes-creditos-automotriz/negocio-propio-preaprovados/negocio-propio-preaprovados.component';
+import {EmpleadosPreaprovadosComponent as AutomotrizEmpleadosPreaprovadosComponent} from './vistas/center/solicitudes-creditos-automotriz/empleados-preaprovados/empleados-preaprovados.component';
+import {IfisEmpleadosPreaprovadosComponent as AutomotrizIfisEmpleadosPreaprovadosComponent} from './vistas/center/solicitudes-creditos-automotriz/ifis/empleados-preaprovados/ifis-empleados-preaprovados.component';
+import {IfisNegocioPropioPreaprovadosComponent as AutomotrizIfisNegocioPropioPreaprovadosComponent} from './vistas/center/solicitudes-creditos-automotriz/ifis/negocio-propio-preaprovados/ifis-negocio-propio-preaprovados.component';
+import {AlfaComponent as AutomotrizAlfaComponent} from './vistas/center/solicitudes-creditos-automotriz/alfa/alfa.component';
+import {
+  AutomotrizRevisionDocumentosComponent
+} from './vistas/center/solicitudes-creditos-automotriz/automotriz-revision-documentos/automotriz-revision-documentos.component';
+import {UploadCreditosAutomotrizComponent} from './vistas/corp/cargarCreditosAutomotriz/vistas/upload/upload-creditos-automotriz.component';
+
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
@@ -109,6 +121,9 @@ const routes = [
       },
       {
         path: 'cargarCreditosNegocios', component: UploadLineasCreditos, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarCreditosAutomotriz', component: UploadCreditosAutomotrizComponent, canActivate: [AuthGuard]
       },
       {
         path: 'archivo/:archivoId', component: ViewFileComponent, canActivate: [AuthGuard]
@@ -226,6 +241,48 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             // canActivate: [AuthGuard]
           },
+          {
+            path: 'automotriz/empleados',
+            component: AutomotrizEmpleadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/negocios-propio',
+              component: AutomotrizNegocioPropioComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/negocios-propios-pre-aprobados',
+              component: AutomotrizNegocioPropioPreaprovadosComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/empelados-pre-aprobados',
+              component: AutomotrizEmpleadosPreaprovadosComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/ifis/empleados-pre-aprobados',
+              component: AutomotrizIfisEmpleadosPreaprovadosComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/ifis/negocios-propios-pre-aprobados',
+              component: AutomotrizIfisNegocioPropioPreaprovadosComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
+          {
+              path: 'automotriz/alfa',
+              component: AutomotrizAlfaComponent,
+              // data: {roles: [Role.BigPuntos]},
+              canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -296,6 +353,16 @@ const routes = [
     IfisNegocioPropioPreaprovadosComponent,
     IfisMicrocreditosPreAprovadosComponent,
     AlfaComponent,
+    // Automotriz
+    AutomotrizEmpleadosComponent,
+    AutomotrizNegocioPropioComponent,
+    AutomotrizNegocioPropioPreaprovadosComponent,
+    AutomotrizEmpleadosPreaprovadosComponent,
+    AutomotrizIfisEmpleadosPreaprovadosComponent,
+    AutomotrizIfisNegocioPropioPreaprovadosComponent,
+    AutomotrizAlfaComponent,
+    AutomotrizRevisionDocumentosComponent,
+    UploadCreditosAutomotrizComponent,
   ],
     imports: [
         CoreCommonModule,

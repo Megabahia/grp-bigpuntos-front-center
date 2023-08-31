@@ -1,0 +1,1254 @@
+<div *ngIf="pantalla === 0" class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">SOLICITUD DE LÍNEAS DE CRÉDITO</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">Solicitud de
+                                créditos empleados</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- users list start -->
+        <section class="app-user-list">
+            <div class="card card-company-table">
+                <div class="profile-header-nav">
+                    <!-- navbar -->
+                    <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
+                        <div class="col-2">
+                            <button class="form-control " (click)="consumirAWS()">
+                                Actualizar
+                            </button>
+                        </div>
+
+                        <!--/ collapse  -->
+                        <div class="col-10" style="text-align: right">
+                            <label>Mostrar</label>
+                            <select class="form-control-sm" [(ngModel)]="page_size"
+                                    (change)="obtenerSolicitudesCreditos()">
+                                <option value="4">4</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </nav>
+                    <!--/ navbar -->
+
+                </div>
+
+
+            </div>
+            <!-- list section end -->
+        </section>
+        <section class="app-user-list">
+            <div class="card-datatable table-responsive pt-0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Fecha de creación</th>
+                        <th>Razón social (pyme)</th>
+                        <th>RUC pyme</th>
+                        <th>Documentos</th>
+                        <th>Estado</th>
+                        <th>Solicitud de crédito</th>
+                        <th>Observaciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let credito of listaCreditos">
+                        <td>{{transformarFecha(credito.created_at)}}</td>
+                        <td>{{credito.empresaInfo.comercial}}</td>
+                        <td>{{credito.empresaInfo.rucEmpresa}}</td>
+                        <td>
+                            <button *ngIf="credito.estado !== 'Enviado'" type="button" class="btn btn-outline-primary"
+                                    rippleEffect
+                                    (click)="verDocumentos(credito)">Ver
+                            </button>
+                        </td>
+                        <td>
+                            <div class="badge badge-light-success">{{credito.estado}}</div>
+                        </td>
+                        <td>
+                            <button type="button" (click)="viewDataUser(modalSLC,credito.empresaInfo)"
+                                    class="btn btn-outline-primary"
+                                    rippleEffect>
+                                Enlace
+                            </button>
+                        </td>
+                        <td>{{credito.motivo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page"
+                            [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+        </section>
+        <!-- users list ends -->
+    </div>
+</div>
+
+
+<!-- INICIO MODAL USER -->
+<ng-template #modalSLC let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">SOLICITUD DE LÍNEA DE CRÉDITO</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card-body text-left">
+
+        <form class="auth-login-form mt-2" [formGroup]="formSolicitud">
+            <h3>
+                DATOS GENERALES DE TU EMPRESA:
+            </h3>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre del representante legal:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               disabled
+                               [value]="empresa.reprsentante">
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RUC de la empresa:
+                        </label>
+                        <input type="text" formControlName="rucEmpresa"
+                               class="form-control"
+                               value="{{this.empresa.rucEmpresa}}" disabled>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre comercial de la empresa:
+                        </label>
+                        <input type="text" formControlName="comercial"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.comercial.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.comercial.errors.required">Nombre comercial
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Actividad económica :
+                        </label>
+                        <input type="text" formControlName="actividadEconomica"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.actividadEconomica.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.actividadEconomica.errors.required">
+                            Actividad económica es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Dirección del domicilio del representante legal de la empresa :
+                        </label>
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">
+                            Dirección es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Dirección del negocio o empresa :
+                        </label>
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Referencia del domicilio (en la descripción de la ventana
+                            escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
+                            Vecino):
+                        </label>
+                        <input type="text" formControlName="refenciaNegocio"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.refenciaNegocio.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.refenciaNegocio.errors.required">
+                            Referencia es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Estado civil:
+                        </label>
+                        <select #teams
+                                class="form-control select2" formControlName="esatdo_civil" disabled
+                        >
+                            <option value="">- Seleccione -</option>
+                            <option value="Solter@">- Soltero -</option>
+                            <option value="Casado">- Casado -</option>
+                            <option value="Divorciado">- Divorciado -</option>
+                        </select>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.esatdo_civil.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.esatdo_civil.errors.required">Estado civil
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono convencional:
+                        </label>
+                        <input type="text" formControlName="telefono"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.telefono.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.telefono.errors.required">Teléfono es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono celular:
+                        </label>
+                        <input type="text" formControlName="celular"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.celular.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.celular.errors.required">Teléfono celular
+                            es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Correo electrónico:
+                        </label>
+                        <input type="text" formControlName="correo"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.correo.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.correo.errors.required">Correo electrónico
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Conyuge-->
+            <div class="row">
+
+                <div *ngIf="casado">
+                    <h3>
+                        Datos cónyuge:
+                    </h3>
+                    <br>
+                    <form class="auth-login-form mt-2" [formGroup]="controlsContuge">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombres y apellidos:
+                                    </label>
+                                    <input type="text" formControlName="nombreConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Teléfono celular:
+                                    </label>
+                                    <input type="text" formControlName="telefonoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Correo electrónico:
+                                    </label>
+                                    <input type="text" formControlName="correoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h3>
+                        REFERENCIAS FAMILIARES:
+                    </h3>
+                </div>
+                <div class="col-4"></div>
+
+
+            </div>
+            <ng-container formArrayName="familiares">
+                <ng-container
+                        *ngFor="let familiar of formSolicitud.get('familiares')['controls']; let i = index">
+                    <h5>
+                        Familiar {{i + 1}} {{familiar['controls']?.tipoPariente.value}}:
+                    </h5>
+                    <div [formGroup]="familiar">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombre
+                                    </label>
+                                    <input type="text" formControlName="nombreFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.nombreFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.nombreFamiliar.errors.required">-->
+                            <!--                                                                Nombre-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Apellido
+                                    </label>
+                                    <input type="text" formControlName="apellidoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.apellidoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.apellidoFamiliar.errors.required">-->
+                            <!--                                                                Apellido-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Teléfono:
+                                    </label>
+                                    <input type="text" formControlName="telefonoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.telefonoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.telefonoFamiliar.errors.required">-->
+                            <!--                                                                Teléfono-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        País:
+                                    </label>
+                                    <input type="text" formControlName="pais"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Provincia:
+                                    </label>
+                                    <input type="text" formControlName="provincia"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Cuidad:
+                                    </label>
+                                    <input type="text" formControlName="ciudad"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Dirección:
+                                    </label>
+                                    <input type="text" formControlName="direccionFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.direccionFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.direccionFamiliar.errors.required">-->
+                            <!--                                                                Dirección-->
+                            <!--                                                                del familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+                        </div>
+
+                    </div>
+                </ng-container>
+            </ng-container>
+            <h3>REFERENCIAS COMERCIALES</h3>
+            <ng-container formArrayName="comerciales">
+                <ng-container
+                        *ngFor="let comercial of formSolicitud.get('comerciales')['controls']; let i = index">
+                    <h5>
+                        REFERENCIAS COMERCIALES {{i + 1}}:
+                    </h5>
+                    <div [formGroup]="comercial">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombres y apellidos
+                                    </label>
+                                    <input type="text" formControlName="nombresDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombre del negocio
+                                    </label>
+                                    <input type="text" formControlName="negocioDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Teléfono:
+                                    </label>
+                                    <input type="text" formControlName="telefonoDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Dirección:
+                                    </label>
+                                    <input type="text" formControlName="direccionDuenoComercial"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </ng-container>
+            <h3>
+                INGRESOS Y GASTOS DEL NEGOCIO:
+            </h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Ingresos mensuales en ventas (valor):
+                        </label>
+                        <input type="text" formControlName="inresosMensualesVentas"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.inresosMensualesVentas.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.inresosMensualesVentas.errors.required">
+                            Ingresos mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="casado" class="col-md-4">
+                    <div class="form-group">
+                        <label>Sueldo cónyuge (de ser casado) (VALOR):
+                        </label>
+                        <input type="text" formControlName="sueldoConyuge"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Otros ingresos (valor) :
+                        </label>
+                        <input type="text" formControlName="otrosIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Total ingresos
+                        </label>
+                        <input type="text" formControlName="totalIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos mensuales en compras para el negocio (valor) :
+                        </label>
+                        <input type="text" formControlName="gastosMensuales"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosMensuales.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosMensuales.errors.required">Gastos
+                            mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos familiares (valor)
+                        </label>
+                        <input type="text" formControlName="gastosFamilaires"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosFamilaires.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosFamilaires.errors.required">Gastos
+                            familiares es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Especifique otros ingresos (ejemplo: vendo artículos de revista
+                            en mi tiempo libre, etc.)
+                        </label>
+                        <input type="text" formControlName="especificaIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Total gastos
+                        </label>
+                        <input type="text" formControlName="totalEgresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+<!-- FIN MODAL USER-->
+
+<app-revision-documentos *ngIf="pantalla === 1" (pantalla)="cambiarEstado($event)"
+                         [checks]="checks"></app-revision-documentos>
+
+<div *ngIf="pantalla === 2" class="slideout-content">
+    <!-- Modal to add new user starts-->
+    <form class="add-new-user modal-content pt-0" [formGroup]="actualizarCreditoForm">
+        <div class="modal-header mb-1">
+            <h5 class="modal-title" id="exampleModalLabel">LÍNEA DE CRÉDITO
+            </h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+
+            <div class="form-group">
+                <label>Copia de cédula</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="identificacion"
+                           formControlName="identificacion"
+                           (change)="subirDoc( $event, 'identificacion')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="identificacion">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkIdentificacion">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkIdentificacion"
+                           formControlName="checkIdentificacion"/>
+                    <a *ngIf="credito.identificacion" href="{{credito.identificacion}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkIdentificacion.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkIdentificacion.errors.required">Copia de cédula es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de Ruc</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="ruc"
+                           formControlName="ruc"
+                           (change)="subirDoc( $event, 'ruc')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="ruc">{{credito?.ruc}} {{actualizarCreditoForm.get('ruc').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.ruc.errors.required">Ruc es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">Copia de cédula y Ruc es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Foto tamaño carnet</label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="fotoCarnet"
+                           formControlName="fotoCarnet"
+                           (change)="subirDoc( $event, 'fotoCarnet')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="fotoCarnet">{{credito?.fotoCarnet}} {{actualizarCreditoForm.get('fotoCarnet').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkFotoCarnet">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFotoCarnet"
+                           formControlName="checkFotoCarnet"/>
+                    <a *ngIf="credito.fotoCarnet" href="{{credito.fotoCarnet}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkFotoCarnet.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkFotoCarnet.errors.required">
+                            Foto tamaño carnet es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Papeleta de votación</label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="papeletaVotacion"
+                           formControlName="papeletaVotacion"
+                           (change)="subirDoc( $event,'papeletaVotacion')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="papeletaVotacion">{{credito?.papeletaVotacion}} {{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkPapeletaVotacion">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkPapeletaVotacion"
+                           formControlName="checkPapeletaVotacion"/>
+                    <a *ngIf="credito.papeletaVotacion" href="{{credito.papeletaVotacion}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkPapeletaVotacion.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkPapeletaVotacion.errors.required">Papeleta de votación es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!soltero" class="form-group">
+                <label>Copia de cédula de cónyuge</label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="identificacionConyuge"
+                           formControlName="identificacionConyuge"
+                           (change)="subirDoc( $event,'identificacionConyuge')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="identificacionConyuge">{{credito?.identificacionConyuge}} {{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de
+                            cónyuge
+                            es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkIdentificacionConyuge">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkIdentificacionConyuge"
+                           formControlName="checkIdentificacionConyuge"/>
+                    <a *ngIf="credito.identificacionConyuge" href="{{credito.identificacionConyuge}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkIdentificacionConyuge.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkIdentificacionConyuge.errors.required">Copia de cédula y Ruc es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!soltero" class="form-group">
+                <label>Papeleta de votación de cónyuge</label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
+                           formControlName="papeletaVotacionConyuge"
+                           (change)="subirDoc( $event,'papeletaVotacionConyuge')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="papeletaVotacionConyuge">{{credito?.papeletaVotacionConyuge}} {{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.papeletaVotacionConyuge.errors.required">Papeleta de votación
+                            de
+                            cónyuge es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkPapeletaVotacionConyuge">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkPapeletaVotacionConyuge"
+                           formControlName="checkPapeletaVotacionConyuge"/>
+                    <a *ngIf="credito.papeletaVotacionConyuge" href="{{credito.papeletaVotacionConyuge}}"
+                       target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkPapeletaVotacionConyuge.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkPapeletaVotacionConyuge.errors.required">Copia de cédula y Ruc es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de planilla de luz del domicilio
+                </label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
+                           formControlName="planillaLuzDomicilio"
+                           (change)="subirDoc( $event,'planillaLuzDomicilio')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="planillaLuzDomicilio">{{credito?.planillaLuzDomicilio}} {{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
+                            Domicilio es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkPlanillaLuzDomicilio">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkPlanillaLuzDomicilio"
+                           formControlName="checkPlanillaLuzDomicilio"/>
+                    <a *ngIf="credito.checkPlanillaLuzDomicilio" href="{{credito.checkPlanillaLuzDomicilio}}"
+                       target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkPlanillaLuzDomicilio.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkPlanillaLuzDomicilio.errors.required">
+                            Copia de planilla de luz del Negocio, y domicilio es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de planilla de luz del Negocio
+                </label>
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="planillaLuzNegocio"
+                           formControlName="planillaLuzNegocio"
+                           (change)="subirDoc( $event,'planillaLuzNegocio')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="planillaLuzNegocio">{{credito?.planillaLuzNegocio}} {{actualizarCreditoForm.get('planillaLuzNegocio').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.planillaLuzNegocio.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.planillaLuzNegocio.errors.required">Planilla de luz del
+                            Domicilio es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkPlanillaLuzNegocio">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkPlanillaLuzNegocio"
+                           formControlName="checkPlanillaLuzNegocio"/>
+                    <a *ngIf="credito.planillaLuzNegocio" href="{{credito.planillaLuzNegocio}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkPlanillaLuzNegocio.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkPlanillaLuzNegocio.errors.required">
+                            Copia de planilla de luz del Negocio, y domicilio es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de la Factura de venta del último mes
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses"
+                           formControlName="facturasVentas2meses"
+                           (change)="subirDoc( $event,'facturasVentas2meses')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentas2meses">{{credito?.facturasVentas2meses}} {{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses.errors.required">
+                            Copia de la Factura de venta del último mes es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses"
+                           formControlName="checkfacturasVentas2meses"/>
+                    <a *ngIf="credito.facturasVentas2meses" href="{{credito.facturasVentas2meses}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">
+                            Copia de la Factura de venta del último mes es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de la Factura de venta del penúltimo mes (hace 2 meses)
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses2"
+                           formControlName="facturasVentas2meses2"
+                           (change)="subirDoc( $event,'facturasVentas2meses2')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentas2meses2">{{credito?.facturasVentas2meses2}} {{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses2.errors.required">
+                            Copia de la Factura de venta del penúltimo mes (hace 2 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses2"
+                           formControlName="checkfacturasVentas2meses2"/>
+                    <a *ngIf="credito.facturasVentas2meses2" href="{{credito.facturasVentas2meses2}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">
+                            Copia de la Factura de venta del penúltimo mes (hace 2 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de la Factura de venta del antepenúltimo mes (hace 3 meses)
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses3"
+                           formControlName="facturasVentas2meses3"
+                           (change)="subirDoc( $event,'facturasVentas2meses3')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentas2meses3">{{credito?.facturasVentas2meses3}} {{actualizarCreditoForm.get('facturasVentas2meses3').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses3">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses3"
+                           formControlName="checkfacturasVentas2meses3"/>
+                    <a *ngIf="credito.facturasVentas2meses3" href="{{credito.facturasVentas2meses3}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Certificado de la asociación (es opcional y aplica si usted es transportista: Bus o Taxi)
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentasCertificado"
+                           formControlName="facturasVentasCertificado"
+                           (change)="subirDoc( $event,'facturasVentasCertificado')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasVentasCertificado">{{credito?.facturasVentasCertificado}} {{actualizarCreditoForm.get('facturasVentasCertificado').value}}</label>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentasCertificado">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentasCertificado"
+                           formControlName="checkfacturasVentasCertificado"/>
+                    <a *ngIf="credito.facturasVentasCertificado" href="{{credito.facturasVentasCertificado}}"
+                       target="_blank">
+                        Ver
+                    </a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Factura pendiente de pago
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasPendiente"
+                           formControlName="facturasPendiente"
+                           (change)="subirDoc( $event,'facturasPendiente')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="facturasPendiente">{{credito?.facturasPendiente}} {{actualizarCreditoForm.get('facturasPendiente').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasPendiente.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasPendiente.errors.required">Copias de Facturas de Ventas es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkFacturasPendiente">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFacturasPendiente"
+                           formControlName="checkFacturasPendiente"/>
+                    <a *ngIf="credito.facturasPendiente" href="{{credito.facturasPendiente}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkFacturasPendiente.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkFacturasPendiente.errors.required">
+                            Factura pendiente es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de matrícula del vehículo
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="matriculaVehiculo"
+                           formControlName="matriculaVehiculo"
+                           (change)="subirDoc( $event,'matriculaVehiculo')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="matriculaVehiculo">{{credito?.matriculaVehiculo}} {{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkMatriculaVehiculo"
+                           formControlName="checkMatriculaVehiculo"/>
+                    <a *ngIf="credito.matriculaVehiculo" href="{{credito.matriculaVehiculo}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkMatriculaVehiculo.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkMatriculaVehiculo.errors.required">Copia de matrícula del vehículo
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de pago de impuesto predial
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="impuestoPredial"
+                           formControlName="impuestoPredial"
+                           (change)="subirDoc( $event,'impuestoPredial')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="impuestoPredial">{{credito?.impuestoPredial}} {{actualizarCreditoForm.get('impuestoPredial').value}}</label>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkImpuestoPredial"
+                           formControlName="checkImpuestoPredial"/>
+                    <a *ngIf="credito.impuestoPredial" href="{{credito.impuestoPredial}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkImpuestoPredial.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkImpuestoPredial.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="buroCredito">
+                    Buró de Crédito
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="buroCredito"
+                           formControlName="buroCredito"
+                           (change)="subirDoc( $event,'buroCredito')"
+                           accept="application/pdf"/>
+                    <label class="custom-file-label"
+                           for="buroCredito">{{credito?.buroCredito}} {{actualizarCreditoForm.get('buroCredito').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.buroCredito.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.buroCredito.errors.required">Buró de Crédito es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkBuroCredito">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBuroCredito"
+                           formControlName="checkBuroCredito"/>
+                    <a *ngIf="credito.buroCredito" href="{{credito.buroCredito}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkBuroCredito.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkBuroCredito.errors.required">Buró de Crédito es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="calificacionBuro">Calificación del buró</label>
+                <div class="custom-file">
+                    <input type="text" class="form-control" id="calificacionBuro"
+                           formControlName="calificacionBuro"
+                           value="{{actualizarCreditoForm.get('calificacionBuro').value}}"
+                    />
+
+                    <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Verificar calificación de Buró es
+                            requerido
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.pattern">Solo se aceptan
+                            números
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.minlength">
+                            MÍNIMO 3 dígitos numéricos
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.maxlength">
+                            MÁXIMO 4 dígitos numéricos
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCalificacionBuro">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCalificacionBuro"
+                           formControlName="checkCalificacionBuro"/>
+                    <div *ngIf="submitted && controlsFrom.checkCalificacionBuro.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCalificacionBuro.errors.required">Observación es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="observacion">Observacion</label>
+                <div class="custom-file">
+                    <fieldset class="form-group">
+                                    <textarea class="form-control" formControlName="observacion" id="observacion"
+                                              rows="3"></textarea>
+                    </fieldset>
+                    <div *ngIf="submitted && controlsFrom.observacion.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.observacion.errors.required">Observación es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkObservacion">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkObservacion"
+                           formControlName="checkObservacion"/>
+                    <div *ngIf="submitted && controlsFrom.checkObservacion.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkObservacion.errors.required">Observación es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Enviado')"
+                [disabled]="cargando" style="color: black !important;">Procesar
+        </button>
+        <button class="btn btn-outline-secondary"
+                (click)="cancelar()"
+                data-dismiss="modal">Cancelar
+        </button>
+    </div>
+</div>
+<app-valores-proceso *ngIf="pantalla === 3" (pantalla)="cambiarEstado($event)"
+                     [credito]="credito"></app-valores-proceso>
+<app-resumen *ngIf="pantalla === 4" (pantalla)="cambiarEstado($event)" [credito]="credito"></app-resumen>
+

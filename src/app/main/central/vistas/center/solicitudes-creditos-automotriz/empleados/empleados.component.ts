@@ -1,18 +1,18 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe} from '@angular/common';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
 
 @Component({
-    selector: 'app-empleados-preaprovados',
-    templateUrl: './empleados-preaprovados.component.html',
-    styleUrls: ['./empleados-preaprovados.component.scss'],
+    selector: 'app-empleados',
+    templateUrl: './empleados.component.html',
+    styleUrls: ['./empleados.component.scss'],
     providers: [DatePipe],
 })
-export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
+export class EmpleadosComponent implements OnInit, AfterViewInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -22,6 +22,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     public collectionSize;
     private _unsubscribeAll: Subject<any>;
 
+
     // Variables
     public listaCreditos;
     public userViewData;
@@ -30,6 +31,8 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     public ingresosSolicitante;
     public gastosSolicitante;
     public pantalla = 0;
+    public credito;
+
     public checks = [
         {'label': 'Identificacion', 'valor': false},
         {'label': 'Foto Carnet', 'valor': false},
@@ -50,7 +53,6 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
-    private credito;
     public casaPropia = false;
 
     constructor(
@@ -96,7 +98,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: 'Empleado-PreAprobado',
+            tipoCredito: 'Credito Automotriz Empleado',
             cargarOrigen: 'BIGPUNTOS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
@@ -112,6 +114,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;
+        console.log('user', user);
         this.ocupacionSolicitante = user.ocupacionSolicitante;
         this.referenciasSolicitante = user.referenciasSolicitante;
         this.ingresosSolicitante = user.ingresosSolicitante;
@@ -129,11 +132,14 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         console.log(this.soltero, 'this.soltero');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
-            identificacion: ['', credito.identificacion ? [] : [Validators.required]],
+            identificacion: ['', this.credito?.identificacion ? [] : (credito.identificacion ? [] : [Validators.required])],
+            // ruc: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
             identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
             papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            // identificacionConyuge: ['', credito.identificacionConyuge ? [] : [Validators.required]],
+            // papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
             mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required]],
             matriculaVehiculo: [''],
@@ -142,6 +148,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
+            // checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
@@ -154,7 +161,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
+        this.checks = credito.checks;
     }
 
     cambiarEstado($event) {
@@ -168,15 +175,18 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     subirDoc(event, key) {
         if (event.target.files && event.target.files[0]) {
             const doc = event.target.files[0];
+            const x = document.getElementById(key + 'lbl');
+            x.innerHTML = '' + Date.now() + '_' + doc.name;
             this.actualizarCreditoFormData.delete(`${key}`);
             this.actualizarCreditoFormData.append(`${key}`, doc, Date.now() + '_' + doc.name);
+            // this.actualizarCreditoFormData.set(`${key}`, doc, Date.now() + '_' + doc.name);
         }
     }
 
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-            console.log('this.actualizarCreditoForm', this.actualizarCreditoForm);
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {

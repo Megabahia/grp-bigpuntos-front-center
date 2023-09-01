@@ -1,18 +1,18 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe} from '@angular/common';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
-    selector: 'app-empleados-preaprovados',
-    templateUrl: './empleados-preaprovados.component.html',
-    styleUrls: ['./empleados-preaprovados.component.scss'],
+    selector: 'app-negocio-propio-preaprovados',
+    templateUrl: './ifis-negocio-propio-preaprovados.component.html',
+    styleUrls: ['./ifis-negocio-propio-preaprovados.component.scss'],
     providers: [DatePipe],
 })
-export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
+export class IfisNegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -36,8 +36,9 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         {'label': 'Papeleta votacion', 'valor': false},
         {'label': 'Identificacion conyuge', 'valor': false},
         {'label': 'Papeleta votacion conyuge', 'valor': false},
+        {'label': 'Planilla luz negocio', 'valor': false},
         {'label': 'Planilla luz domicilio', 'valor': false},
-        {'label': 'Mecanizado Iess', 'valor': false},
+        {'label': 'Facturas', 'valor': false},
         {'label': 'Matricula vehiculo', 'valor': false},
         {'label': 'Impuesto predial', 'valor': false},
         {'label': 'Buro credito', 'valor': false},
@@ -96,8 +97,8 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: 'Empleado-PreAprobado',
-            cargarOrigen: 'BIGPUNTOS'
+            tipoCredito: 'Credito Automotriz Negocio-PreAprobado',
+            cargarOrigen: 'IFIS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
@@ -130,24 +131,34 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
             identificacion: ['', credito.identificacion ? [] : [Validators.required]],
+            ruc: ['', credito.identificacion ? [] : [Validators.required]],
             fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
             papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
-            identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
-            papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            identificacionConyuge: ['', credito.identificacionConyuge ? [] : (this.soltero ? [] : [Validators.required])],
+            papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : (this.soltero ? [] : [Validators.required])],
+            planillaLuzNegocio: ['', credito.planillaLuzNegocio ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-            mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required]],
+            facturasVentas2meses: ['', credito.facturasVentas2meses ? [] : [Validators.required]],
+            facturasVentas2meses2: ['', credito.facturasVentas2meses2 ? [] : [Validators.required]],
+            facturasVentas2meses3: ['', credito.facturasVentas2meses3 ? [] : [Validators.required]],
+            facturasVentasCertificado: ['', []],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
+            checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
             checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+            checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
             checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-            checkMecanizadoIess: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
+            checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
             checkMatriculaVehiculo: [''],
             checkImpuestoPredial: [''],
             checkBuroCredito: ['', [Validators.requiredTrue]],
@@ -176,7 +187,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-            console.log('this.actualizarCreditoForm', this.actualizarCreditoForm);
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {
@@ -187,7 +198,8 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             identificacionConyuge,
             papeletaVotacionConyuge,
             planillaLuzDomicilio,
-            mecanizadoIess,
+            planillaLuzNegocio,
+            facturas,
             matriculaVehiculo,
             impuestoPredial,
             buroCredito,
@@ -197,7 +209,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
         const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentas2meses3', 'facturasVentasCertificado',
             'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
@@ -211,14 +223,14 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             {'label': 'Papeleta votacion', 'valor': resto.checkPapeletaVotacion},
             {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
+            {'label': 'Planilla luz negocio', 'valor': resto.checkPlanillaLuzNegocio},
             {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Mecanizado Iess', 'valor': resto.checkMecanizadoIess},
+            {'label': 'Facturas', 'valor': resto.facturasVentas2meses},
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
             {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
             {'label': 'Calificacion buro', 'valor': resto.checkCalificacionBuro},
             {'label': 'Observación', 'valor': resto.checkObservacion},
-            {'label': 'Autorización y validación de información', 'valor': true},
         ];
         if (this.soltero) {
             this.checks.splice(3, 2);
@@ -234,7 +246,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
                 // this.cerrarModal('actualizar-credito');
                 this.pantalla = 0;
                 this.obtenerSolicitudesCreditos();
-                this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
+                // this.borrarDocumentoFirebase(this.actualizarCreditoFormData.get('id'));
             },
             (error) => {
                 this.cargando = false;

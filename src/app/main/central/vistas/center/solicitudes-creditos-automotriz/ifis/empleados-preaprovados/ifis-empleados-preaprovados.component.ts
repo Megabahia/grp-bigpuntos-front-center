@@ -2,17 +2,17 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {Subject} from 'rxjs';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
     selector: 'app-empleados-preaprovados',
-    templateUrl: './empleados-preaprovados.component.html',
-    styleUrls: ['./empleados-preaprovados.component.scss'],
+    templateUrl: './ifis-empleados-preaprovados.component.html',
+    styleUrls: ['./ifis-empleados-preaprovados.component.scss'],
     providers: [DatePipe],
 })
-export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
+export class IfisEmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -52,6 +52,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     public actualizarCreditoFormData;
     private credito;
     public casaPropia = false;
+    public empresaUsuario;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -96,8 +97,8 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: 'Empleado-PreAprobado',
-            cargarOrigen: 'BIGPUNTOS'
+            tipoCredito: 'Credito Automotriz Empleado-PreAprobado',
+            cargarOrigen: 'IFIS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
@@ -155,6 +156,9 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             checkObservacion: ['', [Validators.requiredTrue]],
         });
         this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
+        this._solicitudCreditosService.obtenerEmpresaEmpleado({identificacion: credito.numeroIdentificacion}).subscribe((data) => {
+            this.empresaUsuario = data;
+        });
     }
 
     cambiarEstado($event) {
@@ -176,7 +180,6 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-            console.log('this.actualizarCreditoForm', this.actualizarCreditoForm);
             return;
         }
         const {
@@ -218,7 +221,6 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
             {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
             {'label': 'Calificacion buro', 'valor': resto.checkCalificacionBuro},
             {'label': 'Observación', 'valor': resto.checkObservacion},
-            {'label': 'Autorización y validación de información', 'valor': true},
         ];
         if (this.soltero) {
             this.checks.splice(3, 2);
@@ -228,6 +230,8 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoFormData.append('estado', 'Enviado');
         this.actualizarCreditoFormData.delete('checks');
         this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        this.actualizarCreditoFormData.delete('empresaEmpleado');
+        this.actualizarCreditoFormData.append('empresaEmpleado', JSON.stringify(this.empresaUsuario));
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
                 // this.mensaje = 'Crédito actualizado con éxito';

@@ -11,10 +11,10 @@ type AOA = any[][];
 
 @Component({
     selector: 'app-upload',
-    templateUrl: './upload.component.html',
-    styleUrls: ['./upload.component.scss']
+    templateUrl: './upload-creditos-automotriz.component.html',
+    styleUrls: ['./upload-creditos-automotriz.component.scss']
 })
-export class UploadComponent implements OnInit {
+export class UploadCreditosAutomotrizComponent implements OnInit {
     @ViewChild('mensajeModal') mensajeModal;
     @ViewChild('confirmarModal') confirmarModal;
     @ViewChild(NgbPagination) paginator: NgbPagination;
@@ -99,7 +99,7 @@ export class UploadComponent implements OnInit {
             user_id: '',
             campania: '',
             empresa_comercial: this.empresa_comercial,
-            tipoCredito: 'Empleado'
+            tipoCredito: 'Credito Automotriz Empleado'
         }).subscribe((info) => {
                 this.listaArchivosPreAprobados = info.info;
             },
@@ -180,7 +180,7 @@ export class UploadComponent implements OnInit {
         this.nuevoArchivo.append('usuarioCargo', this.usuario.persona.nombres);
         this.nuevoArchivo.delete('user_id');
         this.nuevoArchivo.append('user_id', this.usuario.id);
-        this.nuevoArchivo.append('tipoCredito', 'Empleado');
+        this.nuevoArchivo.append('tipoCredito', 'Credito Automotriz Empleado');
         this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
         this.nuevoArchivo.delete('empresa_comercial');
         this.nuevoArchivo.append('empresa_comercial', this.empresaCorp._id);

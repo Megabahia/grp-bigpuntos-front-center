@@ -96,7 +96,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: 'Empleado-PreAprobado',
+            tipoCredito: 'Credito Automotriz Empleado-PreAprobado',
             cargarOrigen: 'BIGPUNTOS'
         }).subscribe(info => {
             this.collectionSize = info.cont;

@@ -107,8 +107,9 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     viewDataUser(modal, credito) {
         this.credito = credito;
         const user = credito.user;
-        this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
-            user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+            credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' || credito.user.estadoCivil === 'Soltero' || credito.user.estadoCivil === 'Divorciad@' ||
+            credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
         this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;

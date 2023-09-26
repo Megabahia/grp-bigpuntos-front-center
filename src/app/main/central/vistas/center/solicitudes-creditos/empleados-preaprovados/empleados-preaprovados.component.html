@@ -65,6 +65,8 @@
                         <th>Estado</th>
                         <th>Documentos</th>
                         <th>Solicitud de crédito</th>
+                        <th>Locales Comerciales</th>
+                        <th>Referencias Familiares</th>
                         <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
@@ -92,6 +94,119 @@
                                     rippleEffect>
                                 Enlace
                             </button>
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button
+                                    type="button"
+                                    (click)="modalSelectOpen(modalSelect, credito.empresasAplican)"
+                                    class="btn btn-outline-primary btn-block"
+                                    rippleEffect
+                                    *ngIf="credito.estado !== 'Enviado'"
+                            >
+                                Seleccionar {{ credito.empresasAplican != null ? credito?.empresasAplican.length : 0}}
+                            </button>
+                            <!-- Modal -->
+                            <ng-template #modalSelect let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Empresas que aplican</h4>
+                                    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                    <label>Seleccione las empresas</label>
+
+                                    <div class="form-group">
+                                        <!-- Select Custom header footer template -->
+                                        <ng-select
+                                                [multiple]="true"
+                                                [items]="selectEmpresasCorp"
+                                                [(ngModel)]="selectEmpresasCorpSelected"
+                                                placeholder="Seleccione las empresas"
+                                                bindLabel="nombreEmpresa"
+                                                bindValue="ruc"
+                                        >
+                                            <ng-template ng-header-tmp>
+                                                <button
+                                                        (click)="customHeaderFooterSelectAll()"
+                                                        class="btn btn-sm btn-secondary mr-1"
+                                                        rippleEffect
+                                                >
+                                                    Seleccionar todo
+                                                </button>
+                                                <button (click)="customHeaderFooterUnselectAll()" class="btn btn-sm btn-secondary" rippleEffect>
+                                                    Deselecciona todo
+                                                </button>
+                                            </ng-template>
+                                        </ng-select>
+                                        <!--/ Select Custom header footer template -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" (click)="actualizarEmpresasAplican(credito._id)"rippleEffect>
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" (click)="modal.close('Accept click')" rippleEffect>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <!-- / Modal -->
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button
+                                    type="button"
+                                    (click)="viewReferences(modalFamiliares,credito.user?.referenciasSolicitante)"
+                                    class="btn btn-outline-primary btn-block"
+                                    rippleEffect
+                            >
+                                Ver
+                            </button>
+
+                            <!-- Modal -->
+                            <ng-template #modalFamiliares let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel3">Empresas que aplican</h4>
+                                    <button type="button" class="close" (click)="modal.dismiss('Cross click')"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                    <ul>Referencias Familiares:
+                                        <li *ngFor="let familiar of credito.user?.referenciasSolicitante; let i = index">
+                                            <div class="custom-control custom-switch custom-success my-2">
+                                                <input type="checkbox"
+                                                       (change)="familiarIsValid($event, i)"
+                                                       class="custom-control-input"
+                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}"
+                                                       [checked]="familiar.valido "/>
+                                                <label class="custom-control-label"
+                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}">
+                                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                </label>   Referencia
+                                                {{i + 1}}: {{familiar?.referenciaSolicitante}}
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                            (click)="guardarReferencias(credito)"
+                                            rippleEffect>
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')"
+                                            rippleEffect>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <!-- / Modal -->
                         </td>
                         <td>{{credito.motivo}}</td>
                         <td class="d-flex">

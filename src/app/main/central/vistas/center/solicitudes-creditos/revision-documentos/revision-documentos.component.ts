@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class RevisionDocumentosComponent implements OnInit {
 
-  @Input() checks: string;
+  @Input() checks: any;
   @Output() pantalla = new EventEmitter<number>();
 
   public completado;

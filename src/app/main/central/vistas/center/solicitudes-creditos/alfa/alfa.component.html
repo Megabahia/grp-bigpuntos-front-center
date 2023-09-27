@@ -8,7 +8,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
                             </li>
-                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">Solicitud de
+                            <li class="breadcrumb-item"><a class="text-primary" >Solicitud de
                                 créditos empleados</a>
                             </li>
                         </ol>
@@ -117,7 +117,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                <div class="modal-body" tabindex="0" >
                                     <label>Seleccione las empresas</label>
 
                                     <div class="form-group">
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" (click)="actualizarEmpresasAplican(credito._id)"rippleEffect>
+                                    <button type="button" class="btn btn-primary" (click)="actualizarEmpresasAplican(credito._id)">
                                         Guardar
                                     </button>
                                     <button type="button" class="btn btn-secondary" (click)="modal.close('Accept click')" rippleEffect>
@@ -177,7 +177,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                <div class="modal-body" tabindex="0" >
                                     <ul>Referencias Familiares:
                                         <li *ngFor="let familiar of credito.user?.referenciasSolicitante; let i = index">
                                             <div class="custom-control custom-switch custom-success my-2">
@@ -468,6 +468,15 @@
                         disabled
                 />
             </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Edad</label>
+                <input
+                        type="text"
+                        value="{{userViewData.edad}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
@@ -685,18 +694,24 @@
                 <input type="text" class="form-control"
                        value="{{userViewData.ingresosSolicitante.otrosIngresos}}" disabled/>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-
-            </div>
             <div class="form-group col-md-4">
 
                 <label class="form-label" for="vertical-modern-username">Especifique otros ingresos(ejemplo: vendo
                     articulos de revista en mi tiempo libre, etc.):</label>
 
-                <input value="{{userViewData.ingresosSolicitante.descripcion}}"
-                       type="text" class="form-control" disabled>
+                <input
+                        type="text" class="form-control" disabled>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Total Ingresos</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.ingresosSolicitante.totalIngresos}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
 
 
             </div>
@@ -768,6 +783,14 @@
                 <input type="text" class="form-control"
                        value="{{gastosSolicitante.deccripcion}}" disabled/>
             </div>
+
+        </div>
+        <div class="row">
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-modern-username">Total gastos</label>
+            <input type="text" class="form-control"
+                   value="{{gastosSolicitante.totalGastos}}" disabled/>
+        </div>
         </div>
     </div>
 

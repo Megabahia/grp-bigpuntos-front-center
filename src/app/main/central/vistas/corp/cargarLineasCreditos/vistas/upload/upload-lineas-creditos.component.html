@@ -3,7 +3,7 @@
         <div class="col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Cargar créditos Empleados</h2>
+                    <h2 class="content-header-title float-left mb-0">Cargar Líneas de Crédito</h2>
                     <div class="breadcrumb-wrapper">
                         <!-- <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>ANEXO</label>
+                                    <label>ANEXO </label>
                                     <a href="assets/anexos/Anexo_Líneas_de_Crédito_CO.xlsx">ANEXO 1 BIG PUNTOS
                                         CENTER</a>
                                     <div class="custom-file">
@@ -201,12 +201,12 @@
 
 <ng-template #mensajeModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Mensaje</h5>
+        <h5 class="modal-title" id="mensajeModal">Mensaje</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="modal-body" tabindex="0" >
         <div [innerHTML]="mensaje"></div>
     </div>
     <div class="modal-footer">
@@ -221,7 +221,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="modal-body" tabindex="0" >
         <div [innerHTML]="mensaje"></div>
     </div>
     <div class="modal-footer">

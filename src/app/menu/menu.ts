@@ -1,6 +1,4 @@
 import { CoreMenu } from '@core/types';
-import { Role } from '../auth/models/role';
-
 export const menu: CoreMenu[] = [
   {
     id: 'inicio',
@@ -36,15 +34,6 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'briefcase',
         url: 'central/corp/empleados',
-      },
-      {
-        id: 'empleadosEmpresas2',
-        title: 'VER EMPLEADOS DE EMPRESAS2',
-        // translate: 'MENU.HOME',
-        // role: [Role.BigPuntos],
-        type: 'item',
-        icon: 'briefcase',
-        url: 'central/corp/empleados/',
       },
       {
         id: 'empresasQR',
@@ -98,7 +87,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.BigPuntos],
         type: 'item',
         icon: 'dollar-sign',
-        url: 'central/corp/cargarCreditosNegocios',
+        url: 'central/corp/cargarLineasCredito',
       },
       {
         id: 'cargarCreditosAutomotriz',

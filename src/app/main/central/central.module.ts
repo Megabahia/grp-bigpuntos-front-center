@@ -10,8 +10,8 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { FormsModule } from '@angular/forms';
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
 import { CoreSidebarModule } from '@core/components';
-import { AuthGuard } from '../../auth/helpers/auth.guards';
-import { Role } from '../../auth/models/role';
+import { AuthGuard } from '../../auth/helpers';
+import { Role } from '../../auth/models';
 import 'flatpickr/dist/flatpickr.css'; // you may need to adjust the css import depending on your build tool
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
@@ -120,7 +120,7 @@ const routes = [
         path: 'CargarCreditosdeConsumo', component: UploadComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'cargarCreditosNegocios', component: UploadLineasCreditos, canActivate: [AuthGuard]
+        path: 'cargarLineasCredito', component: UploadLineasCreditos, canActivate: [AuthGuard]
       },
       {
         path: 'cargarCreditosAutomotriz', component: UploadCreditosAutomotrizComponent, canActivate: [AuthGuard]

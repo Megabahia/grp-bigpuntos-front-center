@@ -271,7 +271,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     }
 
     customHeaderFooterSelectAll() {
-        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map(x => x.name);
+        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map((x:any) => x.ruc);
     }
 
     customHeaderFooterUnselectAll() {

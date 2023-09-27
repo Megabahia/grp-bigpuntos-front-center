@@ -297,7 +297,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     }
 
     modalSelectOpen(modalSelect, empresasAplican) {
-        this.selectEmpresasCorpSelected = empresasAplican;
+        this.selectEmpresasCorpSelected = JSON.parse(empresasAplican);
         this.modalService.open(modalSelect, {
             windowClass: 'modal'
         });
@@ -340,4 +340,6 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         });
 
     }
+
+    protected readonly JSON = JSON;
 }

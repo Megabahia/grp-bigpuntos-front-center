@@ -104,7 +104,7 @@
                                     rippleEffect
                                     *ngIf="credito.estado !== 'Enviado'"
                             >
-                                Seleccionar {{ credito.empresasAplican != null ? credito?.empresasAplican.length : 0}}
+                                Seleccionar {{ credito.empresasAplican != null ? JSON.parse(credito?.empresasAplican).length : 0}}
                             </button>
                             <!-- Modal -->
                             <ng-template #modalSelect let-modal>

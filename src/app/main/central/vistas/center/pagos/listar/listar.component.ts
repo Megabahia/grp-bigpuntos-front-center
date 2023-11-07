@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {DatePipe} from '@angular/common';
@@ -6,13 +6,22 @@ import {ExportService} from '../../../../../../services/export/export.service';
 import {PagosService} from '../pagos.service';
 import {ProductosPremiosService} from '../../productos-premios/productos-premios.service';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los pagos
+ * Rutas:
+ * `${environment.apiUrl}/corp/movimientoCobros/reporte/empresas/`,
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
     styleUrls: ['./listar.component.scss'],
     providers: [DatePipe]
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('mensajeModal') mensajeModal;
     // Paginacion
@@ -46,13 +55,11 @@ export class ListarComponent implements OnInit {
         this.obtenerListaEmpresasComerciales();
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.iniciarPaginador();
         this.obtenerListaPagos();
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();

@@ -12,6 +12,15 @@ import {ActualizarCredito} from '../../../models/creditos';
 import {SolicitudesCreditosService} from '../solicitudes-creditos/solicitudes-creditos.service';
 import {Router} from '@angular/router';
 
+/**
+ * Bigpuntos
+ * Center
+ * Esta pantalla sirve para mostrar los registros del archivos
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ */
+
 @Component({
   selector: 'app-lectura-archivos',
   templateUrl: './lectura-archivos.component.html',

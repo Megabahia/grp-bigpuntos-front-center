@@ -6,6 +6,19 @@ import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {DatePipe} from '@angular/common';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los creditos negocio propio
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
+
 @Component({
     selector: 'app-negocio-propio',
     templateUrl: './negocio-propio.component.html',

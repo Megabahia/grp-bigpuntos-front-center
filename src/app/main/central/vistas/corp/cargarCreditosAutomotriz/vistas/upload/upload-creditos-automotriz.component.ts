@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CoreMenuService} from '@core/components/core-menu/core-menu.service';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
@@ -9,12 +9,25 @@ import moment from 'moment';
 
 type AOA = any[][];
 
+/**
+ * Bigpuntos
+ * center
+ * Esta pantalla sirve para cargar creditos automotriz
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/all`,
+ * `${environment.apiUrl}/corp/empresas/list/ifis`,
+ * `${environment.apiUrl}/corp/creditoArchivos/list/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/create/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/delete/${id}`
+ * `${environment.apiUrl}/corp/creditoArchivos/upload/creditos/preaprobados/automotriz/empleados/${id}`,
+ */
+
 @Component({
     selector: 'app-upload',
     templateUrl: './upload-creditos-automotriz.component.html',
     styleUrls: ['./upload-creditos-automotriz.component.scss']
 })
-export class UploadCreditosAutomotrizComponent implements OnInit {
+export class UploadCreditosAutomotrizComponent implements OnInit, OnDestroy {
     @ViewChild('mensajeModal') mensajeModal;
     @ViewChild('confirmarModal') confirmarModal;
     @ViewChild(NgbPagination) paginator: NgbPagination;

@@ -6,6 +6,19 @@ import {Subject} from 'rxjs';
 import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los creditos automotriz ifis negocio propio preaprobados
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
+
 @Component({
     selector: 'app-negocio-propio-preaprovados',
     templateUrl: './ifis-negocio-propio-preaprovados.component.html',

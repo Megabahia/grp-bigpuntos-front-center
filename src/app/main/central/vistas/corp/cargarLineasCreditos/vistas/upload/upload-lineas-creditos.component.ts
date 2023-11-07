@@ -9,6 +9,18 @@ import {CargarCreditosNegociosService} from '../../cargar-creditos-negocios.serv
 
 type AOA = any[][];
 
+/**
+ * Bigpuntos
+ * center
+ * Esta pantalla sirve para cargar creditos automotriz
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/all`,
+ * `${environment.apiUrl}/corp/empresas/list/ifis`,
+ * `${environment.apiUrl}/corp/creditoArchivos/list/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/create/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/delete/${id}`
+ * `${environment.apiUrl}/corp/creditoArchivos/upload/creditos/preaprobados/automotriz/empleados/${id}`,
+ */
 @Component({
     selector: 'app-upload-lineas-creditos',
     templateUrl: './upload-lineas-creditos.component.html',
@@ -188,10 +200,9 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
             this.mensaje = `Se subio el excel correctamente.`;
             this.abrirModal(this.mensajeModal);
             this.obtenerListaArchivosPreAprobados();
-            //reset inputs
 
             this.usuarioForm.reset();
-            this.nombreArchivo = "";
+            this.nombreArchivo = '';
             this.archivo = true;
             const inputGroupFile02 = document.getElementById('inputGroupFile02') as HTMLInputElement;
             inputGroupFile02.value = null;
@@ -251,7 +262,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
         this.modalService.dismissAll();
 
         this.usuarioForm.reset();
-        this.nombreArchivo = "";
+        this.nombreArchivo = '';
         this.archivo = true;
         const inputGroupFile02 = document.getElementById('inputGroupFile02') as HTMLInputElement;
         inputGroupFile02.value = null;

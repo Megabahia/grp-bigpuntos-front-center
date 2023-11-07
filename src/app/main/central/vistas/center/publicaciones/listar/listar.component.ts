@@ -8,6 +8,19 @@ import {Publicacion} from '../models/publicacion';
 import {PublicacionesService} from '../publicaciones.service';
 import {ActivatedRoute} from '@angular/router';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar las publicaciones
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/publicaciones/update/${id}`,
+ * `${environment.apiUrl}/central/publicaciones/create/`,
+ * `${environment.apiUrl}/central/publicaciones/listFull/`,
+ * `${environment.apiUrl}/central/publicaciones/listOne/${id}`
+ * `${environment.apiUrl}/central/publicaciones/delete/${id}`,
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
@@ -18,7 +31,7 @@ export class ListarComponent implements OnInit {
     @ViewChild('eliminarProductoMdl') eliminarProductoMdl;
     @ViewChild('mensajeModal') mensajeModal;
     public publicacionForm: FormGroup;
-    public publicacionessSubmitted: boolean = false;
+    public publicacionessSubmitted = false;
     public page = 1;
     public pageSize: any = 10;
     public maxSize;
@@ -96,7 +109,6 @@ export class ListarComponent implements OnInit {
         this.changeDetector.detectChanges();
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.iniciarPaginador();
     }
@@ -235,7 +247,6 @@ export class ListarComponent implements OnInit {
         this._modalService.dismissAll();
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();

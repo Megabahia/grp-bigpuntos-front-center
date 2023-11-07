@@ -6,6 +6,19 @@ import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {Subject} from 'rxjs';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los creditos empleados preaprobados
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
+
 @Component({
     selector: 'app-empleados-preaprovados',
     templateUrl: './empleados-preaprovados.component.html',
@@ -272,7 +285,7 @@ export class EmpleadosPreaprovadosComponent implements OnInit, AfterViewInit {
     }
 
     customHeaderFooterSelectAll() {
-        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map((x:any) => x.ruc);
+        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map((x: any) => x.ruc);
     }
 
     customHeaderFooterUnselectAll() {

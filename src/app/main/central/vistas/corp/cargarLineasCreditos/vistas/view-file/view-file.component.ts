@@ -2,6 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {CargarCreditosNegociosService} from '../../cargar-creditos-negocios.service';
 import {ActivatedRoute} from '@angular/router';
 
+/**
+ * Bigpuntos
+ * center
+ * ESta pantalla sirve para ver los registros de un documento
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoArchivos/view/creditos/preaprobados/negocios/${id}`
+ */
+
 @Component({
     selector: 'app-view-file',
     templateUrl: './view-file.component.html',

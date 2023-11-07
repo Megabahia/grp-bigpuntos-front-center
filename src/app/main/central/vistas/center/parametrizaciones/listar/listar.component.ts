@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {ParametrizacionesService} from '../parametrizaciones.service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
@@ -10,6 +10,19 @@ import {ColumnMode} from '@swimlane/ngx-datatable';
 import {ExportService} from '../../../../../../services/export/export.service';
 import {log} from 'util';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para mostrar las parametrizaciones
+ * Rutas:
+ * `${environment.apiUrl}/central/param/create/`,
+ * `${environment.apiUrl}/central/param/update/${datos._id}`,
+ * `${environment.apiUrl}/central/param/list/`,
+ * `${environment.apiUrl}/central/param/listOne/${id}`
+ * `${environment.apiUrl}/central/param/delete/${id}`
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/param/exportar/`,
+ */
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
@@ -17,21 +30,21 @@ import {log} from 'util';
     providers: [DatePipe]
 
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     title = 'table-tutorial';
 
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
     @ViewChild('mensajeModal') mensajeModal;
     public parametrizacionForm: FormGroup;
-    public paramSubmitted: boolean = false;
+    public paramSubmitted = false;
     public page = 1;
     public pageSize: any = 10;
     public maxSize;
     public collectionSize;
     public idParametro;
     public listaParametros;
-    public tiposOpciones: string = '';
+    public tiposOpciones = '';
     public tipos;
     public parametrizacion: Parametrizacion;
     public nombreBuscar;
@@ -89,8 +102,6 @@ export class ListarComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-
-
         this.obtenerListaParametros();
     }
 
@@ -102,7 +113,7 @@ export class ListarComponent implements OnInit {
         // console.log('va guardar configuracion ', this.parametrizacion.config.toString().split(','));
         this.parametrizacion.config = this.parametrizacion.config.toString().split(',');
         console.log('this', this.parametrizacion);
-        if (this.idParametro == '') {
+        if (this.idParametro === '') {
             this.paramService.crearParametro(this.parametrizacion).subscribe((info) => {
                     this.mensaje = 'Parámetro creado correctamente';
                     this.abrirModal(this.mensajeModal);
@@ -152,7 +163,7 @@ export class ListarComponent implements OnInit {
             this.paramService.obtenerParametro(this.idParametro).subscribe((info) => {
                     this.parametrizacion = info;
                     this.parametrizacion.config = this.parametrizacion.config;
-                    if (info.idPadre && info.idPadre != 'None') {
+                    if (info.idPadre && info.idPadre !== 'None') {
                         this.paramService.obtenerParametro(info.idPadre).subscribe((data) => {
                             this.tipoPadre = data.tipo;
                             this.paramService.obtenerListaPadres(data.tipo).subscribe((infoLista) => {

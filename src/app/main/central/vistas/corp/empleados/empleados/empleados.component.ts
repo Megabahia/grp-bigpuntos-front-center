@@ -6,148 +6,159 @@ import {ParametrizacionesService} from '../../../center/parametrizaciones/parame
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute} from '@angular/router';
 
+/**
+ * Bigpuntos
+ * center
+ * pantalla sirve para mostrar el registro del empleado
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/empleados/`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/corp/empresas/listOne/empleado/${id}`
+ * `${environment.apiUrl}/corp/empresas/actualizar/${id}`,
+ * `${environment.apiUrl}/corp/empresas/empleado/delete/${id}`
+ */
 @Component({
-  selector: 'app-empleados-empresas',
-  templateUrl: './empleados.component.html',
-  styleUrls: ['./empleados.component.scss']
+    selector: 'app-empleados-empresas',
+    templateUrl: './empleados.component.html',
+    styleUrls: ['./empleados.component.scss']
 })
 export class EmpleadosComponent implements OnInit {
-  @Input() empresaId: string;
-  @Output() pantalla = new EventEmitter<any>();
-  @ViewChild(NgbPagination) paginator: NgbPagination;
-  @ViewChild('mensajeModal') mensajeModal;
-  @ViewChild('eliminarEmpresaMdl') eliminarEmpresaMdl;
-  public page = 1;
-  public page_size: any = 10;
-  public maxSize;
-  public collectionSize;
-  public empleados;
-  public empleadoForm: FormGroup;
-  public tipoIdentificacionesOpciones;
-  public submitted = false;
-  public empresa = '';
-  public cargandoEmpresa = false;
-  private idEmpleado = 0;
-  private mensaje = '';
+    @Input() empresaId: string;
+    @Output() pantalla = new EventEmitter<any>();
+    @ViewChild(NgbPagination) paginator: NgbPagination;
+    @ViewChild('mensajeModal') mensajeModal;
+    @ViewChild('eliminarEmpresaMdl') eliminarEmpresaMdl;
+    public page = 1;
+    public page_size: any = 10;
+    public maxSize;
+    public collectionSize;
+    public empleados;
+    public empleadoForm: FormGroup;
+    public tipoIdentificacionesOpciones;
+    public submitted = false;
+    public empresa = '';
+    public cargandoEmpresa = false;
+    private idEmpleado = 0;
+    private mensaje = '';
 
-  constructor(
-    private _empresasService: EmpresasService,
-    private paramService: ParametrizacionesService,
-    private _coreSidebarService: CoreSidebarService,
-    private route: ActivatedRoute,
-    private _modalService: NgbModal,
-    private _formBuilder: FormBuilder,
-  ) {
-    // this.route.params.subscribe((params) => {
-    //     this.empresa = params.empresa;
-    //     console.log(params);
-    //   }
-    // );
-    this.empresa = this.empresaId;
-  }
+    constructor(
+        private _empresasService: EmpresasService,
+        private paramService: ParametrizacionesService,
+        private _coreSidebarService: CoreSidebarService,
+        private route: ActivatedRoute,
+        private _modalService: NgbModal,
+        private _formBuilder: FormBuilder,
+    ) {
+        // this.route.params.subscribe((params) => {
+        //     this.empresa = params.empresa;
+        //     console.log(params);
+        //   }
+        // );
+        this.empresa = this.empresaId;
+    }
 
-  get emplForm() {
-    return this.empleadoForm.controls;
-  }
+    get emplForm() {
+        return this.empleadoForm.controls;
+    }
 
-  ngOnInit(): void {
-    this.empresa = this.empresaId;
-    this.obtenerListaEmpleados();
-    this.obtenerTipoIdentificacionesOpciones();
-    this.empleadoForm = this._formBuilder.group({
-      tipoIdentificacion: ['', [Validators.required]],
-      identificacion: ['', [Validators.required]],
-      nombres: ['', [Validators.required]],
-      apellidos: ['', [Validators.required]],
-      correo: ['', [Validators.required]],
-      celular: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-      whatsapp: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-      estado: ['', [Validators.required]],
-    });
-  }
-
-  obtenerListaEmpleados() {
-    console.log('entro al metodo');
-    this._empresasService.obtenerListaEmpleados({
-      page: this.page - 1, page_size: this.page_size,
-      empresa: this.empresa
-    }).subscribe(info => {
-      this.empleados = info.info;
-      this.collectionSize = info.cont;
-    });
-  }
-
-  obtenerTipoIdentificacionesOpciones() {
-    this.paramService.obtenerListaPadres('TIPO_IDENTIFICACION').subscribe((info) => {
-      this.tipoIdentificacionesOpciones = info;
-    });
-  }
-
-  toggleSidebar(name, id): void {
-    this.idEmpleado = id;
-    if (this.idEmpleado) {
-      this._empresasService.obtenerEmpleado(this.idEmpleado).subscribe((info) => {
-          this.empleadoForm.patchValue({...info});
-        },
-        (error) => {
-          // this.mensaje = 'No se ha podido obtener la empresa';
-          //
-          // this.abrirModal(this.mensajeModal);
+    ngOnInit(): void {
+        this.empresa = this.empresaId;
+        this.obtenerListaEmpleados();
+        this.obtenerTipoIdentificacionesOpciones();
+        this.empleadoForm = this._formBuilder.group({
+            tipoIdentificacion: ['', [Validators.required]],
+            identificacion: ['', [Validators.required]],
+            nombres: ['', [Validators.required]],
+            apellidos: ['', [Validators.required]],
+            correo: ['', [Validators.required]],
+            celular: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+            whatsapp: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+            estado: ['', [Validators.required]],
         });
     }
-    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-  }
 
-  guardarEmpleado() {
-    this.submitted = true;
-    if (this.empleadoForm.invalid) {
-      console.log('error form', this.empleadoForm);
-      return;
+    obtenerListaEmpleados() {
+        console.log('entro al metodo');
+        this._empresasService.obtenerListaEmpleados({
+            page: this.page - 1, page_size: this.page_size,
+            empresa: this.empresa
+        }).subscribe(info => {
+            this.empleados = info.info;
+            this.collectionSize = info.cont;
+        });
     }
-    this.cargandoEmpresa = true;
-    this._empresasService.actualizarEmpleado(this.empleadoForm.value, this.idEmpleado).subscribe((info) => {
-        this.obtenerListaEmpleados();
-        // this.mensaje = 'Empresa actualizada con éxito';
-        // this.abrirModal(this.mensajeModal);
-        this.toggleSidebar('guardarEmpresa', '');
-        this.cargandoEmpresa = false;
-      },
-      (error) => {
-        const errores = Object.values(error);
-        const llaves = Object.keys(error);
-        // this.mensaje = 'Error al actualizar empresa';
-        // this.abrirModal(this.mensajeModal);
-        this.cargandoEmpresa = false;
-      });
 
-  }
+    obtenerTipoIdentificacionesOpciones() {
+        this.paramService.obtenerListaPadres('TIPO_IDENTIFICACION').subscribe((info) => {
+            this.tipoIdentificacionesOpciones = info;
+        });
+    }
 
-  eliminarEmpleado() {
-    this._empresasService.eliminarEmleado(this.idEmpleado).subscribe(() => {
-        this.obtenerListaEmpleados();
-        this.mensaje = 'Empresa eliminada correctamente';
-        this.abrirModal(this.mensajeModal);
-      },
-      (error) => {
-        this.mensaje = 'Ha ocurrido un error al eliminar la empresa';
-        this.abrirModal(this.mensajeModal);
-      });
-  }
+    toggleSidebar(name, id): void {
+        this.idEmpleado = id;
+        if (this.idEmpleado) {
+            this._empresasService.obtenerEmpleado(this.idEmpleado).subscribe((info) => {
+                    this.empleadoForm.patchValue({...info});
+                },
+                (error) => {
+                    // this.mensaje = 'No se ha podido obtener la empresa';
+                    //
+                    // this.abrirModal(this.mensajeModal);
+                });
+        }
+        this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    }
 
-  eliminarEmpresaModal(id) {
-    this.idEmpleado = id;
-    this.abrirModal(this.eliminarEmpresaMdl);
-  }
+    guardarEmpleado() {
+        this.submitted = true;
+        if (this.empleadoForm.invalid) {
+            console.log('error form', this.empleadoForm);
+            return;
+        }
+        this.cargandoEmpresa = true;
+        this._empresasService.actualizarEmpleado(this.empleadoForm.value, this.idEmpleado).subscribe((info) => {
+                this.obtenerListaEmpleados();
+                // this.mensaje = 'Empresa actualizada con éxito';
+                // this.abrirModal(this.mensajeModal);
+                this.toggleSidebar('guardarEmpresa', '');
+                this.cargandoEmpresa = false;
+            },
+            (error) => {
+                const errores = Object.values(error);
+                const llaves = Object.keys(error);
+                // this.mensaje = 'Error al actualizar empresa';
+                // this.abrirModal(this.mensajeModal);
+                this.cargandoEmpresa = false;
+            });
 
-  abrirModal(modal) {
-    this._modalService.open(modal);
-  }
+    }
 
-  cerrarModal() {
-    this._modalService.dismissAll();
-  }
+    eliminarEmpleado() {
+        this._empresasService.eliminarEmleado(this.idEmpleado).subscribe(() => {
+                this.obtenerListaEmpleados();
+                this.mensaje = 'Empresa eliminada correctamente';
+                this.abrirModal(this.mensajeModal);
+            },
+            (error) => {
+                this.mensaje = 'Ha ocurrido un error al eliminar la empresa';
+                this.abrirModal(this.mensajeModal);
+            });
+    }
 
-  volver() {
-    this.pantalla.emit(1);
-  }
+    eliminarEmpresaModal(id) {
+        this.idEmpleado = id;
+        this.abrirModal(this.eliminarEmpresaMdl);
+    }
+
+    abrirModal(modal) {
+        this._modalService.open(modal);
+    }
+
+    cerrarModal() {
+        this._modalService.dismissAll();
+    }
+
+    volver() {
+        this.pantalla.emit(1);
+    }
 }

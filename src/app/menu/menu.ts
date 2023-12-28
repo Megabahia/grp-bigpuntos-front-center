@@ -18,6 +18,15 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'cargarComisiones',
+        title: 'Cargar Comisiones',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'dollar-sign',
+        url: 'central/corp/cargarComisiones',
+      },
+      {
         id: 'empresasCorp',
         title: 'Empresas',
         // translate: 'MENU.HOME',

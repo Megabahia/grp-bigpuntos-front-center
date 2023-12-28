@@ -1,26 +1,34 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+/**
+ * Bigpuntos
+ * Center
+ * Esta pantalla sirve para mostrar los requisitos de los creditos
+ * Rutas:
+ * No recibe ningun llamado de rutas
+ */
+
 @Component({
-  selector: 'app-revision-documentos',
-  templateUrl: './revision-documentos.component.html',
-  styleUrls: ['./revision-documentos.component.scss']
+    selector: 'app-revision-documentos',
+    templateUrl: './revision-documentos.component.html',
+    styleUrls: ['./revision-documentos.component.scss']
 })
 export class RevisionDocumentosComponent implements OnInit {
 
-  @Input() checks: any;
-  @Output() pantalla = new EventEmitter<number>();
+    @Input() checks: any;
+    @Output() pantalla = new EventEmitter<number>();
 
-  public completado;
+    public completado;
 
-  constructor() {
-    this.completado = false;
-  }
+    constructor() {
+        this.completado = false;
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  completar() {
-    this.pantalla.emit(2);
-  }
+    completar() {
+        this.pantalla.emit(2);
+    }
 
 }

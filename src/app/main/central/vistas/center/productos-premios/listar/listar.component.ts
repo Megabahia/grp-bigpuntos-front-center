@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Producto} from '../../productos/models/productos';
@@ -10,18 +10,32 @@ import {DatePipe} from '@angular/common';
 import moment from 'moment';
 import {ProductosPremiosService} from '../productos-premios.service';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los productos de la pantalla de premios
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/productos/update/${id}`,
+ * `${environment.apiUrl}/central/productos/create/`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/productos/list/`,
+ * `${environment.apiUrl}/central/productos/listOne/${id}`
+ * `${environment.apiUrl}/central/productos/delete/${id}`
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
     styleUrls: ['./listar.component.scss'],
     providers: [DatePipe],
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(NgbPagination) paginator: NgbPagination;
     @ViewChild('eliminarProductoMdl') eliminarProductoMdl;
     @ViewChild('mensajeModal') mensajeModal;
     public productoForm: FormGroup;
-    public productosSubmitted: boolean = false;
+    public productosSubmitted = false;
     public page = 1;
     public pageSize: any = 10;
     public maxSize;
@@ -32,7 +46,7 @@ export class ListarComponent implements OnInit {
     public empresa_id;
     public imagen;
     public productosFormData = new FormData();
-    public tiposOpciones: string = '';
+    public tiposOpciones = '';
     public tipos;
     public tipoProductoOpciones;
     public tipoEmpresaOpciones;
@@ -119,7 +133,6 @@ export class ListarComponent implements OnInit {
         return this.datePipe.transform(fecha, 'yyyy-MM-dd');
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.iniciarPaginador();
         this.obtenerListaProductos();
@@ -253,7 +266,6 @@ export class ListarComponent implements OnInit {
         });
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();

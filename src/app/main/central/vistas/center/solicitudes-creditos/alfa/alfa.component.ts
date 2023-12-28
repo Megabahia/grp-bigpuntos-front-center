@@ -6,6 +6,19 @@ import {CoreSidebarService} from '../../../../../../../@core/components/core-sid
 import {DatePipe} from '@angular/common';
 import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los creditos alfa
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
+
 @Component({
     selector: 'app-alfa',
     templateUrl: './alfa.component.html',
@@ -288,7 +301,7 @@ export class AlfaComponent implements OnInit, AfterViewInit {
     }
 
     customHeaderFooterSelectAll() {
-        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map((x:any) => x.ruc);
+        this.selectEmpresasCorpSelected = this.selectEmpresasCorp.map((x: any) => x.ruc);
     }
 
     customHeaderFooterUnselectAll() {

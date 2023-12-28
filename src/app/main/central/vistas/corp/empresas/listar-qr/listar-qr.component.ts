@@ -11,6 +11,20 @@ import {EmpresasService} from '../empresas.service';
 import {jsPDF} from 'jspdf';
 import html2canvas from 'html2canvas';
 
+/**
+ * Bigpuntos
+ * CEnter
+ * Esta pantalla sirve para listar las empresas que tienen un codigo QR
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/${id}`
+ * `${environment.apiUrl}/corp/empresas/create/`,
+ * `${environment.apiUrl}/corp/empresas/update/${id}`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/param/list/filtro/nombre`,
+ * `${environment.apiUrl}/corp/empresas/delete/${id}`
+ * `${environment.apiUrl}/corp/empresas/list/`,
+ */
+
 @Component({
     selector: 'app-listar-qr',
     templateUrl: './listar-qr.component.html',

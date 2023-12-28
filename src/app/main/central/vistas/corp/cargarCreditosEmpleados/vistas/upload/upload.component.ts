@@ -9,6 +9,18 @@ import moment from 'moment';
 
 type AOA = any[][];
 
+/**
+ * Bigpuntos
+ * center
+ * Esta pantalla sirve para cargar creditos empleados
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/all`,
+ * `${environment.apiUrl}/corp/empresas/list/ifis`,
+ * `${environment.apiUrl}/corp/creditoArchivos/list/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/create/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/delete/${id}`
+ * `${environment.apiUrl}/corp/creditoArchivos/upload/creditos/preaprobados/automotriz/empleados/${id}`,
+ */
 @Component({
     selector: 'app-upload',
     templateUrl: './upload.component.html',

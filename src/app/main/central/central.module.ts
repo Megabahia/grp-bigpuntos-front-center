@@ -81,6 +81,8 @@ import {
   AutomotrizRevisionDocumentosComponent
 } from './vistas/center/solicitudes-creditos-automotriz/automotriz-revision-documentos/automotriz-revision-documentos.component';
 import {UploadCreditosAutomotrizComponent} from './vistas/corp/cargarCreditosAutomotriz/vistas/upload/upload-creditos-automotriz.component';
+import {UploadComisiones} from './vistas/corp/cargarComisiones/vistas/upload/upload-comisiones.component';
+import {ViewFileComisionesComponent} from './vistas/corp/cargarComisiones/vistas/view-file/view-file-comisiones.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -127,6 +129,9 @@ const routes = [
       },
       {
         path: 'archivo/:archivoId', component: ViewFileComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarComisiones', component: UploadComisiones, canActivate: [AuthGuard]
       },
     ],
   },
@@ -363,6 +368,8 @@ const routes = [
     AutomotrizAlfaComponent,
     AutomotrizRevisionDocumentosComponent,
     UploadCreditosAutomotrizComponent,
+    UploadComisiones,
+    ViewFileComisionesComponent,
   ],
     imports: [
         CoreCommonModule,

@@ -10,6 +10,21 @@ import {ParametrizacionesService} from '../../parametrizaciones/parametrizacione
 import {FlatpickrOptions} from 'ng2-flatpickr';
 import moment from 'moment';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los productos
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/central/productos/update/${id}`,
+ * `${environment.apiUrl}/central/productos/create/`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/productos/list/`,
+ * `${environment.apiUrl}/central/productos/listOne/${id}`
+ * `${environment.apiUrl}/central/productos/delete/${id}`
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
@@ -22,7 +37,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('eliminarProductoMdl') eliminarProductoMdl;
     @ViewChild('mensajeModal') mensajeModal;
     public productoForm: FormGroup;
-    public productosSubmitted: boolean = false;
+    public productosSubmitted = false;
     public page = 1;
     public pageSize: any = 10;
     public maxSize;
@@ -33,7 +48,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     public empresa_id;
     public imagen;
     public productosFormData = new FormData();
-    public tiposOpciones: string = '';
+    public tiposOpciones = '';
     public tipos;
     public tipoProductoOpciones;
     public producto: Producto;
@@ -145,10 +160,10 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.productoForm.invalid) {
             return;
         }
-        let productoValores = Object.values(this.producto);
-        let productoLlaves = Object.keys(this.producto);
+        const productoValores = Object.values(this.producto);
+        const productoLlaves = Object.keys(this.producto);
         productoLlaves.map((llaves, index) => {
-            if (llaves != 'imagen') {
+            if (llaves !== 'imagen') {
                 if (productoValores[index]) {
                     this.productosFormData.delete(llaves);
                     this.productosFormData.append(llaves, productoValores[index]);
@@ -197,7 +212,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     async subirImagen(event) {
 
         if (event.target.files && event.target.files[0]) {
-            let imagen = event.target.files[0];
+            const imagen = event.target.files[0];
             this.imagen = imagen.name;
             this.productosFormData.delete('imagen');
             this.productosFormData.append('imagen', imagen, Date.now() + '_' + imagen.name);
@@ -249,7 +264,7 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     visualizarNombreArchivo(nombre) {
-        let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
+        const stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
         return nombre.replace(stringArchivos, '');
     }
 

@@ -9,6 +9,17 @@ import {DatePipe} from '@angular/common';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {environment} from 'environments/environment';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para mostrar las empresas a las cuales pueden obtener premios
+ * Rutas:
+ * `${environment.apiUrl}/central/empresas/list/`,
+ * `${environment.apiUrl}/central/empresas/delete/${id}`
+ * `${environment.apiUrl}/central/empresas/listOne/${id}`
+ * `${environment.apiUrl}/central/empresas/create/`,
+ * `${environment.apiUrl}/central/empresas/update/${id}`,
+ */
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',

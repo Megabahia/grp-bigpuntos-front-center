@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CargarCreditosNegociosService} from '../../cargar-creditos-negocios.service';
+import {CargarComisionesService} from '../../cargar-comisiones.service';
 import {ActivatedRoute} from '@angular/router';
 
 /**
@@ -11,22 +11,22 @@ import {ActivatedRoute} from '@angular/router';
  */
 
 @Component({
-    selector: 'app-view-file',
-    templateUrl: './view-file.component.html',
-    styleUrls: ['./view-file.component.scss']
+    selector: 'app-view-file-comisione',
+    templateUrl: './view-file-comisiones.component.html',
+    styleUrls: ['./view-file-comisiones.component.scss']
 })
-export class ViewFileComponent implements OnInit {
+export class ViewFileComisionesComponent implements OnInit {
 
     public cabecera = [];
     public filas = [];
 
     constructor(
-        private _cargarCreditosNegocios: CargarCreditosNegociosService,
+        private _cargarCreditosNegocios: CargarComisionesService,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe((params) => {
             const archivoId = params.archivoId;
-            this._cargarCreditosNegocios.verDatosArchivosPreAprobados(archivoId).subscribe(info => {
+            this._cargarCreditosNegocios.verDatosArchivosComisiones(archivoId).subscribe(info => {
                 this.cabecera = info.shift();
                 this.filas = info;
                 console.log(this.cabecera);

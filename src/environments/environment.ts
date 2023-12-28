@@ -6,6 +6,7 @@ export const environment = {
     production: false,
     hmr: false,
     apiUrl: 'https://api-bp-test.bigpuntos.com',
+    // apiUrl: 'http://127.0.0.1:8000',
     urlBigPuntos: 'https://credicompra-personas.netlify.app/#/',
     setKey: '6LdIKaglAAAAAEqIg6P6A6hqKndiISYXGGzpfTs-',
     firebaseConfig: {

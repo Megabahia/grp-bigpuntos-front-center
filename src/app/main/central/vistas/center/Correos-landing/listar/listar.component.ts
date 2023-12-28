@@ -5,6 +5,14 @@ import {DatePipe} from '@angular/common';
 import {CorreosLandingService} from '../correos-landing.service';
 import {ExportService} from '../../../../../../services/export/export.service';
 
+/**
+ * Bigpuntos
+ * Center
+ * Esta pantalla sirve mostrar los registros de los correos que se registran en la pantalla landing
+ * Rutas:
+ * `${environment.apiUrl}/central/correosLanding/list/`,
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',
@@ -85,7 +93,7 @@ export class ListarComponent implements OnInit {
     }
 
     comprobarEstado(estado: boolean) {
-        return estado ? 'Si' : 'No' ;
+        return estado ? 'Si' : 'No';
     }
 
     exportarExcel() {

@@ -1,8 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PublicacionesService} from '../publicaciones.service';
 import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {ExportService} from '../../../../../../services/export/export.service';
+
+/**
+ * Bigpuntos
+ * Center
+ * Esta pantalla sirve para generar el reporte
+ * Rutas:
+ * `${environment.apiUrl}/central/publicaciones/reporte/`,
+ */
 
 @Component({
     selector: 'app-reporte',
@@ -10,7 +18,7 @@ import {ExportService} from '../../../../../../services/export/export.service';
     styleUrls: ['./reporte.component.scss'],
     providers: [DatePipe]
 })
-export class ReporteComponent implements OnInit {
+export class ReporteComponent implements OnInit, AfterViewInit {
     @ViewChild(NgbPagination) paginator: NgbPagination;
     public page = 1;
     public pageSize: any = 10;
@@ -30,7 +38,6 @@ export class ReporteComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.iniciarPaginador();
         this.obtenerReportePublicaciones();

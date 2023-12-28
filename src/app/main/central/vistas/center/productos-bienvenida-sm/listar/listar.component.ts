@@ -10,6 +10,20 @@ import {CoreSidebarService} from '../../../../../../../@core/components/core-sid
 import {ParametrizacionesService} from '../../parametrizaciones/parametrizaciones.service';
 import moment from 'moment';
 
+/**
+ * Bigpuntos
+ * Center
+ * Esta pantalla sirve para listar los productos de bienvenida
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/productos/update/${id}`,
+ * `${environment.apiUrl}/central/productos/create/`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/productos/list/`,
+ * `${environment.apiUrl}/central/productos/listOne/${id}`
+ * `${environment.apiUrl}/central/productos/delete/${id}`
+ */
+
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',

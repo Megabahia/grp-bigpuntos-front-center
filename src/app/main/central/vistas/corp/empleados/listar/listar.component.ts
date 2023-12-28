@@ -4,6 +4,14 @@ import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
+/**
+ * Bigpuntos
+ * center
+ * Esta pantalla sirve para listar los empleados
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/`,
+ * `${environment.apiUrl}/corp/empresas/upload/empleados/`,
+ */
 @Component({
     selector: 'app-listar',
     templateUrl: './listar.component.html',

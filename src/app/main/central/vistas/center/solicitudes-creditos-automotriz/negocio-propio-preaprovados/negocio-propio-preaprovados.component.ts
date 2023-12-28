@@ -6,6 +6,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
 
+/**
+ * Bigpuntos
+ * Center
+ * ESta pantalla sirve para listar los creditos automotriz negocio propio preaprobados
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
+
 @Component({
     selector: 'app-negocio-propio-preaprovados',
     templateUrl: './negocio-propio-preaprovados.component.html',

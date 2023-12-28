@@ -5,7 +5,7 @@ import {Subject} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as XLSX from 'xlsx-js-style';
 import moment from 'moment';
-import {CargarCreditosNegociosService} from '../../cargar-creditos-negocios.service';
+import {CargarComisionesService} from '../../cargar-comisiones.service';
 
 type AOA = any[][];
 
@@ -22,11 +22,11 @@ type AOA = any[][];
  * `${environment.apiUrl}/corp/creditoArchivos/upload/creditos/preaprobados/automotriz/empleados/${id}`,
  */
 @Component({
-    selector: 'app-upload-lineas-creditos',
-    templateUrl: './upload-lineas-creditos.component.html',
-    styleUrls: ['./upload-lineas-creditos.component.scss']
+    selector: 'app-upload-comisiones',
+    templateUrl: './upload-comisiones.component.html',
+    styleUrls: ['./upload-comisiones.component.scss']
 })
-export class UploadLineasCreditos implements OnInit, OnDestroy {
+export class UploadComisiones implements OnInit, OnDestroy {
     @ViewChild('mensajeModal') mensajeModal;
     @ViewChild('confirmarModal') confirmarModal;
     @ViewChild(NgbPagination) paginator: NgbPagination;
@@ -58,7 +58,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
     fin;
 
     constructor(
-        private _cargarCreditosNegocios: CargarCreditosNegociosService,
+        private _cargarCreditosNegocios: CargarComisionesService,
         private _coreMenuService: CoreMenuService,
         private _formBuilder: FormBuilder,
         private modalService: NgbModal,
@@ -101,7 +101,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
     }
 
     obtenerListaArchivosPreAprobados() {
-        this._cargarCreditosNegocios.obtenerListaArchivosPreAprobados({
+        this._cargarCreditosNegocios.obtenerListaArchivosComisiones({
             page_size: 10,
             page: 0,
             minimoCarga: this.inicio,
@@ -111,7 +111,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
             user_id: '',
             campania: '',
             empresa_comercial: this.empresa_comercial,
-            tipoCredito: 'Negocio'
+            tipoArchivo: 'Comisiones'
         }).subscribe((info) => {
                 this.listaArchivosPreAprobados = info.info;
             },
@@ -190,11 +190,11 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
         this.nuevoArchivo.append('usuarioCargo', this.usuario.persona.nombres);
         this.nuevoArchivo.delete('user_id');
         this.nuevoArchivo.append('user_id', this.usuario.id);
-        this.nuevoArchivo.append('tipoCredito', 'Negocio');
+        this.nuevoArchivo.append('tipoArchivo', 'Comisiones');
         this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
         this.nuevoArchivo.delete('empresa_comercial');
         this.nuevoArchivo.append('empresa_comercial', this.empresaIfi._id);
-        this._cargarCreditosNegocios.crearArchivoPreAprobados(
+        this._cargarCreditosNegocios.crearArchivoComisiones(
             this.nuevoArchivo
         ).subscribe(info => {
             this.mensaje = `Se subio el excel correctamente.`;
@@ -214,8 +214,8 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
         });
     }
 
-    eliminarArchivoPreAprobado(id) {
-        this._cargarCreditosNegocios.eliminarArchivosPreAprobados(id).subscribe(info => {
+    eliminarArchivoComisiones(id) {
+        this._cargarCreditosNegocios.eliminarArchivosComisiones(id).subscribe(info => {
             this.obtenerListaArchivosPreAprobados();
             this.mensaje = 'Se elimino correctamente.';
             this.abrirModal(this.mensajeModal);
@@ -223,7 +223,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
     }
 
     subirArchivoPreAprobado(id) {
-        this._cargarCreditosNegocios.subirArchivosPreAprobados(id).subscribe(info => {
+        this._cargarCreditosNegocios.subirArchivosComisiones(id).subscribe(info => {
             this.obtenerListaArchivosPreAprobados();
             this.mensaje = `${info.mensaje} <br> correctos: ${info.correctos} <br>
                         incorrectos: ${info.incorrectos} <br> errores: `;
@@ -235,7 +235,7 @@ export class UploadLineasCreditos implements OnInit, OnDestroy {
     }
 
     verDatos(archivoId: number) {
-        this._cargarCreditosNegocios.verDatosArchivosPreAprobados(archivoId).subscribe(info => {
+        this._cargarCreditosNegocios.verDatosArchivosComisiones(archivoId).subscribe(info => {
             console.log(info[0][0]);
             // this.mensaje = `${info.mensaje} <br> correctos: ${info.correctos} <br>
             //             incorrectos: ${info.incorrectos} <br> errores: `;

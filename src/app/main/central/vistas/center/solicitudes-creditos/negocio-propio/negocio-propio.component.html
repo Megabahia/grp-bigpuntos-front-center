@@ -168,7 +168,7 @@
                             <!-- Modal -->
                             <ng-template #modalFamiliares let-modal>
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel3">Empresas que aplican</h4>
+                                    <h4 class="modal-title" id="myModalLabel3">Validar Referencias Familiares</h4>
                                     <button type="button" class="close" (click)="modal.dismiss('Cross click')"
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -669,7 +669,7 @@
                     <input type="file" class="custom-file-input" id="identificacion"
                            formControlName="identificacion"
                            (change)="subirDoc( $event, 'identificacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="identificacionlbl">{{credito?.identificacion}}{{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
@@ -701,7 +701,7 @@
                     <input type="file" class="custom-file-input" id="ruc"
                            formControlName="ruc"
                            (change)="subirDoc( $event, 'ruc')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="ruclbl" for="ruc">{{credito?.ruc}} {{actualizarCreditoForm.get('ruc').value}}</label>
                     <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"
@@ -732,7 +732,7 @@
                     <input type="file" class="custom-file-input" id="fotoCarnet"
                            formControlName="fotoCarnet"
                            (change)="subirDoc( $event, 'fotoCarnet')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="fotoCarnetlbl">{{credito?.fotoCarnet}}{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
@@ -761,7 +761,7 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacion"
                            formControlName="papeletaVotacion"
                            (change)="subirDoc( $event,'papeletaVotacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="papeletaVotacionlbl">{{credito?.papeletaVotacion}}{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
@@ -793,7 +793,7 @@
                     <input type="file" class="custom-file-input" id="identificacionConyuge"
                            formControlName="identificacionConyuge"
                            (change)="subirDoc( $event,'identificacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="identificacionConyugelbl">{{credito?.identificacionConyuge}}{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
@@ -826,7 +826,7 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
                            formControlName="papeletaVotacionConyuge"
                            (change)="subirDoc( $event,'papeletaVotacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="papeletaVotacionConyugelbl">{{credito?.papeletaVotacionConyuge}}{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
@@ -861,7 +861,7 @@
                     <input type="file" class="custom-file-input" id="planillaLuzNegocio"
                            formControlName="planillaLuzNegocio"
                            (change)="subirDoc( $event,'planillaLuzNegocio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="planillaLuzNegociolbl">{{credito?.planillaLuzNegocio}}{{actualizarCreditoForm.get('planillaLuzNegocio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzNegocio.errors" class="invalid-feedback"
@@ -894,7 +894,7 @@
                     <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
                            formControlName="planillaLuzDomicilio"
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="planillaLuzDomiciliolbl">{{credito?.planillaLuzDomicilio}}{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
@@ -929,7 +929,7 @@
                     <input type="file" class="custom-file-input" id="facturasVentas2meses"
                            formControlName="facturasVentas2meses"
                            (change)="subirDoc( $event,'facturasVentas2meses')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentas2meseslbl"
                            for="facturasVentas2meses">{{credito?.facturasVentas2meses}} {{actualizarCreditoForm.get('facturasVentas2meses').value}}</label>
@@ -963,7 +963,7 @@
                     <input type="file" class="custom-file-input" id="facturasVentas2meses2"
                            formControlName="facturasVentas2meses2"
                            (change)="subirDoc( $event,'facturasVentas2meses2')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="facturasVentas2meses2lbl"
                            for="facturasVentas2meses2">{{credito?.facturasVentas2meses2}} {{actualizarCreditoForm.get('facturasVentas2meses2').value}}</label>
@@ -985,6 +985,40 @@
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">
                             Copia de la Factura de venta del penúltimo mes (hace 2 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de la Factura de venta del penúltimo mes (hace 2 meses)
+                </label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="facturasVentas2meses3"
+                           formControlName="facturasVentas2meses3"
+                           (change)="subirDoc( $event,'facturasVentas2meses3')"
+                           accept="application/pdf"/>
+                    <label class="custom-file-label"
+                           id="facturasVentas2meses3lbl"
+                           for="facturasVentas2meses3">{{credito?.facturasVentas2meses3}} {{actualizarCreditoForm.get('facturasVentas2meses3').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.facturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.facturasVentas2meses3.errors.required">
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses3">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses3"
+                           formControlName="checkfacturasVentas2meses3"/>
+                    <a *ngIf="credito.facturasVentas2meses3" href="{{credito.facturasVentas2meses3}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">
+                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
                         </div>
                     </div>
                 </div>
@@ -1018,7 +1052,7 @@
                     <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">
-                            Copia de la Factura de venta del antepenúltimo mes (hace 3 meses) es requerido
+                            Certificado de la Asociación (es opcional y aplica si usted es transportista: Bus o Taxi) es requerido
                         </div>
                     </div>
                 </div>
@@ -1031,7 +1065,7 @@
                     <input type="file" class="custom-file-input" id="matriculaVehiculo"
                            formControlName="matriculaVehiculo"
                            (change)="subirDoc( $event,'matriculaVehiculo')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="matriculaVehiculolbl">{{credito?.matriculaVehiculo}}{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                 </div>
@@ -1057,7 +1091,7 @@
                     <input type="file" class="custom-file-input" id="impuestoPredial"
                            formControlName="impuestoPredial"
                            (change)="subirDoc( $event,'impuestoPredial')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="impuestoPrediallbl">{{credito?.impuestoPredial}}{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>

@@ -86,7 +86,7 @@
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
                         <td>
-                            <button *ngIf="credito.estado !== 'Enviado'" type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Enviado' && credito.estado !== 'Negado'" type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -164,6 +164,7 @@
                                     (click)="viewReferences(modalFamiliares,credito.user?.referenciasSolicitante)"
                                     class="btn btn-outline-primary btn-block"
                                     rippleEffect
+                                    *ngIf="credito.estado !== 'Enviado'"
                             >
                                 Ver
                             </button>
@@ -171,7 +172,7 @@
                             <!-- Modal -->
                             <ng-template #modalFamiliares let-modal>
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel3">Empresas que aplican</h4>
+                                    <h4 class="modal-title" id="myModalLabel3">Validar Referencias Familiares</h4>
                                     <button type="button" class="close" (click)="modal.dismiss('Cross click')"
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -664,13 +665,14 @@
                     <input type="file" class="custom-file-input" id="identificacion"
                            formControlName="identificacion"
                            (change)="subirDoc( $event, 'identificacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="identificacionlbl">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad o
-                            Ruc es requerido
+                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.identificacion.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -727,12 +729,13 @@
                     <input type="file" class="custom-file-input" id="fotoCarnet"
                            formControlName="fotoCarnet"
                            (change)="subirDoc( $event, 'fotoCarnet')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="fotoCarnetlbl">{{credito?.fotoCarnet}}{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
+                        <div *ngIf="controlsFrom.fotoCarnet.errors.extensionInvalida">La extensión del archivo no es pdf</div>
                     </div>
                 </div>
 
@@ -758,13 +761,14 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacion"
                            formControlName="papeletaVotacion"
                            (change)="subirDoc( $event,'papeletaVotacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="papeletaVotacionlbl">{{credito?.fotoCarnet}}{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
-                            requerido
+                        <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.papeletaVotacion.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -791,14 +795,15 @@
                     <input type="file" class="custom-file-input" id="identificacionConyuge"
                            formControlName="identificacionConyuge"
                            (change)="subirDoc( $event,'identificacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="identificacionConyugelbl">{{credito?.identificacionConyuge}}{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de
-                            cónyuge
-                            es requerido
+                            cónyuge es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.identificacionConyuge.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -825,15 +830,16 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
                            formControlName="papeletaVotacionConyuge"
                            (change)="subirDoc( $event,'papeletaVotacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="papeletaVotacionConyugelbl">{{credito?.papeletaVotacionConyuge}}{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
                          class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.papeletaVotacionConyuge.errors.required">Papeleta de votación
-                            de
-                            cónyuge es requerido
+                            de cónyuge es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.papeletaVotacionConyuge.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -861,13 +867,15 @@
                     <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
                            formControlName="planillaLuzDomicilio"
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="planillaLuzDomiciliolbl">{{credito?.planillaLuzDomicilio}}{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
                             Domicilio es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -894,12 +902,13 @@
                     <input type="file" class="custom-file-input" id="mecanizadoIess"
                            formControlName="mecanizadoIess"
                            (change)="subirDoc( $event,'mecanizadoIess')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="mecanizadoIesslbl">{{credito?.mecanizadoIess}}{{actualizarCreditoForm.get('mecanizadoIess').value}}</label>
                     <div *ngIf="submitted && controlsFrom.mecanizadoIess.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.mecanizadoIess.errors.required">Mecanizado del IESS es requerido</div>
+                        <div *ngIf="controlsFrom.mecanizadoIess.errors.extensionInvalida">La extensión del archivo no es pdf</div>
                     </div>
                 </div>
 
@@ -925,7 +934,7 @@
                     <input type="file" class="custom-file-input" id="matriculaVehiculo"
                            formControlName="matriculaVehiculo"
                            (change)="subirDoc( $event,'matriculaVehiculo')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="matriculaVehiculolbl">{{credito?.matriculaVehiculo}}{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                 </div>
@@ -941,6 +950,8 @@
                         <div *ngIf="controlsFrom.checkMatriculaVehiculo.errors.required">Verificar copia de matrícula es
                             requerido
                         </div>
+                        <div *ngIf="controlsFrom.checkMatriculaVehiculo.errors.extensionInvalida">La extensión del archivo no es pdf
+                        </div>
                     </div>
                 </div>
             </div>
@@ -951,7 +962,7 @@
                     <input type="file" class="custom-file-input" id="impuestoPredial"
                            formControlName="impuestoPredial"
                            (change)="subirDoc( $event,'impuestoPredial')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="impuestoPrediallbl">{{credito?.impuestoPredial}}{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>
@@ -965,8 +976,9 @@
                     <div *ngIf="submitted && controlsFrom.checkImpuestoPredial.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkImpuestoPredial.errors.required">Verificar copia de pago de
-                            impuesto predial
-                            es requerido
+                            impuesto predial es requerido
+                        </div>
+                        <div *ngIf="controlsFrom.checkImpuestoPredial.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>
@@ -999,6 +1011,8 @@
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkBuroCredito.errors.required">Verificar buró de Crédito es
                             requerido
+                        </div>
+                        <div *ngIf="controlsFrom.checkBuroCredito.errors.extensionInvalida">La extensión del archivo no es pdf
                         </div>
                     </div>
                 </div>

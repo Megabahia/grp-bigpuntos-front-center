@@ -137,6 +137,12 @@ export class AlfaComponent implements OnInit, AfterViewInit {
     }
 
     verDocumentos(credito) {
+        const tieneAlMenosUnaReferenciaNoValidada = credito.user?.referenciasSolicitante.some(objeto => !objeto.valido);
+
+        if (tieneAlMenosUnaReferenciaNoValidada) {
+            alert('No has validado las referencias familiares');
+            return;
+        }
         this.credito = credito;
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
@@ -155,12 +161,12 @@ export class AlfaComponent implements OnInit, AfterViewInit {
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
-            cedulaGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
-            papeletaVotacionGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
-            fotoGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
-            impuestoPredialGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
-            matriculaVehiculoGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
-            planillaDomicilioGarante: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+            cedulaGarante: ['', this.credito?.cedulaGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            papeletaVotacionGarante: ['', this.credito?.papeletaVotacionGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            fotoGarante: ['', this.credito?.fotoGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            impuestoPredialGarante: ['', this.credito?.impuestoPredialGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            matriculaVehiculoGarante: ['', this.credito?.matriculaVehiculoGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            planillaDomicilioGarante: ['', this.credito?.planillaDomicilioGarante ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
             buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
@@ -184,7 +190,7 @@ export class AlfaComponent implements OnInit, AfterViewInit {
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
         this.checks[this.checks.length - 1].valor = true;
     }
 

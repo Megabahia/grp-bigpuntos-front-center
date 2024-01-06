@@ -139,6 +139,12 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
     }
 
     verDocumentos(credito) {
+        const tieneAlMenosUnaReferenciaNoValidada = credito.user?.referenciasSolicitante.some(objeto => !objeto.valido);
+
+        if (tieneAlMenosUnaReferenciaNoValidada) {
+            alert('No has validado las referencias familiares');
+            return;
+        }
         this.credito = credito;
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
@@ -157,9 +163,9 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
             papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
             planillaLuzNegocio: ['', credito.planillaLuzNegocio ? [] : [Validators.required]],
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-            facturasVentas2meses: ['', [Validators.required]],
-            facturasVentas2meses2: ['', [Validators.required]],
-            facturasVentas2meses3: ['', [Validators.required]],
+            facturasVentas2meses: ['', credito.facturasVentas2meses ? [] : [Validators.required]],
+            facturasVentas2meses2: ['', credito.facturasVentas2meses2 ? [] : [Validators.required]],
+            facturasVentas2meses3: ['', credito.facturasVentas2meses3 ? [] : [Validators.required]],
             facturasVentasCertificado: ['', []],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
@@ -209,6 +215,7 @@ export class NegocioPropioPreaprovadosComponent implements OnInit, AfterViewInit
     actualizarSolicitudCredito() {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+            console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {

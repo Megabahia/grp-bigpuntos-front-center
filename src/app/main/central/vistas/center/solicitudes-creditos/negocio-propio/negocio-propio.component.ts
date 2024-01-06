@@ -137,6 +137,12 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     }
 
     verDocumentos(credito) {
+        const tieneAlMenosUnaReferenciaNoValidada = credito.user?.referenciasSolicitante.some(objeto => !objeto.valido);
+
+        if (tieneAlMenosUnaReferenciaNoValidada) {
+            alert('No has validado las referencias familiares');
+            return;
+        }
         this.credito = credito;
 
         this.submitted = false;
@@ -158,6 +164,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
             facturasVentas2meses: ['', credito.facturasVentas2meses ? [] : [Validators.required]],
             facturasVentas2meses2: ['', credito.facturasVentas2meses2 ? [] : [Validators.required]],
+            facturasVentas2meses3: ['', []],
             facturasVentasCertificado: ['', ],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
@@ -177,6 +184,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
             checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
             checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
             checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+            checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
             checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
             checkMatriculaVehiculo: [''],
             checkImpuestoPredial: [''],
@@ -233,7 +241,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
         const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'ruc', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentasCertificado',
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'facturasVentas2meses', 'facturasVentas2meses2', 'facturasVentas2meses3', 'facturasVentasCertificado',
             'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {

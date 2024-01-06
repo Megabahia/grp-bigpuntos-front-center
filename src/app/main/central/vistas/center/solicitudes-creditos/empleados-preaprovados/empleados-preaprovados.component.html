@@ -168,7 +168,7 @@
                             <!-- Modal -->
                             <ng-template #modalFamiliares let-modal>
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel3">Empresas que aplican</h4>
+                                    <h4 class="modal-title" id="myModalLabel3">Validar Referencias Familiares</h4>
                                     <button type="button" class="close" (click)="modal.dismiss('Cross click')"
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -652,7 +652,7 @@
                     <input type="file" class="custom-file-input" id="identificacion"
                            formControlName="identificacion"
                            (change)="subirDoc( $event, 'identificacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="identificacion">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
@@ -683,7 +683,7 @@
                     <input type="file" class="custom-file-input" id="fotoCarnet"
                            formControlName="fotoCarnet"
                            (change)="subirDoc( $event, 'fotoCarnet')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="fotoCarnet">{{credito?.fotoCarnet}} {{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
@@ -713,7 +713,7 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacion"
                            formControlName="papeletaVotacion"
                            (change)="subirDoc( $event,'papeletaVotacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="papeletaVotacion">{{credito?.papeletaVotacion}} {{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
@@ -745,7 +745,7 @@
                     <input type="file" class="custom-file-input" id="identificacionConyuge"
                            formControlName="identificacionConyuge"
                            (change)="subirDoc( $event,'identificacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="identificacionConyuge">{{credito?.identificacionConyuge}} {{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
@@ -779,7 +779,7 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
                            formControlName="papeletaVotacionConyuge"
                            (change)="subirDoc( $event,'papeletaVotacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="papeletaVotacionConyuge">{{credito?.papeletaVotacionConyuge}} {{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
@@ -814,7 +814,7 @@
                     <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
                            formControlName="planillaLuzDomicilio"
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="planillaLuzDomicilio">{{credito?.planillaLuzDomicilio}} {{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
@@ -847,7 +847,7 @@
                     <input type="file" class="custom-file-input" id="mecanizadoIess"
                            formControlName="mecanizadoIess"
                            (change)="subirDoc( $event,'mecanizadoIess')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="mecanizadoIess">{{credito?.mecanizadoIess}} {{actualizarCreditoForm.get('mecanizadoIess').value}}</label>
                     <div *ngIf="submitted && controlsFrom.mecanizadoIess.errors" class="invalid-feedback"
@@ -878,7 +878,7 @@
                     <input type="file" class="custom-file-input" id="matriculaVehiculo"
                            formControlName="matriculaVehiculo"
                            (change)="subirDoc( $event,'matriculaVehiculo')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="matriculaVehiculo">{{credito?.matriculaVehiculo}} {{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                 </div>
@@ -904,7 +904,7 @@
                     <input type="file" class="custom-file-input" id="impuestoPredial"
                            formControlName="impuestoPredial"
                            (change)="subirDoc( $event,'impuestoPredial')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="impuestoPredial">{{credito?.impuestoPredial}} {{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>

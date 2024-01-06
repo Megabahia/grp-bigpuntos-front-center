@@ -5,6 +5,7 @@ import {CoreSidebarService} from '../../../../../../../@core/components/core-sid
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Subject} from 'rxjs';
+import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
 /**
  * Bigpuntos
@@ -139,6 +140,12 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     verDocumentos(credito) {
+        const tieneAlMenosUnaReferenciaNoValidada = credito.user?.referenciasSolicitante.some(objeto => !objeto.valido);
+
+        if (tieneAlMenosUnaReferenciaNoValidada) {
+            alert('No has validado las referencias familiares');
+            return;
+        }
         this.credito = credito;
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
@@ -149,19 +156,19 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         console.log(this.soltero, 'this.soltero');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
-            identificacion: ['', this.credito?.identificacion ? [] : (credito.identificacion ? [] : [Validators.required])],
+            identificacion: ['', this.credito?.identificacion ? [] : (credito.identificacion ? [] : [Validators.required, ValidacionesPropias.pdfValido])],
             // ruc: ['', credito.identificacion ? [] : [Validators.required]],
-            fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required]],
-            papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required]],
-            identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required]],
-            papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required]],
+            fotoCarnet: ['', credito.fotoCarnet ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            papeletaVotacion: ['', credito.papeletaVotacion ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            identificacionConyuge: ['', this.soltero ? credito?.identificacionConyuge : [Validators.required, ValidacionesPropias.pdfValido]],
+            papeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
             // identificacionConyuge: ['', credito.identificacionConyuge ? [] : [Validators.required]],
             // papeletaVotacionConyuge: ['', credito.papeletaVotacionConyuge ? [] : [Validators.required]],
-            planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required]],
-            mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required]],
+            planillaLuzDomicilio: ['', credito.planillaLuzDomicilio ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
+            mecanizadoIess: ['', credito.mecanizadoIess ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
             matriculaVehiculo: [''],
             impuestoPredial: [''],
-            buroCredito: ['', credito.buroCredito ? [] : [Validators.required]],
+            buroCredito: ['', credito.buroCredito ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
             calificacionBuro: [credito.calificacionBuro, [Validators.required]],
             observacion: [credito.observacion, [Validators.required]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
@@ -178,7 +185,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             checkCalificacionBuro: ['', [Validators.requiredTrue]],
             checkObservacion: ['', [Validators.requiredTrue]],
         });
-        this.checks = credito.checks;
+        this.checks = typeof credito.checks === 'object' ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {

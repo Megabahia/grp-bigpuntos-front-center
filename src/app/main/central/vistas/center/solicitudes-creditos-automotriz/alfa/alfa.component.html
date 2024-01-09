@@ -68,6 +68,8 @@
                         <th>Estado</th>
                         <th>Documentos</th>
                         <th>Solicitud de crédito</th>
+                        <th>Locales Comerciales</th>
+                        <th>Referencias Familiares</th>
                         <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
@@ -95,6 +97,120 @@
                                     rippleEffect>
                                 Enlace
                             </button>
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button
+                                    type="button"
+                                    (click)="modalSelectOpen(modalSelect, credito.empresasAplican)"
+                                    class="btn btn-outline-primary btn-block"
+                                    rippleEffect
+                                    *ngIf="credito.estado !== 'Enviado'"
+                            >
+                                Seleccionar {{ credito.empresasAplican != null ? JSON.parse(credito?.empresasAplican).length : 0}}
+                            </button>
+                            <!-- Modal -->
+                            <ng-template #modalSelect let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Empresas que aplican</h4>
+                                    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                    <label>Seleccione las empresas</label>
+
+                                    <div class="form-group">
+                                        <!-- Select Custom header footer template -->
+                                        <ng-select
+                                                [multiple]="true"
+                                                [items]="selectEmpresasCorp"
+                                                [(ngModel)]="selectEmpresasCorpSelected"
+                                                placeholder="Seleccione las empresas"
+                                                bindLabel="nombreEmpresa"
+                                                bindValue="ruc"
+                                        >
+                                            <ng-template ng-header-tmp>
+                                                <button
+                                                        (click)="customHeaderFooterSelectAll()"
+                                                        class="btn btn-sm btn-secondary mr-1"
+                                                        rippleEffect
+                                                >
+                                                    Seleccionar todo
+                                                </button>
+                                                <button (click)="customHeaderFooterUnselectAll()" class="btn btn-sm btn-secondary" rippleEffect>
+                                                    Deselecciona todo
+                                                </button>
+                                            </ng-template>
+                                        </ng-select>
+                                        <!--/ Select Custom header footer template -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" (click)="actualizarEmpresasAplican(credito._id)"rippleEffect>
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" (click)="modal.close('Accept click')" rippleEffect>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <!-- / Modal -->
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button
+                                    type="button"
+                                    (click)="viewReferences(modalFamiliares,credito.user?.referenciasSolicitante)"
+                                    class="btn btn-outline-primary btn-block"
+                                    rippleEffect
+                                    *ngIf="credito.estado !== 'Enviado'"
+                            >
+                                Ver
+                            </button>
+
+                            <!-- Modal -->
+                            <ng-template #modalFamiliares let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel3">Validar Referencias Familiares</h4>
+                                    <button type="button" class="close" (click)="modal.dismiss('Cross click')"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" tabindex="0" ngbAutofocus>
+                                    <ul>Referencias Familiares:
+                                        <li *ngFor="let familiar of credito.user?.referenciasSolicitante; let i = index">
+                                            <div class="custom-control custom-switch custom-success my-2">
+                                                <input type="checkbox"
+                                                       (change)="familiarIsValid($event, i)"
+                                                       class="custom-control-input"
+                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}"
+                                                       [checked]="familiar.valido "/>
+                                                <label class="custom-control-label"
+                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}">
+                                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                </label>   Referencia
+                                                {{i + 1}}: {{familiar?.referenciaSolicitante}}
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                            (click)="guardarReferencias(credito)"
+                                            rippleEffect>
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')"
+                                            rippleEffect>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <!-- / Modal -->
                         </td>
                         <td>{{credito.motivo}}</td>
                         <td class="d-flex">
@@ -684,7 +800,7 @@
                     <input type="file" class="custom-file-input" id="identificacion"
                            formControlName="identificacion"
                            (change)="subirDoc( $event, 'identificacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="identificacionlbl">{{credito?.identificacion}} {{actualizarCreditoForm.get('identificacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
@@ -716,7 +832,7 @@
                     <input type="file" class="custom-file-input" id="fotoCarnet"
                            formControlName="fotoCarnet"
                            (change)="subirDoc( $event, 'fotoCarnet')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="fotoCarnetlbl">{{credito?.fotoCarnet}}{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
                     <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
@@ -747,7 +863,7 @@
                     <input type="file" class="custom-file-input" id="papeletaVotacion"
                            formControlName="papeletaVotacion"
                            (change)="subirDoc( $event,'papeletaVotacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="papeletaVotacionlbl">{{credito?.fotoCarnet}}{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
                     <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
@@ -780,7 +896,7 @@
 <!--                    <input type="file" class="custom-file-input" id="identificacionConyuge"-->
 <!--                           formControlName="identificacionConyuge"-->
 <!--                           (change)="subirDoc( $event,'identificacionConyuge')"-->
-<!--                           accept="image/jpeg,image/png,application/pdf"/>-->
+<!--                           accept="application/pdf"/>-->
 <!--                    <label class="custom-file-label"-->
 <!--                           id="identificacionConyugelbl">{{credito?.identificacionConyuge}}{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>-->
 <!--                    <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"-->
@@ -814,7 +930,7 @@
 <!--                    <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"-->
 <!--                           formControlName="papeletaVotacionConyuge"-->
 <!--                           (change)="subirDoc( $event,'papeletaVotacionConyuge')"-->
-<!--                           accept="image/jpeg,image/png,application/pdf"/>-->
+<!--                           accept="application/pdf"/>-->
 <!--                    <label class="custom-file-label"-->
 <!--                           id="papeletaVotacionConyugelbl">{{credito?.papeletaVotacionConyuge}}{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>-->
 <!--                    <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"-->
@@ -850,7 +966,7 @@
                     <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
                            formControlName="planillaLuzDomicilio"
                            (change)="subirDoc( $event,'planillaLuzDomicilio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="planillaLuzDomiciliolbl">{{credito?.planillaLuzDomicilio}}{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
                     <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
@@ -884,7 +1000,7 @@
                     <input type="file" class="custom-file-input" id="matriculaVehiculo"
                            formControlName="matriculaVehiculo"
                            (change)="subirDoc( $event,'matriculaVehiculo')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="matriculaVehiculolbl">{{credito?.matriculaVehiculo}}{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
                 </div>
@@ -910,7 +1026,7 @@
                     <input type="file" class="custom-file-input" id="impuestoPredial"
                            formControlName="impuestoPredial"
                            (change)="subirDoc( $event,'impuestoPredial')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            id="impuestoPrediallbl">{{credito?.impuestoPredial}}{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
                 </div>

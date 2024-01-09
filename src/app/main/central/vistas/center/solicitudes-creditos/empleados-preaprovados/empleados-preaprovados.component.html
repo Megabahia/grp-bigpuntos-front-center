@@ -181,10 +181,10 @@
                                                 <input type="checkbox"
                                                        (change)="familiarIsValid($event, i)"
                                                        class="custom-control-input"
-                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}"
+                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}"
                                                        [checked]="familiar.valido "/>
                                                 <label class="custom-control-label"
-                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}">
+                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}">
                                                     <span class="switch-icon-left"><i data-feather="check"></i></span>
                                                     <span class="switch-icon-right"><i data-feather="x"></i></span>
                                                 </label>   Referencia

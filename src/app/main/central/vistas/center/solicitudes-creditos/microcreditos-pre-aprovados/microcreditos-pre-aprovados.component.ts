@@ -141,7 +141,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             page: this.page - 1,
             tipoCredito: 'Pymes-PreAprobado',
             cargarOrigen: ['BIGPUNTOS', 'IFIS'],
-            enviado: 1
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
@@ -267,7 +266,10 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             matriculaVehiculo: ['', this.credito?.matriculaVehiculo ? [] : (!this.ingresoNegocioSuperior ? [ValidacionesPropias.pdfValido] : [])],
             impuestoPredial: ['', this.credito?.impuestoPredial ? [] : (!this.ingresoNegocioSuperior ? [ValidacionesPropias.pdfValido] : [])],
             buroCredito: ['', this.credito?.buroCredito ? [] : [Validators.required, ValidacionesPropias.pdfValido]],
-            calificacionBuro: ['', []],
+            calificacionBuro: [credito.calificacionBuro, [Validators.required,
+                Validators.maxLength(4),
+                Validators.minLength(3),
+                Validators.pattern('^[0-9]*$')]],
             observacion: ['', [Validators.required]], //
             // checks
             checkIdentificacion: ['', [Validators.requiredTrue]], //

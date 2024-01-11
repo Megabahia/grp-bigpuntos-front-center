@@ -1065,6 +1065,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="impuestoPredial">{{credito?.impuestoPredial}} {{actualizarCreditoForm.get('impuestoPredial').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.impuestoPredial.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.impuestoPredial.errors.required">
+                            Copia de pago de impuesto predial o copia de escrituras
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
@@ -1092,6 +1098,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="nombramientoRepresentante">{{credito?.nombramientoRepresentante}} {{actualizarCreditoForm.get('nombramientoRepresentante').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.nombramientoRepresentante.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.nombramientoRepresentante.errors.required">
+                            Copia de pago de impuesto predial o copia de escrituras
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkNombramientoRepresentante">Valido</label>
@@ -1119,6 +1131,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="certificadoSuperintendencia">{{credito?.certificadoSuperintendencia}} {{actualizarCreditoForm.get('certificadoSuperintendencia').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.certificadoSuperintendencia.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.certificadoSuperintendencia.errors.required">
+                            Copia de pago de impuesto predial o copia de escrituras
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoSuperintendencia">Valido</label>
@@ -1147,6 +1165,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="certificadoPatronales">{{credito?.certificadoPatronales}} {{actualizarCreditoForm.get('certificadoPatronales').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.certificadoPatronales.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.certificadoPatronales.errors.required">
+                            Certificado de cumplimiento de obligaciones patronales con el IESS requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoPatronales">Valido</label>
@@ -1174,6 +1198,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="nominaSocios">{{credito?.nominaSocios}} {{actualizarCreditoForm.get('nominaSocios').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.nominaSocios.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.nominaSocios.errors.required">
+                            Nómina de socios y/o accionistas requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkNominaSocios">Valido</label>
@@ -1201,6 +1231,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="actaJuntaGeneral">{{credito?.actaJuntaGeneral}} {{actualizarCreditoForm.get('actaJuntaGeneral').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.actaJuntaGeneral.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.actaJuntaGeneral.errors.required">
+                            Acta de Junta General u órgano competente autorizando la contratación del crédito requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkActaJuntaGeneral">Valido</label>
@@ -1228,6 +1264,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="certificadoBancario">{{credito?.certificadoBancario}} {{actualizarCreditoForm.get('certificadoBancario').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.certificadoBancario.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.certificadoBancario.errors.required">
+                            Certificado bancario requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkCertificadoBancario">Valido</label>
@@ -1255,6 +1297,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="referenciasComerciales">{{credito?.referenciasComerciales}} {{actualizarCreditoForm.get('referenciasComerciales').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.referenciasComerciales.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.referenciasComerciales.errors.required">
+                            Dos referencias comerciales requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkReferenciasComerciales">Valido</label>
@@ -1282,6 +1330,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="balancePerdidasGanancias">{{credito?.balancePerdidasGanancias}} {{actualizarCreditoForm.get('balancePerdidasGanancias').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.balancePerdidasGanancias.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.balancePerdidasGanancias.errors.required">
+                            Balance de pérdidas y ganancias requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkBalancePerdidasGanancias">Valido</label>
@@ -1309,6 +1363,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="balanceResultados">{{credito?.balanceResultados}} {{actualizarCreditoForm.get('balanceResultados').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.balanceResultados.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.balanceResultados.errors.required">
+                            Balance de resultados requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkBalanceResultados">Valido</label>
@@ -1336,6 +1396,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="declaracionIva">{{credito?.declaracionIva}} {{actualizarCreditoForm.get('declaracionIva').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.declaracionIva.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.declaracionIva.errors.required">
+                            Declaración del IVA de los últimos seis meses requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkDeclaracionIva">Valido</label>
@@ -1363,6 +1429,12 @@
                            accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="estadoCuentaTarjeta">{{credito?.estadoCuentaTarjeta}} {{actualizarCreditoForm.get('estadoCuentaTarjeta').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.estadoCuentaTarjeta.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.estadoCuentaTarjeta.errors.required">
+                            Estados de cuenta de tarjeta de crédito requerido.
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkEstadoCuentaTarjeta">Valido</label>
@@ -1422,7 +1494,17 @@
                     <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Observación es requerido
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.required">Verificar calificación de Buró es
+                            requerido
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.pattern">Solo se aceptan
+                            números
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.minlength">
+                            MÍNIMO 3 dígitos numéricos
+                        </div>
+                        <div *ngIf="controlsFrom.calificacionBuro.errors.maxlength">
+                            MÁXIMO 4 dígitos numéricos
                         </div>
                     </div>
                 </div>

@@ -185,10 +185,10 @@
                                                 <input type="checkbox"
                                                        (change)="familiarIsValid($event, i)"
                                                        class="custom-control-input"
-                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}"
+                                                       id="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}"
                                                        [checked]="familiar.valido "/>
                                                 <label class="custom-control-label"
-                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}">
+                                                       for="customSwitch15{{familiar?.referenciaSolicitante}}{{i}}">
                                                     <span class="switch-icon-left"><i data-feather="check"></i></span>
                                                     <span class="switch-icon-right"><i data-feather="x"></i></span>
                                                 </label>   Referencia
@@ -698,7 +698,7 @@
 <!--                    <input type="file" class="custom-file-input" id="ruc"-->
 <!--                           formControlName="ruc"-->
 <!--                           (change)="subirDoc( $event, 'ruc')"-->
-<!--                           accept="image/jpeg,image/png,application/pdf"/>-->
+<!--                           accept="application/pdf"/>-->
 <!--                    <label class="custom-file-label"-->
 <!--                           id="ruclbl" for="ruc">{{actualizarCreditoForm.get('ruc').value}}</label>-->
 <!--                    <div *ngIf="submitted && controlsFrom.ruc.errors" class="invalid-feedback"-->
